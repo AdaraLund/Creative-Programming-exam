@@ -12,22 +12,42 @@ let avoPic;
 let piCartFront;
 let piCartBack;
 
-function preload() {
-  appPic = loadImage('./assets/apple.png')
-  avoPic = loadImage('./assets/avocados.png')
-  banaPic = loadImage('./assets/banana.png')
+// Cas
+let rows;
+let names = [];
 
-  //cart
+function preload() {
+
+  appPic = loadImage('./assets/apple.png');
+  avoPic = loadImage('./assets/avocados.png');
+  banaPic = loadImage('./assets/banana.png');
+
+  // cart
   piCartBack = loadImage('./assets/pinkcartback.png');
   piCartFront = loadImage('./assets/pinkcartfront.png');
 
+  // Cas - load CSV as raw text lines
+  rows = loadStrings("./assets/Dataset.csv");
 }
 
 function setup() {
   createCanvas(1202, 550);
+
+  // Cas - build array from the Name column
+  for (let i = 1; i < rows.length; i++) { // skip header
+    let cols = rows[i].split(";");
+    let name = cols[1];
+
+    if (name) {
+      names.push(name.trim());
+    }
+  }
+
+  console.log("rows:", rows.length);
+  console.log("names:", names);
+  console.log("first 10:", names.slice(0, 10)); // this is only for inspection/debugging
+  //Cas done
 }
-
-
 
 function draw() {
   background(250, 220, 230);

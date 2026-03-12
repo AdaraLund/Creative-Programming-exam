@@ -74,15 +74,6 @@ function draw() {
   // shelf 2
   rect(50, 210, 500, 70);
 
-  // Cas - Hvid kvittering til højre for hylderne 
-  fill(245, 241, 228); 
-  rect(650, 50, 220, 380); 
-  
-  fill(0); textFont(receiptFont); 
-  textSize(20); 
-  textAlign(CENTER); 
-  text("co2calculator", 650 + 110, 90);
-
   // advocado
   fill(67, 102, 70);
 
@@ -112,7 +103,7 @@ function draw() {
 
   // banana
   image(banaPic, banax, banay, 120, 120);
-    if (mouseIsPressed == true && mouseX > banax - 60 && mouseX < banax + 60 && mouseY > banay - 60 && mouseY < banay + 60) {
+  if (mouseIsPressed == true && mouseX > banax - 60 && mouseX < banax + 60 && mouseY > banay - 60 && mouseY < banay + 60) {
     banax = mouseX;
     banay = mouseY;
   }
@@ -137,7 +128,14 @@ function draw() {
 
   image(piCartFront, 285, 500, 235, 150);
 
+  // Cas - Hvid kvittering til højre for hylderne 
+  fill(245, 241, 228);
+  rect(650, 50, 220, 380);
 
+  fill(0); textFont(receiptFont);
+  textSize(20);
+  textAlign(CENTER);
+  text("co2calculator", 650 + 110, 90);
 }
 
 /* trying to make it nudge if they're too close. attempt 1
@@ -160,17 +158,17 @@ if (appy - avoy >= 20 && appx < avox && avox - appx <= 20) {
 } else if (appy - avoy >= 20 && avox < appx && appx - avox <= 20) {
   avox = avox - 5;
 
-/*  still playing around with this
-  else if (appy - avoy <= 20) {
-  avoy = avoy - 5;
-
-    
-
-//cart front
-
+  /*  still playing around with this
+    else if (appy - avoy <= 20) {
+    avoy = avoy - 5;
+  
+      
+  
+  //cart front
+  
+  }
+  */
 }
-*/
-} 
 
 
 

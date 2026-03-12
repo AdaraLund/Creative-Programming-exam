@@ -15,6 +15,7 @@ let piCartBack;
 // Cas
 let rows;
 let names = [];
+let receiptFont; 
 
 function preload() {
 
@@ -28,6 +29,7 @@ function preload() {
 
   // Cas - load CSV as raw text lines
   rows = loadStrings("./assets/Dataset.csv");
+  receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
 }
 
 function setup() {
@@ -74,15 +76,6 @@ function draw() {
   // shelf 2
   rect(50, 210, 500, 70);
 
-  // Cas - Hvid kvittering til højre for hylderne 
-  fill(245, 241, 228); 
-  rect(650, 50, 220, 380); 
-  
-  fill(0); textFont(receiptFont); 
-  textSize(20); 
-  textAlign(CENTER); 
-  text("co2calculator", 650 + 110, 90);
-
   // advocado
   fill(67, 102, 70);
 
@@ -128,6 +121,7 @@ function draw() {
     cursor(ARROW);
   }
 
+
   // arrow
   stroke(255, 254, 252);
   strokeWeight(1);
@@ -136,6 +130,17 @@ function draw() {
   triangle(550, 490, 550, 530, 580, 510);
 
   image(piCartFront, 285, 500, 235, 150);
+
+  // Cas - Hvid kvittering til højre for hylderne 
+  strokeWeight(0);
+  fill(245, 241, 228); 
+  rect(650, 50, 220, 380); 
+
+  fill(0);
+  textFont(receiptFont);
+  textSize(20); 
+  textAlign(CENTER); 
+  text("co2calculator", 650 + 110, 90);
 
 
 }

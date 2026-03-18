@@ -12,7 +12,7 @@ let avoPic;
 let piCartFront;
 let piCartBack;
 
-// Cas
+// Cas - 'rows' + 'names' referer til datasæt. Font referer til titel skrifttypen 
 let rows;
 let names = [];
 let receiptFont; 
@@ -27,28 +27,28 @@ function preload() {
   piCartBack = loadImage('./assets/pinkcartback.png');
   piCartFront = loadImage('./assets/pinkcartfront.png');
 
-  // Cas - load CSV as raw text lines
-  rows = loadStrings("./assets/Dataset.csv");
-  receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
+  // Cas start
+  rows = loadStrings("./assets/Dataset.csv"); // loadStrings læser hele filen og laver et array, hvor hver linje i CSV filen bliver ét element i arrayet.
+  receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');  // loadFont indlæser font-filen, så vi kan bruge den senere med textFont()
 }
 
 function setup() {
   createCanvas(1202, 550);
 
   // Cas - build array from the Name column
-  for (let i = 1; i < rows.length; i++) { // skip header
-    let cols = rows[i].split(";");
-    let name = cols[1];
+  for (let i = 1; i < rows.length; i++) { // Vi starter fra i = 1 for at springe headeren over (første linje i CSV)
+    let cols = rows[i].split(";"); //der er ';' som divider imellem hver katogori i filen
+    let name = cols[1];  // Henter værdien fra kolonne 1 (Name)
 
-    if (name) {
-      names.push(name.trim());
+    if (name) {  // Tjekker om der faktisk er et navn, for at undgå tomme værdier
+      names.push(name.trim()); // trim() fjerner evt. mellemrum før/efter teksten. push() tilføjer navnet til vores names-array
     }
   }
-
-  console.log("rows:", rows.length);
-  console.log("names:", names);
-  console.log("first 10:", names.slice(0, 10)); // this is only for inspection/debugging
-  //Cas done
+// Hjælp til at debug over overblik i console
+  console.log("rows:", rows.length);   // Antal linjer i CSV (inkl. header)
+  console.log("names:", names);   // Hele listen af navne
+  console.log("first 10:", names.slice(0, 10)); //  Kun de første 10 navne 
+  //Cas slut
 }
 
 function draw() {
@@ -131,7 +131,8 @@ function draw() {
 
   image(piCartFront, 285, 500, 235, 150);
 
-  // Cas - Hvid kvittering til højre for hylderne 
+  // Cas start
+  // Hvid kvittering til højre for hylderne 
   strokeWeight(0);
   fill(245, 241, 228); 
   rect(650, 50, 220, 380); 
@@ -141,7 +142,7 @@ function draw() {
   textSize(20); 
   textAlign(CENTER); 
   text("co2calculator", 650 + 110, 90);
-
+// Cas slut
 
 }
 

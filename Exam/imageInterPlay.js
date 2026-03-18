@@ -15,6 +15,7 @@ let piCartBack;
 // Cas - 'rows' + 'names' referer til datasæt. Font referer til titel skrifttypen 
 let rows;
 let names = [];
+let co2Values = []; // NYE
 let receiptFont; 
 
 function preload() {
@@ -39,16 +40,28 @@ function setup() {
   for (let i = 1; i < rows.length; i++) { // Vi starter fra i = 1 for at springe headeren over (første linje i CSV)
     let cols = rows[i].split(";"); //der er ';' som divider imellem hver katogori i filen
     let name = cols[1];  // Henter værdien fra kolonne 1 (Name)
+    let co2Val = cols[3]; // Henter "Total kg CO2-eq/kg"
 
-    if (name) {  // Tjekker om der faktisk er et navn, for at undgå tomme værdier
-      names.push(name.trim()); // trim() fjerner evt. mellemrum før/efter teksten. push() tilføjer navnet til vores names-array
+    if (name && co2Val) { //Tjekker om begge værdier findes. Hvis enten name eller co2Val mangler, springes rækken over
+      names.push(name.trim()); // trim() fjerner mellemrum før/efter. push() tilføjer værdien til arrayet names
+
+      // CO2-tal fra csv virkede ikke/ de skal gøres klarere
+      let formattedCo2 = float(co2Val.replace(",", "."));  // Komma erstattes med punktum fordi CSV bruger komma som decimalseparator, men vi skal bruge .
+      co2Values.push(formattedCo2); // Her laves teksten om til et tal
     }
   }
-// Hjælp til at debug over overblik i console
+// Debug og overblik i console
+  console.log("amount of names found", names.length);
   console.log("rows:", rows.length);   // Antal linjer i CSV (inkl. header)
-  console.log("names:", names);   // Hele listen af navne
-  console.log("first 10:", names.slice(0, 10)); //  Kun de første 10 navne 
+  console.log("first 10 names:", names.slice(0, 10));
+  console.log("first 10 co2:", co2Values.slice(0, 10));
+  console.log("1st product:", names[0], "CO2:", co2Values[0]);
+  console.log("10th product:", names[10], "CO2:", co2Values[9]);
+  console.log("200th product:", names[200], "CO2:", co2Values[199]);
+
+  //Det er ikke "farligt" at 'rows' og 'amount...' ikke er det samme. Dette er pga. 'if (name && co2Val)', dvs. datasættet bliver ikke forskudt. Worst case går et par produkter tabt.
   //Cas slut
+  
 }
 
 function draw() {

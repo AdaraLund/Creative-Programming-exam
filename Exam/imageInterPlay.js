@@ -12,11 +12,12 @@ let avoPic;
 let piCartFront;
 let piCartBack;
 
-// Cas - 'rows' + 'names' referer til datasæt. Font referer til titel skrifttypen 
+// Cas start - 'rows' + 'names' referer til datasæt. Font referer til titel skrifttypen 
 let rows;
 let names = [];
-let co2Values = []; // NYE
+let co2Values = [];
 let receiptFont; 
+// Cas slut
 
 function preload() {
 
@@ -69,8 +70,8 @@ function draw() {
   //Making x and y appear on the canvas when hovering
   textSize(16);
   fill(0);
-  text('x =' + round(mouseX), 550, 580);
-  text('y =' + round(mouseY), 550, 592);
+  text('x =' + round(mouseX), 30, 20); // Cas: jeg har ændret den fra 550, 580 så man kan se det);
+  text('y =' + round(mouseY), 30, 40); // Cas: jeg har ændret den fra 550, 592 så man kan se det);
 
   strokeWeight(0);
 
@@ -123,6 +124,10 @@ function draw() {
     banay = mouseY;
   }
 
+  // Tjek om varen er i kurven (
+  if (banax > 170 && banax < 390 && banay > 350) { isBanaInCart = true; } else { isBanaInCart = false; }
+  if (appx > 170 && appx < 390 && appy > 350) { isAppInCart = true; } else { isAppInCart = false; }
+  if (avox > 170 && avox < 390 && avoy > 350) { isAvoInCart = true; } else { isAvoInCart = false; }
 
   //cursor react when covering one of the fruits or vegetables
   //first is avo
@@ -136,11 +141,11 @@ function draw() {
 
 
   // arrow
-  stroke(255, 254, 252);
-  strokeWeight(1);
-  fill(227, 187, 54);
-  rect(500, 500, 60, 20);
-  triangle(550, 490, 550, 530, 580, 510);
+  // stroke(255, 254, 252);
+  // strokeWeight(1);
+  // fill(227, 187, 54);
+  // rect(500, 500, 60, 20);
+  // triangle(550, 490, 550, 530, 580, 510);
 
   image(piCartFront, 285, 500, 235, 150);
 
@@ -148,16 +153,52 @@ function draw() {
   // Hvid kvittering til højre for hylderne 
   strokeWeight(0);
   fill(245, 241, 228); 
-  rect(650, 50, 220, 380); 
+  rect(650, 50, 280, 450); 
 
+  // Om overskriften
   fill(0);
   textFont(receiptFont);
   textSize(20); 
   textAlign(CENTER); 
-  text("co2calculator", 650 + 110, 90);
+  text("co2calculator", 650 + 140, 90);
+
+  // Skriv varer på kvitteringen hvis de er i kurven
+  textSize(14);
+  textAlign(LEFT);
+  let yPos = 130; // Start position for tekst rækker (130 pixels nede) Jeg har lavet det en variabel, så vi kan nøjes med at ændre det ét sted, hvis vi ønsker at rykke.
+
+  if (isBanaInCart) {
+    drawReceiptLine("Banana", yPos);
+    yPos += 25; // Ryk 25 ned aka. gå til næste linje vertikalt
+  }
+  if (isAppInCart) {
+    drawReceiptLine("Apple", yPos);
+    yPos += 25;
+  }
+  if (isAvoInCart) {
+    drawReceiptLine("Avocado", yPos);
+    yPos += 25;
+  }
+}
+
+// Hjælpefunktion til at finde CO2 værdi i arrayet
+function drawReceiptLine(itemName, y) {
+  // Vi spørger listen 'names': "Hvilket nummer på listen har f.eks. 'Banana'?" og gemmer tallet i 'index'
+  let index = names.indexOf(itemName);
+  // Hvis navnet findes, så gør følgende:
+  if (index !== -1) {
+  // Gå ind i CO2-listen på præcis samme plads og hent (co2) tallet derfra
+    let co2 = co2Values[index];
+  // Skriv varens navn
+    text(itemName + ":", 670, y); // Manuel variabel: Kvitteringen er 650, så 670 står for "start 20 pixel inde"
+    textAlign(RIGHT);
+    text(co2 + " kg CO2", 910, y);
+    textAlign(LEFT); // Her skiftes justeringen tilbage til venstre, så der ikke ødelægges eventuel tekst placering I har længere nede
+  }
+}
 // Cas slut
 
-}
+
 
 /* trying to make it nudge if they're too close. attempt 1
 if (appx - avox <= 20) {

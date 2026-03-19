@@ -12,12 +12,13 @@ let avoPic;
 let piCartFront;
 let piCartBack;
 
-// Cas start - 'rows' + 'names' referer til datasæt. Font referer til titel skrifttypen 
-let rows;
-let names = [];
-let co2Values = [];
-let receiptFont; 
-// Cas slut
+// Cas start 
+let rows; // datasæt
+let names = []; // datasæt, produkt navne
+let co2Values = []; // datasæt, co2 "pris"
+let receiptFont; // kvittering
+let paperTexture; // kvittering
+// Cas end
 
 function preload() {
 
@@ -32,6 +33,8 @@ function preload() {
   // Cas start
   rows = loadStrings("./assets/Dataset.csv"); // loadStrings læser hele filen og laver et array, hvor hver linje i CSV filen bliver ét element i arrayet.
   receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');  // loadFont indlæser font-filen, så vi kan bruge den senere med textFont()
+  paperTexture = loadImage('./assets/paperTexture.png');
+  // Cas end
 }
 
 function setup() {
@@ -39,19 +42,19 @@ function setup() {
 
   // Cas - build array from the Name column
   for (let i = 1; i < rows.length; i++) { // Vi starter fra i = 1 for at springe headeren over (første linje i CSV)
-    let cols = rows[i].split(";"); //der er ';' som divider imellem hver katogori i filen
+    let cols = rows[i].split(";"); //der er ';' som divider imellem hver katogori (kolonne fra excel) i filen
     let name = cols[1];  // Henter værdien fra kolonne 1 (Name)
     let co2Val = cols[3]; // Henter "Total kg CO2-eq/kg"
 
     if (name && co2Val) { //Tjekker om begge værdier findes. Hvis enten name eller co2Val mangler, springes rækken over
       names.push(name.trim()); // trim() fjerner mellemrum før/efter. push() tilføjer værdien til arrayet names
 
-      // CO2-tal fra csv virkede ikke/ de skal gøres klarere
+      // Fiks CO2-tal fra csv
       let formattedCo2 = float(co2Val.replace(",", "."));  // Komma erstattes med punktum fordi CSV bruger komma som decimalseparator, men vi skal bruge .
       co2Values.push(formattedCo2); // Her laves teksten om til et tal
     }
   }
-// Debug og overblik i console
+  // Console for nemmere debugging og overblik 
   console.log("amount of names found", names.length);
   console.log("rows:", rows.length);   // Antal linjer i CSV (inkl. header)
   console.log("first 10 names:", names.slice(0, 10));
@@ -61,12 +64,13 @@ function setup() {
   console.log("200th product:", names[200], "CO2:", co2Values[199]);
 
   //Det er ikke "farligt" at 'rows' og 'amount...' ikke er det samme. Dette er pga. 'if (name && co2Val)', dvs. datasættet bliver ikke forskudt. Worst case går et par produkter tabt.
-  //Cas slut
-  
+  //Cas end
+
 }
 
 function draw() {
   background(250, 220, 230);
+
   //Making x and y appear on the canvas when hovering
   textSize(16);
   fill(0);
@@ -112,22 +116,23 @@ function draw() {
   }
 
 
-
   // cucumber
   fill(55, 74, 50);
   ellipse(400, 230, 140, 20);
 
   // banana
   image(banaPic, banax, banay, 120, 120);
-    if (mouseIsPressed == true && mouseX > banax - 60 && mouseX < banax + 60 && mouseY > banay - 60 && mouseY < banay + 60) {
+  if (mouseIsPressed == true && mouseX > banax - 60 && mouseX < banax + 60 && mouseY > banay - 60 && mouseY < banay + 60) {
     banax = mouseX;
     banay = mouseY;
   }
 
-  // Tjek om varen er i kurven (
+  // Cas start - Tjek om x vare er i kurven 
+  // MANUELLE VARIABLER alle numre nedenfor
   if (banax > 170 && banax < 390 && banay > 350) { isBanaInCart = true; } else { isBanaInCart = false; }
   if (appx > 170 && appx < 390 && appy > 350) { isAppInCart = true; } else { isAppInCart = false; }
   if (avox > 170 && avox < 390 && avoy > 350) { isAvoInCart = true; } else { isAvoInCart = false; }
+  // Cas end
 
   //cursor react when covering one of the fruits or vegetables
   //first is avo
@@ -140,7 +145,7 @@ function draw() {
   }
 
 
-  // arrow
+  // arrow (Cas - jeg har tilladt mig at "fjerne" pilen")
   // stroke(255, 254, 252);
   // strokeWeight(1);
   // fill(227, 187, 54);
@@ -150,53 +155,84 @@ function draw() {
   image(piCartFront, 285, 500, 235, 150);
 
   // Cas start
-  // Hvid kvittering til højre for hylderne 
+
+  // Kvitteringen
   strokeWeight(0);
-  fill(245, 241, 228); 
-  rect(650, 50, 280, 450); 
+  fill(250, 220, 230); // Pt. er kvitteringsfirkanten samme som baggrunden
+  // fill(245, 241, 228); // MANUEL VARIABEL: beige farve
+  rect(650, 50, 280, 450); // = pixels: 280 × 450 
+
+  // Note til selv: Hvis gå med tekstur over billede, husk tint og noTint
+  image(paperTexture, 790, 265, 430, 620);  // MANUEL VARIABEL: overlay skal være præciso venpå hvide firkant 
 
   // Om overskriften
   fill(0);
   textFont(receiptFont);
-  textSize(20); 
-  textAlign(CENTER); 
+  textSize(20);
+  textAlign(CENTER);
   text("co2calculator", 650 + 140, 90);
 
   // Skriv varer på kvitteringen hvis de er i kurven
   textSize(14);
   textAlign(LEFT);
   let yPos = 130; // Start position for tekst rækker (130 pixels nede) Jeg har lavet det en variabel, så vi kan nøjes med at ændre det ét sted, hvis vi ønsker at rykke.
+  let totalCO2 = 0; // Vi starter totalen på 0 hver gang draw kører
 
   if (isBanaInCart) {
     drawReceiptLine("Banana", yPos);
+    totalCO2 += getCO2Value("Banana"); // læg bananens CO2 til totalen
     yPos += 25; // Ryk 25 ned aka. gå til næste linje vertikalt
   }
   if (isAppInCart) {
     drawReceiptLine("Apple", yPos);
+    totalCO2 += getCO2Value("Apple");
     yPos += 25;
   }
   if (isAvoInCart) {
     drawReceiptLine("Avocado", yPos);
+    totalCO2 += getCO2Value("Avocado");
     yPos += 25;
   }
+
+  // Totalen i bunden
+  stroke(0);
+  strokeWeight(2);
+  line(670, 430, 910, 430); // Den lille adskillelsesstreg
+
+  noStroke();
+  textSize(18);
+  text("TOTAL:", 670, 460);
+  textAlign(RIGHT);
+  // .toFixed(2) sørger for at der kun er 2 decimaler
+  text(totalCO2.toFixed(2) + " kg", 910, 460);
+  textAlign(LEFT);
+
 }
 
-// Hjælpefunktion til at finde CO2 værdi i arrayet
+// Funktion til at beregne totalen
+function getCO2Value(itemName) {
+  let index = names.indexOf(itemName); // finder indexet/"hvor varen bor i listen"
+  if (index !== -1) { // Tjek om varen er fundet. 
+    // Hvis ja: tag tallet fra co2Values og send det "hjem" til draw()
+    return co2Values[index]; // Send tallet tilbage til totalCO2
+  }
+  // Hvis nej: læg 0 til
+  return 0;
+}
+
+// tegner en enkelt linje på kvitteringen.
 function drawReceiptLine(itemName, y) {
-  // Vi spørger listen 'names': "Hvilket nummer på listen har f.eks. 'Banana'?" og gemmer tallet i 'index'
-  let index = names.indexOf(itemName);
-  // Hvis navnet findes, så gør følgende:
-  if (index !== -1) {
-  // Gå ind i CO2-listen på præcis samme plads og hent (co2) tallet derfra
-    let co2 = co2Values[index];
-  // Skriv varens navn
-    text(itemName + ":", 670, y); // Manuel variabel: Kvitteringen er 650, så 670 står for "start 20 pixel inde"
+  let index = names.indexOf(itemName);   // Vi spørger listen 'names': "Hvilket nummer på listen f.eks. 'Banana' har?" og gemmer tallet i 'index'
+  if (index !== -1) {                   // Hvis navnet findes, så gør følgende:
+    let co2 = co2Values[index];        // Gå ind i CO2-listen på præcis samme plads og hent (co2) tallet derfra
+    // Skriv varens navn
+    text(itemName + ":", 670, y);    // MANUEL VARIABEL: Kvitteringen er 650, så 670 står for "start 20 pixel inde"
     textAlign(RIGHT);
     text(co2 + " kg CO2", 910, y);
-    textAlign(LEFT); // Her skiftes justeringen tilbage til venstre, så der ikke ødelægges eventuel tekst placering I har længere nede
+    textAlign(LEFT);               // Her skiftes justeringen tilbage til venstre, så der ikke ødelægges eventuel tekst placering I har længere nede
   }
 }
-// Cas slut
+// Cas end
 
 
 
@@ -220,17 +256,17 @@ if (appy - avoy >= 20 && appx < avox && avox - appx <= 20) {
 } else if (appy - avoy >= 20 && avox < appx && appx - avox <= 20) {
   avox = avox - 5;
 
-/*  still playing around with this
-  else if (appy - avoy <= 20) {
-  avoy = avoy - 5;
-
-    
-
-//cart front
-
+  /*  still playing around with this
+    else if (appy - avoy <= 20) {
+    avoy = avoy - 5;
+  
+      
+  
+  //cart front
+  
+  }
+  */
 }
-*/
-} 
 
 
 

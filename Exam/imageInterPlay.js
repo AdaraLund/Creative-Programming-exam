@@ -129,9 +129,9 @@ function draw() {
 
   // Cas start - Tjek om x vare er i kurven 
   // MANUELLE VARIABLER alle numre nedenfor
-  if (banax > 170 && banax < 390 && banay > 350) { isBanaInCart = true; } else { isBanaInCart = false; }
-  if (appx > 170 && appx < 390 && appy > 350) { isAppInCart = true; } else { isAppInCart = false; }
-  if (avox > 170 && avox < 390 && avoy > 350) { isAvoInCart = true; } else { isAvoInCart = false; }
+  if (banax > 190 && banax < 380 && banay > 350) { isBanaInCart = true; } else { isBanaInCart = false; }
+  if (appx > 190 && appx < 380 && appy > 350) { isAppInCart = true; } else { isAppInCart = false; }
+  if (avox > 190 && avox < 380 && avoy > 350) { isAvoInCart = true; } else { isAvoInCart = false; }
   // Cas end
 
   //cursor react when covering one of the fruits or vegetables

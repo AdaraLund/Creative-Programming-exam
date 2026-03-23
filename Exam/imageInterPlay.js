@@ -1,3 +1,5 @@
+// Main File
+
 let avox = 120;
 let avoy = 60;
 let appx = 150;
@@ -17,6 +19,7 @@ let rows;
 let names = [];
 let receiptFont; 
 
+
 function preload() {
 
   appPic = loadImage('./assets/apple.png');
@@ -33,7 +36,8 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1202, 550);
+  createCanvas(1600, 800);
+
 
   // Cas - build array from the Name column
   for (let i = 1; i < rows.length; i++) { // skip header
@@ -53,6 +57,7 @@ function setup() {
 
 function draw() {
   background(250, 220, 230);
+
   //Making x and y appear on the canvas when hovering
   textSize(16);
   fill(0);
@@ -65,8 +70,7 @@ function draw() {
   imageMode(CENTER);
 
   //cart back
-  image(piCartBack, 290, 450, 300, 200);
-
+  image(piCartBack, 600, 450, 300, 200);
 
 
   // shelf 1
@@ -75,6 +79,12 @@ function draw() {
 
   // shelf 2
   rect(50, 210, 500, 70);
+
+  // shelf 3 
+   rect(650, 50, 500, 70);
+
+  // shelf 4 
+   rect(650, 210, 500, 70);
 
   // advocado
   fill(67, 102, 70);
@@ -129,18 +139,22 @@ function draw() {
   rect(500, 500, 60, 20);
   triangle(550, 490, 550, 530, 580, 510);
 
-  image(piCartFront, 285, 500, 235, 150);
+  image(piCartFront, 595, 500, 235, 150);
 
   // Cas - Hvid kvittering til højre for hylderne 
-  strokeWeight(0);
+    strokeWeight(0);
   fill(245, 241, 228); 
-  rect(650, 50, 220, 380); 
+  let receiptX = 1200; 
+  let receiptY = 50;
+  let receiptW = 300; 
+  let receiptH = 450; 
+  rect(receiptX, receiptY, receiptW, receiptH); 
 
   fill(0);
   textFont(receiptFont);
   textSize(20); 
   textAlign(CENTER); 
-  text("co2calculator", 650 + 110, 90);
+  text("CO2 Calculator", receiptX + receiptW/2, receiptY + 40);
 
 
 }
@@ -175,8 +189,9 @@ if (appy - avoy >= 20 && appx < avox && avox - appx <= 20) {
 
 }
 */
-} 
 
+
+}
 
 
 

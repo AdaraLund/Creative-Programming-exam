@@ -20,6 +20,12 @@ let names = []; // datasæt, produkt navne
 let co2Values = []; // datasæt, co2 "pris"
 let receiptFont; // kvittering
 let paperTexture; // kvittering
+let paperScaleFix = 1.4;
+
+let receiptX = 1200;
+let receiptY = 50;
+let receiptW = 300;
+let receiptH = 450;
 // Cas end
 
 
@@ -138,9 +144,9 @@ function draw() {
 
   // Cas start - Tjek om x vare er i kurven 
   // MANUELLE VARIABLER alle numre nedenfor
-  if (banax > 190 && banax < 380 && banay > 350) { isBanaInCart = true; } else { isBanaInCart = false; }
-  if (appx > 190 && appx < 380 && appy > 350) { isAppInCart = true; } else { isAppInCart = false; }
-  if (avox > 190 && avox < 380 && avoy > 350) { isAvoInCart = true; } else { isAvoInCart = false; }
+  isBanaInCart = banax > 470 && banax < 720 && banay > 350 && banay < 560;
+  isAppInCart  = appx  > 470 && appx  < 720 && appy  > 350 && appy  < 560;
+  isAvoInCart  = avox  > 470 && avox  < 720 && avoy  > 350 && avoy  < 560;
   // Cas end
 
   //cursor react when covering one of the fruits or vegetables
@@ -163,41 +169,30 @@ function draw() {
 
   image(piCartFront, 595, 500, 235, 150);
 
-  // Cas - Hvid kvittering til højre for hylderne 
-  strokeWeight(0);
-  fill(245, 241, 228);
-  let receiptX = 1200;
-  let receiptY = 50;
-  let receiptW = 300;
-  let receiptH = 450;
-  rect(receiptX, receiptY, receiptW, receiptH);
+  // Cas start
+  // Kvittering - Papirets område
 
-  // Kvitteringen
-  strokeWeight(0);
-  fill(250, 220, 230); // Pt. er kvitteringsfirkanten samme som baggrunden
-  // fill(245, 241, 228); // MANUEL VARIABEL: beige farve
-  rect(650, 50, 280, 450); // = pixels: 280 × 450 
-
-  // Note til selv: Hvis gå med tekstur over billede, husk tint og noTint
-  image(paperTexture, 790, 265, 430, 620);  // MANUEL VARIABEL: overlay skal være præciso venpå hvide firkant 
+  // Kvittering - Placering af billede af papir
+  image(paperTexture, receiptX + receiptW / 2, receiptY + receiptH / 2, receiptW * paperScaleFix, receiptH * paperScaleFix); //pga. png. billede bruges scalfix. kan ændres i let
 
   // Om overskriften
   fill(0);
   textFont(receiptFont);
   textSize(20);
   textAlign(CENTER);
-  text("CO2 Calculator", receiptX + receiptW / 2, receiptY + 40);
+  text("CO2 Calculator", receiptX + receiptW / 2, receiptY + 55); // MANUEL VARIABLE: 60 = hvor langt nede tekst starter
 
   // Skriv varer på kvitteringen hvis de er i kurven
   textSize(14);
   textAlign(LEFT);
-  let yPos = 130; // Start position for tekst rækker (130 pixels nede) Jeg har lavet det en variabel, så vi kan nøjes med at ændre det ét sted, hvis vi ønsker at rykke.
+  let yPos = 140; // MANUEL VARIABEL - Start position for tekst rækker 
   let totalCO2 = 0; // Vi starter totalen på 0 hver gang draw kører
+
 
   if (isBanaInCart) {
     drawReceiptLine("Banana", yPos);
     totalCO2 += getCO2Value("Banana"); // læg bananens CO2 til totalen
-    yPos += 25; // Ryk 25 ned aka. gå til næste linje vertikalt
+    yPos += 25; // Ryk tekst 25 ned aka. gå til næste linje vertikalt
   }
   if (isAppInCart) {
     drawReceiptLine("Apple", yPos);
@@ -210,17 +205,20 @@ function draw() {
     yPos += 25;
   }
 
-  // Totalen i bunden
+  // Layout for totalen
   stroke(0);
   strokeWeight(2);
-  line(670, 430, 910, 430); // Den lille adskillelsesstreg
+  line(receiptX + 30, receiptY + 380, receiptX + 270, receiptY + 380); // Den lille adskillelsesstreg. MANUEL VARIABEL
 
+  // "TOTAL"
   noStroke();
   textSize(18);
-  text("TOTAL:", 670, 460);
+  textAlign(LEFT);
+  text("TOTAL:", receiptX + 34, receiptY + 420); // MANUEL VARIABEL
+
+  // "0.00 KG"
   textAlign(RIGHT);
-  // .toFixed(2) sørger for at der kun er 2 decimaler
-  text(totalCO2.toFixed(2) + " kg", 910, 460);
+  text(totalCO2.toFixed(2) + " kg", receiptX + 260, receiptY + 420); // MANUEL VARIABEL // .toFixed(2) sørger for at der kun er 2 decimaler
   textAlign(LEFT);
 
 }
@@ -242,9 +240,9 @@ function drawReceiptLine(itemName, y) {
   if (index !== -1) {                   // Hvis navnet findes, så gør følgende:
     let co2 = co2Values[index];        // Gå ind i CO2-listen på præcis samme plads og hent (co2) tallet derfra
     // Skriv varens navn
-    text(itemName + ":", 670, y);    // MANUEL VARIABEL: Kvitteringen er 650, så 670 står for "start 20 pixel inde"
+    text(itemName + ":", receiptX + 30, y);    // MANUEL VARIABEL
     textAlign(RIGHT);
-    text(co2 + " kg CO2", 910, y);
+    text(co2 + " kg CO2", receiptX + 260, y); // MANUEL VARIABEL
     textAlign(LEFT);               // Her skiftes justeringen tilbage til venstre, så der ikke ødelægges eventuel tekst placering I har længere nede
   }
 }

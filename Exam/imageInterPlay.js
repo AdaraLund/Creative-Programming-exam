@@ -1,3 +1,5 @@
+// Main File
+
 let avox = 120;
 let avoy = 60;
 let appx = 150;
@@ -20,6 +22,7 @@ let receiptFont; // kvittering
 let paperTexture; // kvittering
 // Cas end
 
+
 function preload() {
 
   appPic = loadImage('./assets/apple.png');
@@ -38,7 +41,8 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1202, 550);
+  createCanvas(1600, 800);
+
 
   // Cas - build array from the Name column
   for (let i = 1; i < rows.length; i++) { // Vi starter fra i = 1 for at springe headeren over (første linje i CSV)
@@ -83,8 +87,7 @@ function draw() {
   imageMode(CENTER);
 
   //cart back
-  image(piCartBack, 290, 450, 300, 200);
-
+  image(piCartBack, 600, 450, 300, 200);
 
 
   // shelf 1
@@ -93,6 +96,12 @@ function draw() {
 
   // shelf 2
   rect(50, 210, 500, 70);
+
+  // shelf 3 
+   rect(650, 50, 500, 70);
+
+  // shelf 4 
+   rect(650, 210, 500, 70);
 
   // advocado
   fill(67, 102, 70);
@@ -152,9 +161,20 @@ function draw() {
   // rect(500, 500, 60, 20);
   // triangle(550, 490, 550, 530, 580, 510);
 
-  image(piCartFront, 285, 500, 235, 150);
+  image(piCartFront, 595, 500, 235, 150);
 
+<<<<<<< HEAD
   // Cas start
+=======
+  // Cas - Hvid kvittering til højre for hylderne 
+    strokeWeight(0);
+  fill(245, 241, 228); 
+  let receiptX = 1200; 
+  let receiptY = 50;
+  let receiptW = 300; 
+  let receiptH = 450; 
+  rect(receiptX, receiptY, receiptW, receiptH); 
+>>>>>>> 74ff367446140274f352c420ec8de812877f96df
 
   // Kvitteringen
   strokeWeight(0);
@@ -168,9 +188,15 @@ function draw() {
   // Om overskriften
   fill(0);
   textFont(receiptFont);
+<<<<<<< HEAD
   textSize(20);
   textAlign(CENTER);
   text("co2calculator", 650 + 140, 90);
+=======
+  textSize(20); 
+  textAlign(CENTER); 
+  text("CO2 Calculator", receiptX + receiptW/2, receiptY + 40);
+>>>>>>> 74ff367446140274f352c420ec8de812877f96df
 
   // Skriv varer på kvitteringen hvis de er i kurven
   textSize(14);
@@ -267,7 +293,14 @@ if (appy - avoy >= 20 && appx < avox && avox - appx <= 20) {
   }
   */
 }
+<<<<<<< HEAD
 
+=======
+*/
+
+
+}
+>>>>>>> 74ff367446140274f352c420ec8de812877f96df
 
 
 

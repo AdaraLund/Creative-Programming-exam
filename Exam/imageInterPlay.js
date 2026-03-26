@@ -50,7 +50,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1600, 800);
+  createCanvas(1200, 550);
 
 
   // Cas - build array from the Name column

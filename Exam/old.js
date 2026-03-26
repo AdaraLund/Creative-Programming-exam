@@ -1,9 +1,11 @@
 // Main File
 
-let avox = 120;
-let avoy = 60;
 let appx = 150;
 let appy = 200;
+
+let avox = 120;
+let avoy = 60;
+
 let banax = 330;
 let banay = 70;
 let cucux = 140;
@@ -34,9 +36,9 @@ let receiptH = 450;
 
 function preload() {
 
-  appPic = loadImage('./assets/apple.png');
-  avoPic = loadImage('./assets/avocados.png');
-  banaPic = loadImage('./assets/banana.png');
+  appleImg = loadImage('./assets/apple.png');
+  avocadoImg = loadImage('./assets/avocados.png');
+  bananaImg = loadImage('./assets/banana.png');
 
   // cart
   piCartBack = loadImage('./assets/pinkcartback.png');

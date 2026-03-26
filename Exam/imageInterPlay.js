@@ -163,7 +163,11 @@ function draw() {
 
   image(piCartFront, 595, 500, 235, 150);
 
- 
+  // Cas - Hvid kvittering til højre for hylderne 
+  strokeWeight(0);
+  fill(245, 241, 228);
+  
+
   // Kvitteringen
   strokeWeight(0);
   fill(250, 220, 230); // Pt. er kvitteringsfirkanten samme som baggrunden

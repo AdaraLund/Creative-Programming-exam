@@ -120,9 +120,9 @@ image(avoPic, avox, avoy, 110, 90);
 if (mouseIsPressed &&
     mouseX > avox && mouseX < avox + 110 && 
     mouseY > avoy && mouseY < avoy + 90) {
-// vi spørger om musen er i avocado billedet
-  avox = random(550, 600); // random x værdi for inde i kurven
-  avoy = random(440, 480); // random y værdi for inde i kurven
+// we make sure that the mouse is inside the avo image
+  avox = random(550, 600); // random x value for inside the cart
+  avoy = random(440, 480); // random y value for inside the cart
 }
 
 
@@ -133,6 +133,9 @@ if (mouseIsPressed &&
     mouseY > appy && mouseY < appy + 70) {
   appx = random(600, 650);
   appy = random(480, 520);
+} else{
+  x = appx;
+  y = appy;
 }
 
 
@@ -254,7 +257,7 @@ function drawReceiptLine(itemName, y) {
   if (index !== -1) {                   // Hvis navnet findes, så gør følgende:
     let co2 = co2Values[index];        // Gå ind i CO2-listen på præcis samme plads og hent (co2) tallet derfra
     // Skriv varens navn
-    text(itemName + ":", receiptX + 30, y);    // MANUEL VARIABEL
+    text(itemName, receiptX + 30, y);    // MANUEL VARIABEL
     textAlign(RIGHT);
     text(co2 + " kg CO2", receiptX + 260, y); // MANUEL VARIABEL
     textAlign(LEFT);               // Her skiftes justeringen tilbage til venstre, så der ikke ødelægges eventuel tekst placering I har længere nede

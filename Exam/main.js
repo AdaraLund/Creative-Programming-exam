@@ -1,4 +1,5 @@
 //Set variables here
+let groceryList = [];
 
 function preload() { // For loading before program is run
 	// cart
@@ -9,8 +10,8 @@ function preload() { // For loading before program is run
 	appleImg = loadImage('./assets/apple.png');
 	avocadoImg = loadImage('./assets/avocados.png');
 	bananaImg = loadImage('./assets/banana.png');
-	cucumberImg = loadImage('./assets/cucumber.png');
-	carrotImg = loadImage('./assets/carrot.png');
+	//cucumberImg = loadImage('./assets/cucumber.png');
+	//carrotImg = loadImage('./assets/carrot.png');
 }
 
 function setup() {

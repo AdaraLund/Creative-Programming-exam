@@ -166,7 +166,11 @@ function draw() {
   // Cas - Hvid kvittering til højre for hylderne 
   strokeWeight(0);
   fill(245, 241, 228);
-  
+  let receiptX = 1200;
+  let receiptY = 50;
+  let receiptW = 300;
+  let receiptH = 450;
+  rect(receiptX, receiptY, receiptW, receiptH);
 
   // Kvitteringen
   strokeWeight(0);

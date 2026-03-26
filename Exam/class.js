@@ -1,20 +1,14 @@
+
 //Set variables here
-
-function preload() { // For loading before program is run
-
-}
-
-function setup() {
-	createCanvas(windowWidth, windowHeight); //canvas size of screen
-	background(150, 200, 80); // green background
-	frameRate(60); //framerate
-	strokeWeight(0); // size of frame of object
-
-
-
-}
-
-function draw() {
+class Grocery {
+	constructor(x, y, sizeX, sizeY, img, CO2) {
+		this.x = x;
+		this.y = y;
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		this.img = img;
+		this.CO2 = CO2;
+	}
 
 
 }

@@ -6,6 +6,8 @@ let appx = 150;
 let appy = 200;
 let banax = 330;
 let banay = 70;
+let cucux = 140;
+let cucuy = 20;
 
 let appPic;
 let banaPic;
@@ -18,6 +20,7 @@ let piCartBack;
 let rows; // datasæt
 let names = []; // datasæt, produkt navne
 let co2Values = []; // datasæt, co2 "pris"
+
 let receiptFont; // kvittering
 let paperTexture; // kvittering
 let paperScaleFix = 1.4;
@@ -112,34 +115,45 @@ function draw() {
   // advocado
   fill(67, 102, 70);
 
-  image(avoPic, avox, avoy, 110, 90);
-
-  // if function for at rykke avocado
-  if (mouseIsPressed == true && mouseX > avox - 50 && mouseX < avox + 50 && mouseY > avoy - 50 && mouseY < avoy + 50) {
-    avox = mouseX;
-    avoy = mouseY;
-  }
-
-
-  // apple
-  image(appPic, appx, appy, 70, 70);
-
-  // able to move apple
-  if (mouseIsPressed == true && mouseX > appx - 25 && mouseX < appx + 25 && mouseY > appy - 35 && mouseY < appy + 35) {
-    appx = mouseX;
-    appy = mouseY;
-  }
+  // avocado
+image(avoPic, avox, avoy, 110, 90);
+if (mouseIsPressed &&
+    mouseX > avox && mouseX < avox + 110 && 
+    mouseY > avoy && mouseY < avoy + 90) {
+// vi spørger om musen er i avocado billedet
+  avox = random(550, 600); // random x værdi for inde i kurven
+  avoy = random(440, 480); // random y værdi for inde i kurven
+}
 
 
-  // cucumber
-  fill(55, 74, 50);
-  ellipse(400, 230, 140, 20);
+// apple
+image(appPic, appx, appy, 70, 70);
+if (mouseIsPressed &&
+    mouseX > appx && mouseX < appx + 70 &&
+    mouseY > appy && mouseY < appy + 70) {
+  appx = random(600, 650);
+  appy = random(480, 520);
+}
 
-  // banana
-  image(banaPic, banax, banay, 120, 120);
-  if (mouseIsPressed == true && mouseX > banax - 60 && mouseX < banax + 60 && mouseY > banay - 60 && mouseY < banay + 60) {
-    banax = mouseX;
-    banay = mouseY;
+
+// banana
+image(banaPic, banax, banay, 120, 120);
+if (mouseIsPressed &&
+    mouseX > banax && mouseX < banax + 120 &&
+    mouseY > banay && mouseY < banay + 120) {
+
+  banax = random(580, 630);
+  banay = random(450, 500);
+}
+
+// cucumber
+fill(55, 74, 50);
+ellipse(400, 230, 140, 20);
+if (mouseIsPressed &&
+  mouseX > cucux && mouseX < cucux + 140 &&
+  mouseY > cucuy && mouseY < cucuy + 20) {
+cucux = random(580, 630);
+cucuy = random(450, 500);
   }
 
   // Cas start - Tjek om x vare er i kurven 
@@ -281,8 +295,6 @@ if (appy - avoy >= 20 && appx < avox && avox - appx <= 20) {
   }
   */
 } 
-
-
 
 
 

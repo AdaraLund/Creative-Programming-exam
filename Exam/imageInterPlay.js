@@ -259,37 +259,8 @@ function drawReceiptLine(itemName, y) {
 
 
 
-/* trying to make it nudge if they're too close. attempt 1
-if (appx - avox <= 20) {
-  avox = avox - 5;
-} else if (appy - avoy <= 20) {
-  avoy = avoy - 5;
-
-}
-  */
 
 
-
-//trying to make it nudge if they're too close. 
-//right now it works if you bottom apple under avo and nudge directions, but through whole y value.
-// changing appy and avoy around makes nudging possible from opposite direction (top/bottom), but still whole y 
-if (appy - avoy >= 20 && appx < avox && avox - appx <= 20) {
-  avox = avox + 5;
-
-} else if (appy - avoy >= 20 && avox < appx && appx - avox <= 20) {
-  avox = avox - 5;
-
-  /*  still playing around with this
-    else if (appy - avoy <= 20) {
-    avoy = avoy - 5;
-  
-      
-  
-  //cart front
-  
-  }
-  */
-} 
 
 
 

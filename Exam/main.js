@@ -5,6 +5,8 @@ function preload() { // For loading before program is run
 	piCartBack = loadImage('./assets/pinkcartback.png');
 	piCartFront = loadImage('./assets/pinkcartfront.png');
 
+	// All the images to our groceries
+
 }
 
 function setup() {

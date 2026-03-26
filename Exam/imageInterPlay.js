@@ -176,14 +176,6 @@ cucuy = random(450, 500);
     cursor(ARROW);
   }
 
-
-  // arrow (Cas - jeg har tilladt mig at "fjerne" pilen")
-  // stroke(255, 254, 252);
-  // strokeWeight(1);
-  // fill(227, 187, 54);
-  // rect(500, 500, 60, 20);
-  // triangle(550, 490, 550, 530, 580, 510);
-
   image(piCartFront, 595, 500, 235, 150);
 
   // Cas start

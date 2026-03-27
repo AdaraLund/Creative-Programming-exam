@@ -1,5 +1,7 @@
 //Set variables here
 let groceryList = [];
+let receiptFont;
+let paperTexture; 
 
 
 function preload() { // For loading before program is run
@@ -14,6 +16,9 @@ function preload() { // For loading before program is run
 	cucumberImg = loadImage('./assets/cucumber.png');
 	carrotImg = loadImage('./assets/carrot.png');
 	watermelonImg = loadImage('./assets/watermelon.png');
+
+	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf'); 
+	paperTexture = loadImage('./assets/paperTexture.png');
 }
 
 function setup() {
@@ -60,7 +65,7 @@ function draw() {
 
 	// shelf 2
 	rect(50, 210, 350, 70);
-
+ 
 	// shelf 3 
 	rect(450, 50, 400, 70);
 
@@ -68,8 +73,17 @@ function draw() {
 	rect(450, 210, 400, 70);
 
 	// recipt
-	fill(250, 230, 190);
+	fill(246, 236, 215, 0); // (pt. usynlig firkant bag kvittering (0 = alpha)
 	rect(930, 50, 200, 380);
+	image(paperTexture, 930 + 200/2, 65 + 380/2, 320, 580); // Hard coding
+
+	// recipt, title
+	fill(0);
+	textSize(20);
+	textAlign(CENTER);
+	textFont(receiptFont);
+	text("CO2 Calculator", 930 + 200/2, 100); 
+
 
 	for (let i = 0; i < groceryList.length; i++) {
 		groceryList[i].display(i);

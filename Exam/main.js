@@ -43,16 +43,20 @@ function draw() {
 
 	// shelf 1
 	fill(166, 130, 86);
-	rect(50, 50, 500, 70);
+	rect(50, 50, 350, 70);
 
 	// shelf 2
-	rect(50, 210, 500, 70);
+	rect(50, 210, 350, 70);
 
 	// shelf 3 
-	rect(650, 50, 500, 70);
+	rect(450, 50, 400, 70);
 
 	// shelf 4 
-	rect(650, 210, 500, 70);
+	rect(450, 210, 400, 70);
+
+	// recipt
+	fill(250, 230, 190);
+	rect(930, 50, 200, 380);
 
 	for (let i = 0; i > Grocery.length; i++) {
 		Grocery[i].display(i);

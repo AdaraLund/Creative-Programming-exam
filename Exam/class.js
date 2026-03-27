@@ -10,8 +10,20 @@ class Grocery {
 		this.CO2 = CO2;
 	}
 
+	display() {
+		image(this.img, this.x, this.y, this.sizeX, this.sizeY);
+	}
 
+	hoverCursor() { // Next project
+		//  if (mouseX > avox - 35 && mouseX < avox + 50 && mouseY > avoy - 50 && mouseY < avoy + 50 || mouseX > appx - 50 && mouseX < appx + 35 && mouseY > appy - 35 && mouseY < appy + 35 || mouseX > banax - 60 && mouseX < banax + 60 && mouseY > banay - 60 && mouseY < banay + 60) {
+		// cursor(HAND);
+		//} else {
+		// cursor(ARROW);
+	}
 }
+
+
+
 
 //Setting up our groceries and their picture variables
 // The first two are their placements
@@ -20,116 +32,110 @@ class Grocery {
 //the last is the Co2 amount
 
 
- // LIGE NU ER PLACERINGER IKKE RIGTIGE
-	//fruit and vegs
-	let appleImg;
-	let apple = new Grocery(150, 200, 70, 70, appleImg, 0.61);
+//fruit and vegs
 
-	let avocadoImg;
-	let avocado = new Grocery(120,60,110,90,avocadoImg, 0.73);
+let apple;
+let appleImg;
 
-	let bananaImg;
-	let banana = new Grocery(330, 70, 120, 120, bananaImg, 1.02);
+let avocadoImg;
+let avocado;
 
-	let cucumberImg;
-	let cucumber = new Grocery(200, 100, 70, 70, cucumberImg, 0.14);
+let bananaImg;
+let banana;
 
-	let carrotImg;
-	let carrot = new Grocery(100, 200, 70, 70, carrotImg, 0.27);
+let cucumberImg;
+let cucumber;
 
-	let watermelonImg;
-	let watermelon = new Grocery(120, 200, 70, 70, watermelonImg, 1.2);
+let carrotImg;
+let carrot;
 
-
-	//Dry goods 
-	//Cas: Noterne er Co2 pr. product
-	let toast; // 0.81
-	let toastImg;
-
-	let ryebread; // 1.02
-	let ryebreadImg;
-
-	let chips; // 0.74 
-	let chipsImg;
-
-	let cookies; // 0.73
-	let cookiesImg;
-
-	let baguette; // 0.81
-	let baguetteImg;
-
-	//Refrigiated
-	let chicken; // 4.91
-	let chickenImg;
-
-	let cheese; // 1.08 
-	let cheeseImg;
-
-	let oatMilk; // 0.40
-	let oatMilkImg;
-
-	let milk; // 0.50
-	let milkImg;
-
-	let butter; // 0.82
-	let butterImg;
-
-	//drinks
-	let wine; // 1.24 
-	let wineImg;
-
-	let soda; //  Can: 0,30 Bottle = 0,88
-	let sodaImg;
-
-	let beer; // 0.22
-	let beerImg;
-
-	let water; // 0.28 
-	let waterImg;
+let watermelonImg;
+let watermelon;
 
 
-   function display(){
-        image(this.img, this.x, this.y);
-    }
+//Dry goods 
+//Cas: Noterne er Co2 pr. product
+let toast; // 0.81
+let toastImg;
 
-    //display(showCaseNo){
-      //  showCaseNo = showCaseNo * 2; //50 er abritær afstand mellem frugter
-      //  image(this.img, this.x + showCaseNo, this.y);
-   // }
+let ryebread; // 1.02
+let ryebreadImg;
+
+let chips; // 0.74 
+let chipsImg;
+
+let cookies; // 0.73
+let cookiesImg;
+
+let baguette; // 0.81
+let baguetteImg;
+
+//Refrigiated
+let chicken; // 4.91
+let chickenImg;
+
+let cheese; // 1.08 
+let cheeseImg;
+
+let oatMilk; // 0.40
+let oatMilkImg;
+
+let milk; // 0.50
+let milkImg;
+
+let butter; // 0.82
+let butterImg;
+
+//drinks
+let wine; // 1.24 
+let wineImg;
+
+let soda; //  Can: 0,30 Bottle = 0,88
+let sodaImg;
+
+let beer; // 0.22
+let beerImg;
+
+let water; // 0.28 
+let waterImg;
 
 
-// Making the variables with information
+
+
+
+
+
 
 
 
 // her er der ingen functions, da den så crasher. Tænker det er fordi den overrider main functions. 
 
-/*
+/*  Det her er hvad Adara og Line lavede sammen, og er indsat for nemt at sammenligne
 class Grocery {
-    constructor(x, y, sizeX, sizeY, img, co2){
-        this.x = x;
-        this.y = y;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        this.img = img;
-        this.co2 = co2;
-        //de behøves ikke være givet oppe i parantes, du kan også skrive:
-        //this.shakyEffect = random(30, 50);
-        //så bliver alle objekter af typen Grocery givet en shakyEffect mellem 30 og 50
-    }
+	constructor(x, y, sizeX, sizeY, img, co2){
+		this.x = x;
+		this.y = y;
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		this.img = img;
+		this.co2 = co2;
+		//de behøves ikke være givet oppe i parantes, du kan også skrive:
+		//this.shakyEffect = random(30, 50);
+		//så bliver alle objekter af typen Grocery givet en shakyEffect mellem 30 og 50
+	}
 
-    display(showCaseNo){
-        showCaseNo = showCaseNo * 50; //50 er abritær afstand mellem frugter
-        image(this.img, this.x + showCaseNo, this.y);
-    }
+	display(showCaseNo){
+		showCaseNo = showCaseNo * 50; //50 er abritær afstand mellem frugter
+		image(this.img, this.x + showCaseNo, this.y);
+	}
 
-    checkPlacement(){ // ikke nødvendig hvis i bare laver det til klik
-        if(this.x < NUMMER && this.x > NUMMER && /*samme for this.y...) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+	checkPlacement(){ // ikke nødvendig hvis i bare laver det til klik
+		if(this.x < NUMMER && this.x > NUMMER && /*samme for this.y...) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
 
 
@@ -146,7 +152,7 @@ let groceryList = [];
 let appleImg;
 
 function preLoad(){
-    appleImg = loadImage(...);
+	appleImg = loadImage(...);
 }
 
 function setup() {
@@ -162,15 +168,15 @@ groceryList.push(apple, banana);
 //DRAW
 function draw(){
 
-    for(let i = 0; i < groceryList.length; i++){
-    groceryList[i].display(i); //displayer alle elementer på listen
-    }
+	for(let i = 0; i < groceryList.length; i++){
+	groceryList[i].display(i); //displayer alle elementer på listen
+	}
 
-    for(let i = 0; i < groceryList.length; i++){
-    if(groceryList[i].checkPlacement){
-        //gør noget
-        groceryList.splice(i, 1); //fjerner element fra liste, ikke nødvendig at checkPlacement medmindre i bruger drag
-    }
+	for(let i = 0; i < groceryList.length; i++){
+	if(groceryList[i].checkPlacement){
+		//gør noget
+		groceryList.splice(i, 1); //fjerner element fra liste, ikke nødvendig at checkPlacement medmindre i bruger drag
+	}
    
 }
 }

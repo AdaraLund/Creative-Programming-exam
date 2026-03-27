@@ -1,6 +1,7 @@
 //Set variables here
 let groceryList = [];
 
+
 function preload() { // For loading before program is run
 	// cart
 	piCartBack = loadImage('./assets/pinkcartback.png');
@@ -8,23 +9,23 @@ function preload() { // For loading before program is run
 
 	// All the images to our groceries
 	appleImg = loadImage('./assets/apple.png');
-	avocadoImg = loadImage('./assets/avocados.png');
+	avocadoImg = loadImage('./assets/avocado.png');
 	bananaImg = loadImage('./assets/banana.png');
-	//cucumberImg = loadImage('./assets/cucumber.png');
-	//carrotImg = loadImage('./assets/carrot.png');
+	cucumberImg = loadImage('./assets/cucumber.png');
+	carrotImg = loadImage('./assets/carrot.png');
+	watermelonImg = loadImage('./assets/watermelon.png');
 }
 
 function setup() {
 	createCanvas(1200, 550); //canvas size of screen
-	background(150, 200, 80); // green background
 	frameRate(60); //framerate
 	strokeWeight(0); // size of frame of object
-
-	// placing images by their center instead of corner
-	imageMode(CENTER);
+	imageMode(CENTER);// placing images by their center instead of corner
 
 
-
+	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
+	groceryList.push(apple, banana, avocado, cucumber, carrot, watermelon);
+	console.log(groceryList);
 }
 
 function draw() {
@@ -32,12 +33,11 @@ function draw() {
 	//Making x and y appear on the canvas when hovering
 	textSize(16);
 	fill(0);
-	text('x =' + round(mouseX), 30, 20); 
+	text('x =' + round(mouseX), 30, 20);
 	text('y =' + round(mouseY), 30, 40);
 	strokeWeight(0);
 
-
-	//cart back
+	//cart back - skal være bagerste
 	image(piCartBack, 600, 450, 300, 200);
 
 
@@ -54,9 +54,15 @@ function draw() {
 	// shelf 4 
 	rect(650, 210, 500, 70);
 
+	for (let i = 0; i > Grocery.length; i++) {
+		Grocery[i].display(i);
+		display(i);
+	}
 
-	//front of cart
+
+	//front of cart - skal være det forreste lag
 	image(piCartFront, 595, 500, 235, 150);
+
 }
 
 

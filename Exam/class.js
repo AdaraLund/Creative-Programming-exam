@@ -19,8 +19,8 @@ class Grocery {
 //the 5th is the image variable name
 //the last is the Co2 amount
 
-//THE LAST VARIABLE IS A PLACEHOLDER AND SHOULD BE REPLACED 
 
+ // LIGE NU ER PLACERINGER IKKE RIGTIGE
 	//fruit and vegs
 	let appleImg;
 	let apple = new Grocery(150, 200, 70, 70, appleImg, 0.61);
@@ -32,13 +32,13 @@ class Grocery {
 	let banana = new Grocery(330, 70, 120, 120, bananaImg, 1.02);
 
 	let cucumberImg;
-	let cucumber = new Grocery(x, y, 70, 70, cucumberImg, 0.14);
+	let cucumber = new Grocery(200, 100, 70, 70, cucumberImg, 0.14);
 
 	let carrotImg;
-	let carrot = new Grocery(x, y, 70, 70, carrotImg, 0.27);
+	let carrot = new Grocery(100, 200, 70, 70, carrotImg, 0.27);
 
 	let watermelonImg;
-	let watermelon = new Grocery(x, y, 70, 70, watermelonImg, 1.2);
+	let watermelon = new Grocery(120, 200, 70, 70, watermelonImg, 1.2);
 
 
 	//Dry goods
@@ -85,6 +85,17 @@ class Grocery {
 
 	let water;
 	let waterImg;
+
+
+   function display(){
+        image(this.img, this.x, this.y);
+    }
+
+    //display(showCaseNo){
+      //  showCaseNo = showCaseNo * 2; //50 er abritær afstand mellem frugter
+      //  image(this.img, this.x + showCaseNo, this.y);
+   // }
+
 
 // Making the variables with information
 

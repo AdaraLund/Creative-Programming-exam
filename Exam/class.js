@@ -41,49 +41,50 @@ class Grocery {
 	let watermelon = new Grocery(x, y, 70, 70, watermelonImg, 1.2);
 
 
-	//Dry goods
-	let toast;
+	//Dry goods 
+	//Cas: Noterne er Co2 pr. product
+	let toast; // 0.81
 	let toastImg;
 
-	let ryebread;
+	let ryebread; // 1.02
 	let ryebreadImg;
 
-	let chips;
+	let chips; // 0.74 
 	let chipsImg;
 
-	let cookies;
+	let cookies; // 0.73
 	let cookiesImg;
 
-	let baguette;
+	let baguette; // 0.81
 	let baguetteImg;
 
 	//Refrigiated
-	let chicken;
+	let chicken; // 4.91
 	let chickenImg;
 
-	let cheese;
+	let cheese; // 1.08 
 	let cheeseImg;
 
-	let oatMilk;
+	let oatMilk; // 0.40
 	let oatMilkImg;
 
-	let milk;
+	let milk; // 0.50
 	let milkImg;
 
-	let butter;
+	let butter; // 0.82
 	let butterImg;
 
 	//drinks
-	let wine;
+	let wine; // 1.24 
 	let wineImg;
 
-	let soda;
+	let soda; //  Can: 0,30 Bottle = 0,88
 	let sodaImg;
 
-	let beer;
+	let beer; // 0.22
 	let beerImg;
 
-	let water;
+	let water; // 0.28 
 	let waterImg;
 
 // Making the variables with information

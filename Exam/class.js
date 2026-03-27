@@ -19,26 +19,26 @@ class Grocery {
 //the 5th is the image variable name
 //the last is the Co2 amount
 
-//THE LAST VARIABLE IS A PLACEHOLDER AND SHOULD BE REPLACED
+//THE LAST VARIABLE IS A PLACEHOLDER AND SHOULD BE REPLACED 
 
 	//fruit and vegs
 	let appleImg;
-	let apple = new Grocery(150, 200, 70, 70, appleImg, 30);
+	let apple = new Grocery(150, 200, 70, 70, appleImg, 0.61);
 
 	let avocadoImg;
-	let avocado = new Grocery(120,60,110,90,avocadoImg, 30);
+	let avocado = new Grocery(120,60,110,90,avocadoImg, 0.73);
 
 	let bananaImg;
-	let banana = new Grocery(330, 70, 120, 120, bananaImg, 30);
+	let banana = new Grocery(330, 70, 120, 120, bananaImg, 1.02);
 
 	let cucumberImg;
-	let cucumber = new Grocery(x, y, 70, 70, cucumberImg, 30);
+	let cucumber = new Grocery(x, y, 70, 70, cucumberImg, 0.14);
 
 	let carrotImg;
-	let carrot = new Grocery(x, y, 70, 70, carrotImg, 30);
+	let carrot = new Grocery(x, y, 70, 70, carrotImg, 0.27);
 
 	let watermelonImg;
-	let watermelon = new Grocery(x, y, 70, 70, watermelonImg, 30);
+	let watermelon = new Grocery(x, y, 70, 70, watermelonImg, 1.2);
 
 
 	//Dry goods

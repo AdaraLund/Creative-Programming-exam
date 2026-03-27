@@ -32,9 +32,8 @@ function draw() {
 	//Making x and y appear on the canvas when hovering
 	textSize(16);
 	fill(0);
-	text('x =' + round(mouseX), 30, 20); // Cas: jeg har ændret den fra 550, 580 så man kan se det);
-	text('y =' + round(mouseY), 30, 40); // Cas: jeg har ændret den fra 550, 592 så man kan se det);
-
+	text('x =' + round(mouseX), 30, 20); 
+	text('y =' + round(mouseY), 30, 40);
 	strokeWeight(0);
 
 

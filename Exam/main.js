@@ -1,7 +1,7 @@
 //Set variables here
 let groceryList = [];
 let receiptFont;
-let paperTexture; 
+let paperTexture;
 
 
 function preload() { // For loading before program is run
@@ -17,7 +17,7 @@ function preload() { // For loading before program is run
 	carrotImg = loadImage('./assets/carrot.png');
 	watermelonImg = loadImage('./assets/watermelon.png');
 
-	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf'); 
+	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
 	paperTexture = loadImage('./assets/paperTexture.png');
 }
 
@@ -28,13 +28,13 @@ function setup() {
 	imageMode(CENTER);// placing images by their center instead of corner
 
 	// All our objects are defined as groceries
-	
+
 	// CHANGES TO COME;
 	// str er forkert
 	//dimensioner er forkert
 	// placering er forkert
 
-	apple = new Grocery(150, 200, 80, 80, appleImg, 0.61);
+	apple = new Grocery(240, 70, 80, 80, appleImg, 0.61);
 	banana = new Grocery(330, 70, 120, 120, bananaImg, 1.02);
 	avocado = new Grocery(120, 60, 110, 90, avocadoImg, 0.73);
 	cucumber = new Grocery(350, 210, 100, 100, cucumberImg, 0.14);
@@ -42,7 +42,7 @@ function setup() {
 	watermelon = new Grocery(120, 200, 140, 140, watermelonImg, 1.2);
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
-	groceryList.push(apple, banana, avocado, cucumber, carrot, watermelon);
+	groceryList.push(banana, avocado, cucumber, carrot, watermelon, apple);
 	console.log(groceryList);
 }
 
@@ -65,7 +65,7 @@ function draw() {
 
 	// shelf 2
 	rect(50, 210, 350, 70);
- 
+
 	// shelf 3 
 	rect(450, 50, 400, 70);
 
@@ -75,20 +75,36 @@ function draw() {
 	// recipt
 	fill(246, 236, 215, 0); // (pt. usynlig firkant bag kvittering (0 = alpha)
 	rect(930, 50, 200, 380);
-	image(paperTexture, 930 + 200/2, 65 + 380/2, 320, 580); // Hard coding
+	image(paperTexture, 930 + 200 / 2, 65 + 380 / 2, 320, 580); // Hard coding
 
 	// recipt, title
 	fill(0);
 	textSize(20);
 	textAlign(CENTER);
 	textFont(receiptFont);
-	text("CO2 Calculator", 930 + 200/2, 100); 
-
-
+	text("CO2 Calculator", 930 + 200 / 2, 100);
+/*
+Går igennem arrayet med vores groceries
+For hver af elementerne i vores array kalder den i vores Grocery Class
+For hver af de elementer tager den informationerne i Display functionen i Class.js
+Den placerer så alle billederne.
+*/
 	for (let i = 0; i < groceryList.length; i++) {
-		groceryList[i].display(i);
+		groceryList[i].display();
 
 	}
+
+/*
+Prøver hover ved funktion, men lige nu kan man kun se sidste element i array
+Jeg prøver at finde en måde, hvor det er dem alle. 
+*/
+
+	for(let i = 0; i < groceryList.length; i++) {
+		groceryList[i].hoverCursor();
+
+	}
+
+
 
 
 	//front of cart - skal være det forreste lag

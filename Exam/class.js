@@ -14,11 +14,18 @@ class Grocery {
 		image(this.img, this.x, this.y, this.sizeX, this.sizeY);
 	}
 
-	hoverCursor() { // Next project
-		//  if (mouseX > avox - 35 && mouseX < avox + 50 && mouseY > avoy - 50 && mouseY < avoy + 50 || mouseX > appx - 50 && mouseX < appx + 35 && mouseY > appy - 35 && mouseY < appy + 35 || mouseX > banax - 60 && mouseX < banax + 60 && mouseY > banay - 60 && mouseY < banay + 60) {
-		// cursor(HAND);
-		//} else {
-		// cursor(ARROW);
+	/*
+	 hoverCursor funktionen handler om at den tager informationen om placering fra og til i Grocery class,
+	 så den automatisk ændrer cursor state når man hover sin mus over en af objekterne.
+	*/
+
+	hoverCursor() { // Igangværende project - mouseX < 20 er troubleshooting
+		if (mouseX > this.x - this.sizeX/2 && mouseX < this.x + this.sizeX/2 && mouseY > this.y- this.sizeY/2 && mouseY < this.y + this.sizeX/2 || mouseX < 20) {
+			cursor(HAND);
+		} else {
+			cursor(ARROW);
+		}
+
 	}
 }
 

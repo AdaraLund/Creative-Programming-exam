@@ -1,5 +1,8 @@
 
 //Set variables here
+/**
+ * This is a grocery
+ */
 class Grocery {
 	constructor(x, y, sizeX, sizeY, img, CO2) {
 		this.x = x;
@@ -15,18 +18,23 @@ class Grocery {
 	}
 
 	/*
-	 hoverCursor funktionen handler om at den tager informationen om placering fra og til i Grocery class,
+	 isHovering funktionen handler om at den tager true/false fra "anyhover",
+	 hvor den tjekker om den hover over en af objekterne, og returner true hvis hover, 
+	 false hvis ikke hover. 
 	 så den automatisk ændrer cursor state når man hover sin mus over en af objekterne.
 	*/
 
-	hoverCursor() { // Igangværende project - mouseX < 20 er troubleshooting
-		if (mouseX > this.x - this.sizeX/2 && mouseX < this.x + this.sizeX/2 && mouseY > this.y- this.sizeY/2 && mouseY < this.y + this.sizeX/2 || mouseX < 20) {
-			cursor(HAND);
+	/**
+* When hovering
+	*/
+	isHovering() {
+		if (mouseX > this.x - this.sizeX / 2 && mouseX < this.x + this.sizeX / 2 && mouseY > this.y - this.sizeY / 2 && mouseY < this.y + this.sizeX / 2 ) {
+			return true;
 		} else {
-			cursor(ARROW);
+			return false;
 		}
-
 	}
+
 }
 
 

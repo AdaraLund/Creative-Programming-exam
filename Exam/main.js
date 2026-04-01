@@ -4,6 +4,7 @@ let receiptFont;
 let paperTexture;
 
 
+
 function preload() { // For loading before program is run
 	// cart
 	piCartBack = loadImage('./assets/pinkcartback.png');
@@ -55,6 +56,8 @@ function draw() {
 	text('y =' + round(mouseY), 30, 40);
 	strokeWeight(0);
 
+	let anyhover = false;
+
 	//cart back - skal være bagerste
 	image(piCartBack, 600, 450, 300, 200);
 
@@ -83,33 +86,48 @@ function draw() {
 	textAlign(CENTER);
 	textFont(receiptFont);
 	text("CO2 Calculator", 930 + 200 / 2, 100);
-/*
-Går igennem arrayet med vores groceries
-For hver af elementerne i vores array kalder den i vores Grocery Class
-For hver af de elementer tager den informationerne i Display functionen i Class.js
-Den placerer så alle billederne.
-*/
+	/*
+	Går igennem arrayet med vores groceries
+	For hver af elementerne i vores array kalder den i vores Grocery Class
+	For hver af de elementer tager den informationerne i Display functionen i Class.js
+	Den placerer så alle billederne.
+	*/
 	for (let i = 0; i < groceryList.length; i++) {
 		groceryList[i].display();
 
 	}
 
-/*
-Prøver hover ved funktion, men lige nu kan man kun se sidste element i array
-Jeg prøver at finde en måde, hvor det er dem alle. 
-*/
+	/*
+	Prøver hover ved funktion, men lige nu kan man kun se sidste element i array
+	Jeg prøver at finde en måde, hvor det er dem alle. 
+	
+	
+		for(let i = 0; i < groceryList.length; i++) {
+			groceryList[i].hoverCursor();
+	
+		}
+		*/
 
-	for(let i = 0; i < groceryList.length; i++) {
-		groceryList[i].hoverCursor();
-
+	
+	for (let i = 0; i < groceryList.length; i++) {
+		if (groceryList[i].isHovering()) {
+			anyhover = true;
+		}
 	}
-
-
+	if (anyhover === true) {
+		cursor(HAND);
+	} else {
+		cursor(ARROW);
+	}
 
 
 	//front of cart - skal være det forreste lag
 	image(piCartFront, 595, 500, 235, 150);
 
 }
+
+
+
+
 
 

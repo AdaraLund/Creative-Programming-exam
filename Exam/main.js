@@ -35,12 +35,12 @@ function setup() {
 	//dimensioner er forkert
 	// placering er forkert
 
-	apple = new Grocery(240, 70, 80, 80, appleImg, 0.61);
-	banana = new Grocery(330, 70, 120, 120, bananaImg, 1.02);
-	avocado = new Grocery(120, 60, 110, 90, avocadoImg, 0.73);
-	cucumber = new Grocery(350, 210, 100, 100, cucumberImg, 0.14);
-	carrot = new Grocery(230, 200, 130, 130, carrotImg, 0.27);
-	watermelon = new Grocery(120, 200, 140, 140, watermelonImg, 1.2);
+	apple = new Grocery(240, 70, 60, 60, appleImg, 0.61);
+	banana = new Grocery(330, 70, 100, 100, bananaImg, 1.02);
+	avocado = new Grocery(120, 60, 90, 70, avocadoImg, 0.73);
+	cucumber = new Grocery(350, 210, 80, 80, cucumberImg, 0.14);
+	carrot = new Grocery(230, 200, 110, 110, carrotImg, 0.27);
+	watermelon = new Grocery(120, 200, 120, 120, watermelonImg, 1.2);
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
 	groceryList.push(banana, avocado, cucumber, carrot, watermelon, apple);

@@ -1,5 +1,6 @@
 
-//Set variables here
+// her er der ingen functions, da den så crasher. Tænker det er fordi den overrider main functions. 
+
 /**
  * This is a grocery
  */
@@ -36,9 +37,6 @@ class Grocery {
 	}
 
 }
-
-
-
 
 //Setting up our groceries and their picture variables
 // The first two are their placements
@@ -115,16 +113,6 @@ let water; // 0.28
 let waterImg;
 
 
-
-
-
-
-
-
-
-
-// her er der ingen functions, da den så crasher. Tænker det er fordi den overrider main functions. 
-
 /*  Det her er hvad Adara og Line lavede sammen, og er indsat for nemt at sammenligne
 class Grocery {
 	constructor(x, y, sizeX, sizeY, img, co2){
@@ -153,11 +141,7 @@ class Grocery {
 	}
 }
 
-
-
-
 _______ // Den her linje betyder i et andet dokument
-
 
 //alt det her sker i sketch.js
 

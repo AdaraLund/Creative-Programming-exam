@@ -12,6 +12,7 @@ function preload() { // For loading before program is run
 	piCartFront = loadImage('./assets/pinkcartfront.png');
 	backbackground = loadImage('./assets/backbackground.png');
 	frontbackground = loadImage('./assets/frontbackground.png');
+
 	// All the images to our groceries
 	appleImg = loadImage('./assets/apple.png');
 	avocadoImg = loadImage('./assets/avocado.png');
@@ -56,8 +57,8 @@ function setup() {
 
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
-	groceryList.push(banana, avocado, cucumber, carrot, watermelon, apple,water, wine, ryebread, baguette);
-	console.log(groceryList);
+	groceryList.push(banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette);
+	console.log("Grocery list ; " + groceryList);
 }
 
 function draw() {
@@ -71,7 +72,8 @@ function draw() {
 	strokeWeight(0);
 
 	let anyhover = false;
-	//let clicked = false;  ? pseudo to remember
+	let clicked = false; // ? pseudo to remember
+	//console.log("Clicked list ; " + clickedGrocery); // For debugging
 
 
 
@@ -122,37 +124,37 @@ function draw() {
 	image(frontbackground, 1200 / 2, 550 / 2, 1200, 550);
 
 
-		/* Kode jeg nuværende arbejder på
-	for (let i = 0; i < groceryList.length; i++) {
-		if (groceryList[i].mouseClicked()) {
-			//groceryList.pop(i); ? pseudo to remember
-			//clickedGrocery.push(i); ? pseudo to remember
-		}
-	}
+	//Kode jeg nuværende arbejder på
+	//groceryList.pop(i); ? pseudo to remember
+	//clickedGrocery.push(i); ? pseudo to remember
 
+/* 
+Lige nu sætter den i console log hvis en af grocery er klikket.
+Ved brug af function isClicked tjekker den position.
+*/
 	for (let i = 0; i < groceryList.length; i++) {
-		if (groceryList[i].mouseClicked()) {
+		if (groceryList[i].isClicked()) {
 			clicked = true;
 		}
 	}
 	if (clicked === true) {
-		
+		console.log("Clicked!");
 	} else {
-		
+		console.log("No work!");
 	}
 
- */
 
-	// Her skal vi have en funktion hvor der står noget om
-	/* Pseudo kode til husk til næste gang
-	Lav endnu en funktion under class der hedder whenClicked
+	/* 
+	Pseudo kode til husk til næste gang ;
+
+	Lav endnu en funktion under class der hedder whenClicked - Done
 	den skal fjerne/splice det der bliver klikket på fra nuværende GroceryList array
 	og push/tilføje det til et nyt array der er clickedGrocery
 	og clicked grocery så kører igennem;
-		for (let i = 0; i < clickedGrocery.length; i++) {
-			clickedGrocery[i].display();
-	
-		}
+	for (let i = 0; i < clickedGrocery.length; i++) {
+		clickedGrocery[i].display();
+
+	}
 	for at den kommer på det rigtige lag mellem vores frontbackground og back of cart
 	Det er også den måde vi kan tælle CO2 mængde, da vi så bare tager clickedGrocery arrayet 
 	og går igennem hver grocery i dets array, og tilføjer CO2

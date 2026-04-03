@@ -35,29 +35,47 @@ class Grocery {
 			return false;
 		}
 	}
+	
+	/**
+* Our click function
+	*/
+
+	isClicked() {
+		if (mouseIsPressed === true && mouseX > this.x - this.sizeX / 2 && mouseX < this.x + this.sizeX / 2 && mouseY > this.y - this.sizeY / 2 && mouseY < this.y + this.sizeX / 2) {
+			return true;
+			this.x = 200; // hvorfor er den unavailabe??
+
+		} else {
+			return false;
+		}
+	}
+
 
 	/*
-mouseClicked(mouseX > this.x - this.sizeX / 2 && mouseX < this.x + this.sizeX / 2 && mouseY > this.y - this.sizeY / 2 && mouseY < this.y + this.sizeX / 2) {
-  // Code to run that uses the event.
-  console.log("click!");
+
+
+
+mouseClicked( {
+// Code to run that uses the event.
+console.log("click!!!");
 }
-
-		/* Kode jeg nuværende arbejder på
-	mouseClicked() {
-		if (mouseX > this.x - this.sizeX / 2 && mouseX < this.x + this.sizeX / 2 && mouseY > this.y - this.sizeY / 2 && mouseY < this.y + this.sizeX / 2) {
-		//	this.x = 0.9 * this.x + 0.1 * random(530,657);
-		//	this.y = 0.9 * this.y + 0.1 * random(453,544);
-			console.log("click!");
-		}
-
-		if (mouseY > 50) {
-			// Code to run if the mouse is near the bottom.
-		}
-
-
-		
+*/
+	/* Kode jeg nuværende arbejder på
+mouseClicked() {
+	if (mouseX > this.x - this.sizeX / 2 && mouseX < this.x + this.sizeX / 2 && mouseY > this.y - this.sizeY / 2 && mouseY < this.y + this.sizeX / 2) {
+					this.x = 0.9 * this.x + 0.1 * random(530,657);
+					this.y = 0.9 * this.y + 0.1 * random(453,544);
+		console.log("click!");
 	}
-		*/
+
+	if (mouseY > 50) {
+		// Code to run if the mouse is near the bottom.
+	}
+
+
+	
+}
+	*/
 }
 
 

@@ -1,5 +1,6 @@
 //Set variables here
 let groceryList = [];
+let clickedGrocery = [];
 let receiptFont;
 let paperTexture;
 
@@ -18,6 +19,11 @@ function preload() { // For loading before program is run
 	cucumberImg = loadImage('./assets/cucumber.png');
 	carrotImg = loadImage('./assets/carrot.png');
 	watermelonImg = loadImage('./assets/watermelon.png');
+	waterImg = loadImage('./assets/water.png');
+	wineImg = loadImage('./assets/wine.png');
+	ryebreadImg = loadImage('./assets/rugbr.png');
+	baguetteImg = loadImage('./assets/baguette.png');
+
 
 	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
 	paperTexture = loadImage('./assets/paperTexture.png');
@@ -42,9 +48,15 @@ function setup() {
 	cucumber = new Grocery(550, 395, 80, 80, cucumberImg, 0.14);
 	carrot = new Grocery(690, 290, 110, 110, carrotImg, 0.27);
 	watermelon = new Grocery(800, 400, 100, 100, watermelonImg, 1.2);
+	water = new Grocery(180, 95, 30, 70, waterImg, 0.28);
+	wine = new Grocery(300, 165, 25, 70, wineImg, 1.24);
+	ryebread = new Grocery(400, 170, 40, 70, ryebreadImg, 1.02);
+	baguette = new Grocery(500, 170, 80, 80, baguetteImg, 0.81);
+
+
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
-	groceryList.push(banana, avocado, cucumber, carrot, watermelon, apple);
+	groceryList.push(banana, avocado, cucumber, carrot, watermelon, apple,water, wine, ryebread, baguette);
 	console.log(groceryList);
 }
 
@@ -59,6 +71,7 @@ function draw() {
 	strokeWeight(0);
 
 	let anyhover = false;
+	//let clicked = false;  ? pseudo to remember
 
 
 
@@ -88,16 +101,11 @@ function draw() {
 	}
 
 	/*
-	Prøver hover ved funktion, men lige nu kan man kun se sidste element i array
-	Jeg prøver at finde en måde, hvor det er dem alle. 
-	
-	
-		for(let i = 0; i < groceryList.length; i++) {
-			groceryList[i].hoverCursor();
-	
-		}
-		*/
-
+	 isHovering funktionen handler om at den tager true/false fra "anyhover",
+	 hvor den tjekker om den hover over en af objekterne, og returner true hvis hover, 
+	 false hvis ikke hover. 
+	 så den automatisk ændrer cursor state når man hover sin mus over en af objekterne.
+	*/
 
 	for (let i = 0; i < groceryList.length; i++) {
 		if (groceryList[i].isHovering()) {
@@ -110,14 +118,30 @@ function draw() {
 		cursor(ARROW);
 	}
 
-
-
-
-
-
-
 	//front of cart - skal være det forreste lag
 	image(frontbackground, 1200 / 2, 550 / 2, 1200, 550);
+
+
+		/* Kode jeg nuværende arbejder på
+	for (let i = 0; i < groceryList.length; i++) {
+		if (groceryList[i].mouseClicked()) {
+			//groceryList.pop(i); ? pseudo to remember
+			//clickedGrocery.push(i); ? pseudo to remember
+		}
+	}
+
+	for (let i = 0; i < groceryList.length; i++) {
+		if (groceryList[i].mouseClicked()) {
+			clicked = true;
+		}
+	}
+	if (clicked === true) {
+		
+	} else {
+		
+	}
+
+ */
 
 	// Her skal vi have en funktion hvor der står noget om
 	/* Pseudo kode til husk til næste gang

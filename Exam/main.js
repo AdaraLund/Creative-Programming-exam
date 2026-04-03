@@ -73,7 +73,6 @@ function draw() {
 
 	let anyhover = false;
 	let clicked = false; // ? pseudo to remember
-	//console.log("Clicked list ; " + clickedGrocery); // For debugging
 
 
 
@@ -128,20 +127,29 @@ function draw() {
 	//groceryList.pop(i); ? pseudo to remember
 	//clickedGrocery.push(i); ? pseudo to remember
 
-/* 
-Lige nu sætter den i console log hvis en af grocery er klikket.
-Ved brug af function isClicked tjekker den position.
-*/
+	/* 
+	Lige nu sætter den i console log hvis en af grocery er klikket.
+	Ved brug af function isClicked tjekker den position.
+	*/
+
+
 	for (let i = 0; i < groceryList.length; i++) {
 		if (groceryList[i].isClicked()) {
-			clicked = true;
+			console.log(groceryList[i]); // Debugging
+			console.log("Clicked list ; " + clickedGrocery); // For debugging
+			console.log("Clicked!"); //debugging
+
+			clickedGrocery.push(groceryList[i]); // Push clicked object to different array
+			groceryList.splice(i,1); // This takes the i placement in our array and removes 1 element, which is the i spot
+			
+		} else {
+
+			console.log("No work!"); //debugging
 		}
+
+
 	}
-	if (clicked === true) {
-		console.log("Clicked!");
-	} else {
-		console.log("No work!");
-	}
+
 
 
 	/* 

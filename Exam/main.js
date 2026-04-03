@@ -55,10 +55,9 @@ function setup() {
 	baguette = new Grocery(500, 170, 80, 80, baguetteImg, 0.81);
 
 
-
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
 	groceryList.push(banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette);
-	console.log("Grocery list ; " + groceryList);
+	console.log("Grocery list; " + groceryList.length + " objects");
 }
 
 function draw() {
@@ -72,10 +71,6 @@ function draw() {
 	strokeWeight(0);
 
 	let anyhover = false;
-	let clicked = false; // ? pseudo to remember
-
-
-
 
 	// recipt
 	fill(246, 236, 215, 0); // (pt. usynlig firkant bag kvittering (0 = alpha)
@@ -90,6 +85,9 @@ function draw() {
 	text("CO2 Calculator", 930 + 200 / 2, 100);
 
 
+	// Adaras note til Casandra; hvis du bruger clickedGrocery arrayet, så er det dem i vores kurv, i stedet for at tælle x og y.
+
+
 	/*
 	Går igennem arrayet med vores groceries
 	For hver af elementerne i vores array kalder den i vores Grocery Class
@@ -97,7 +95,7 @@ function draw() {
 	Den placerer så alle billederne.
 	*/
 	for (let i = 0; i < groceryList.length; i++) {
-		groceryList[i].display();
+		groceryList[i].displayGrocery();
 
 	}
 
@@ -119,59 +117,33 @@ function draw() {
 		cursor(ARROW);
 	}
 
-	//front of cart - skal være det forreste lag
+	//front of cart - skal være foran grocerylist display
 	image(frontbackground, 1200 / 2, 550 / 2, 1200, 550);
 
 
-	//Kode jeg nuværende arbejder på
-	//groceryList.pop(i); ? pseudo to remember
-	//clickedGrocery.push(i); ? pseudo to remember
-
-	/* 
-	Lige nu sætter den i console log hvis en af grocery er klikket.
-	Ved brug af function isClicked tjekker den position.
-	*/
-
-
+	//Hvis et objekt klikkes på bliver det pushet fra et array ind i et andet array.
 	for (let i = 0; i < groceryList.length; i++) {
 		if (groceryList[i].isClicked()) {
-			console.log(groceryList[i]); // Debugging
-			console.log("Clicked list ; " + clickedGrocery); // For debugging
 			console.log("Clicked!"); //debugging
 
 			clickedGrocery.push(groceryList[i]); // Push clicked object to different array
 			groceryList.splice(i,1); // This takes the i placement in our array and removes 1 element, which is the i spot
-			
-		} else {
 
+		} else {
 			console.log("No work!"); //debugging
 		}
-
-
 	}
-
-
-
-	/* 
-	Pseudo kode til husk til næste gang ;
-
-	Lav endnu en funktion under class der hedder whenClicked - Done
-	den skal fjerne/splice det der bliver klikket på fra nuværende GroceryList array
-	og push/tilføje det til et nyt array der er clickedGrocery
-	og clicked grocery så kører igennem;
-	for (let i = 0; i < clickedGrocery.length; i++) {
-		clickedGrocery[i].display();
-
-	}
-	for at den kommer på det rigtige lag mellem vores frontbackground og back of cart
-	Det er også den måde vi kan tælle CO2 mængde, da vi så bare tager clickedGrocery arrayet 
-	og går igennem hver grocery i dets array, og tilføjer CO2
-	*/
 
 	//cart back 
 	image(piCartBack, 600, 470, 270, 170);
-	image(piCartFront, 595, 510, 220, 120);
 
+// Denne displayer vores clickedGrocery array i stedet for originale groceryList
+	for (let i = 0; i < clickedGrocery.length; i++) {
+		clickedGrocery[i].displayClickedGrocery();
+	}
+
+	//front of cart, always at the end
+	image(piCartFront, 595, 510, 220, 120);
 }
 
 

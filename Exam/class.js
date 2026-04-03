@@ -14,7 +14,7 @@ class Grocery {
 		this.CO2 = CO2;
 	}
 
-	display() {
+	displayGrocery() {
 		image(this.img, this.x, this.y, this.sizeX, this.sizeY);
 	}
 
@@ -50,9 +50,15 @@ class Grocery {
 
 
 
+		displayClickedGrocery() { // Denne display tager vores clickedGrocery array i stedet for originale groceryList
+		image(this.img, this.x, this.y, this.sizeX, this.sizeY);
+		this.y = 460; // midlertidigt placering for at man kan se at der sker noget
+	}
+
+
 	easing() { // next project
 
-		/*
+		/* Kode taget fra Ties, men med vores kurv x og y
 		this.x = 0.9 * this.x + 0.1 * random(530,657);
 		this.y = 0.9 * this.y + 0.1 * random(453,544);
 		

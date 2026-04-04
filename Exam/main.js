@@ -121,7 +121,9 @@ function draw() {
 	textSize(14);
 	textFont(receiptFont);
 
-	strokeWeight(1);
+	// streg 1
+	strokeWeight(0.5);
+	drawingContext.setLineDash([3, 3]); // længde på streg, længde på mellemrum
 	line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
 
 	for (let i = 0; i < clickedGrocery.length; i++) {
@@ -139,18 +141,22 @@ function draw() {
 
 	// vis kun total hvis der er mindst én vare i kurven
 	if (clickedGrocery.length > 0) { // Gør at der kun står total hvis der er mindst én vare i kurven. Ellers vises intet.
-		strokeWeight(1);
-		line(receiptLeft, receiptY - 15, receiptRight, receiptY - 15);
+		
+		// streg 2
+		strokeWeight(0.5);
+		drawingContext.setLineDash([3, 3]);
+		line(receiptLeft, receiptY - 10, receiptRight, receiptY - 10);
+		drawingContext.setLineDash([]);
 
 		receiptY += 15; // lidt ekstra luft før totallinjen
 		textSize(16); // gør total større end teksten 
 
 		textAlign(LEFT);
-		text("Total CO2 KG", receiptLeft, receiptY);
+		text("TOTAL CO2", receiptLeft, receiptY);
 
 		textAlign(RIGHT);
-		text(totalCO2.toFixed(2), receiptRight, receiptY);  // toFixed(2) runder af til 2 decimaler
-		//text(totalCO2.toFixed(2) + "CO2 KG", receiptRight, receiptY);  vil vi helst have "co2 kg" til venstre eller højre?
+		// text(totalCO2.toFixed(2), receiptRight, receiptY);  // toFixed(2) runder af til 2 decimaler
+		text(totalCO2.toFixed(2) + " KG", receiptRight, receiptY); //  vil vi helst have "co2 kg" til venstre eller højre?
 	}
 
 	textAlign(LEFT);

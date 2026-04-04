@@ -24,6 +24,12 @@ function preload() { // For loading before program is run
 	wineImg = loadImage('./assets/wine.png');
 	ryebreadImg = loadImage('./assets/rugbr.png');
 	baguetteImg = loadImage('./assets/baguette.png');
+	toastImg = loadImage('./assets/toast.png');
+	beerImg = loadImage('./assets/beer.png');
+	cookiesImg = loadImage('./assets/cookie.png');
+	milkImg = loadImage('./assets/milk.png');
+	oatMilkImg = loadImage('./assets/oatmilk.png');
+	sodaImg = loadImage('./assets/soda.png');
 
 
 	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
@@ -57,10 +63,16 @@ function setup() {
 	wine = new Grocery(300, 165, 25, 70, wineImg, 1.24, "Wine");
 	ryebread = new Grocery(400, 170, 40, 70, ryebreadImg, 1.02, "Ryebread");
 	baguette = new Grocery(500, 170, 80, 80, baguetteImg, 0.81, "Baguette");
+	toast = new Grocery(600, 170, 70, 80, toastImg, 0.81, "Toast");
+	beer = new Grocery(140, 92, 40, 70, beerImg, 0.22, "Beer");
+	cookies = new Grocery(820, 170, 90, 40, cookiesImg, 0.73, "Cookies");
+	milk = new Grocery(100, 162, 40, 70, milkImg, 0.50, "Milk");
+	oatMilk = new Grocery(160, 165, 40, 70, oatMilkImg, 0.40, "Oatmilk");
+	soda = new Grocery(185, 235, 40, 70, sodaImg, 0.40, "Soda");
 
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
-	groceryList.push(banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette);
+	groceryList.push(soda, oatMilk, milk, cookies, beer, banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette, toast);
 	console.log("Grocery list; " + groceryList.length + " objects");
 }
 
@@ -169,27 +181,27 @@ function draw() {
 			let item = groceryList[i]; // Vi gemmer objektet som blev klikket
 
 			// X og Y koordinator for at produkterne kan være inde i kurven.
-		item.targetX = random(550, 650); 
-		item.targetY = random(430, 530);
-		item.isMoving = true;
+			item.targetX = random(550, 650);
+			item.targetY = random(430, 530);
+			item.isMoving = true;
 			// så flytter vi objektet fra groceryList til clickedGrocery, som er når de er i kurven.
-		clickedGrocery.push(item);
+			clickedGrocery.push(item);
 
 			clickedGrocery.push(groceryList[i]); // Push clicked object to different array
-			groceryList.splice(i,1); // This takes the i placement in our array and removes 1 element, which is the i spot
+			groceryList.splice(i, 1); // This takes the i placement in our array and removes 1 element, which is the i spot
 
 		} else {
 			console.log("No work!"); //debugging
 		}
 	}
-		
+
 
 
 
 	//cart back 
 	image(piCartBack, 600, 470, 270, 170);
 
-// Denne displayer vores clickedGrocery array i stedet for originale groceryList
+	// Denne displayer vores clickedGrocery array i stedet for originale groceryList
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		clickedGrocery[i].displayClickedGrocery();
 	}

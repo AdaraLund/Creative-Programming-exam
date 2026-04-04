@@ -67,7 +67,7 @@ class Grocery {
 	}
 
 
-	easing() { // next project
+	easing() { // 
 
 		// vi flytter objektet gradvist mod positionen
 		this.x = 0.92 * this.x + 0.08 * this.targetX;

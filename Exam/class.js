@@ -16,7 +16,7 @@ class Grocery {
 		// Jeg har added dette ift easing, for Target X og Y, hvor objektet skal besæve sig til.
 		this.targetX = x;
 		this.targetY = y;
-		this.isMoving = false; //Omhandler om objektet skal animere hen imod sit target (easing)
+		this.isMoving = false; //vi spørger om objekter er i bevægelse for at afgøre om den skal trækkes til kurv
 	}
 
 	displayGrocery() {

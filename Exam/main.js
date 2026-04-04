@@ -90,15 +90,15 @@ function draw() {
 
 	// recipt
 	fill(246, 236, 215, 0); // (pt. usynlig firkant bag kvittering (0 = alpha)
-	rect(930, 50, 200, 380);
-	image(paperTexture, 930 + 200 / 2, 65 + 380 / 2, 320, 580); // Hard coding
+	rect(970, 50, 200, 380);
+	image(paperTexture, 970 + 200 / 2, 65 + 380 / 2, 320, 580); // Hard coding
 
 	// recipt, title
 	fill(0);
 	textSize(20);
 	textAlign(CENTER);
 	textFont(receiptFont);
-	text("CO2 SHOPPING", 930 + 200 / 2, 100);
+	text("CO2 SHOPPING", 970 + 200 / 2, 100);
 
 
 	// Adaras note til Casandra; hvis du bruger clickedGrocery arrayet, så er det dem i vores kurv, i stedet for at tælle x og y.
@@ -109,7 +109,7 @@ function draw() {
 
 	let totalCO2 = 0;
 	let receiptY = 130; // startposition for tekst på kvitteringen
-	let receiptX = 1120;
+	let receiptX = 1150;
 
 	textSize(16);
 	textFont(receiptFont);
@@ -118,7 +118,7 @@ function draw() {
 		let item = clickedGrocery[i];
 
 		textAlign(LEFT);
-		text(item.itemName, 950, receiptY);
+		text(item.itemName, 980, receiptY);
 
 		textAlign(RIGHT);
 		text(item.CO2 + " kg", receiptX, receiptY);
@@ -132,7 +132,7 @@ function draw() {
 		textSize(18); // gør titlen større end teksten 
 
 		textAlign(LEFT);
-		text("Total:", 950, receiptY);
+		text("Total:", 980, receiptY);
 
 		textAlign(RIGHT);
 		text(totalCO2.toFixed(2) + " kg CO2", receiptX, receiptY);

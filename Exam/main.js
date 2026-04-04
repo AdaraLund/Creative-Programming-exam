@@ -166,7 +166,7 @@ function draw() {
 
 			// X og Y koordinator for at produkterne kan være inde i kurven.
 		item.targetX = random(550, 650); 
-		item.targetY = random(400, 530);
+		item.targetY = random(430, 530);
 		item.isMoving = true;
 			// så flytter vi objektet fra groceryList til clickedGrocery, som er når de er i kurven.
 		clickedGrocery.push(item);

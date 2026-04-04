@@ -109,7 +109,8 @@ function draw() {
 
 	let totalCO2 = 0;
 	let receiptY = 130; // startposition for tekst på kvitteringen
-	let receiptX = 1150;
+	let receiptLeft = 985;
+	let receiptRight = 1160;
 
 	textSize(16);
 	textFont(receiptFont);
@@ -118,10 +119,10 @@ function draw() {
 		let item = clickedGrocery[i];
 
 		textAlign(LEFT);
-		text(item.itemName, 980, receiptY);
+		text(item.itemName, receiptLeft, receiptY);
 
 		textAlign(RIGHT);
-		text(item.CO2 + " kg", receiptX, receiptY);
+		text(item.CO2 + " kg", receiptRight, receiptY);
 
 		totalCO2 += item.CO2; // tag det tal der allerede er i 'totalCO2+' -> læg 'item.CO2' oveni -> gem resultatet
 		receiptY += 35; // rykker x antal pixel ned for hver tilføjet item
@@ -132,10 +133,10 @@ function draw() {
 		textSize(18); // gør titlen større end teksten 
 
 		textAlign(LEFT);
-		text("Total:", 980, receiptY);
+		text("Total", receiptLeft, receiptY);
 
 		textAlign(RIGHT);
-		text(totalCO2.toFixed(2) + " kg CO2", receiptX, receiptY);
+		text(totalCO2.toFixed(2) + " kg CO2", receiptRight, receiptY);
 	}
 
 	textAlign(LEFT);

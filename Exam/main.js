@@ -28,6 +28,10 @@ function preload() { // For loading before program is run
 
 	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
 	paperTexture = loadImage('./assets/paperTexture.png');
+
+	// sound
+	sound = loadImage('./assets/sound.png')
+	sound = loadImage('./assets/Nosound.png')
 }
 
 function setup() {
@@ -192,6 +196,10 @@ function draw() {
 
 	//front of cart, always at the end
 	image(piCartFront, 595, 510, 220, 120);
+
+	// little sound symbol
+	image(sound, 1160, 30, 40, 40);
+	// image(Nosound, 1160, 30, 40, 40); skal vise når den bliver trykket på
 }
 
 

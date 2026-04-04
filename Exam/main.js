@@ -43,16 +43,16 @@ function setup() {
 	//dimensioner er forkert
 	// placering er forkert
 
-	apple = new Grocery(330, 390, 60, 60, appleImg, 0.61);
-	banana = new Grocery(470, 290, 80, 80, bananaImg, 1.02);
-	avocado = new Grocery(340, 300, 70, 50, avocadoImg, 0.73);
-	cucumber = new Grocery(550, 395, 80, 80, cucumberImg, 0.14);
-	carrot = new Grocery(690, 290, 110, 110, carrotImg, 0.27);
-	watermelon = new Grocery(800, 400, 100, 100, watermelonImg, 1.2);
-	water = new Grocery(180, 95, 30, 70, waterImg, 0.28);
-	wine = new Grocery(300, 165, 25, 70, wineImg, 1.24);
-	ryebread = new Grocery(400, 170, 40, 70, ryebreadImg, 1.02);
-	baguette = new Grocery(500, 170, 80, 80, baguetteImg, 0.81);
+	apple = new Grocery(330, 390, 60, 60, appleImg, 0.61, "Apple");
+	banana = new Grocery(470, 290, 80, 80, bananaImg, 1.02, "Banana");
+	avocado = new Grocery(340, 300, 70, 50, avocadoImg, 0.73, "Avocado");
+	cucumber = new Grocery(550, 395, 80, 80, cucumberImg, 0.14, "Cucumber");
+	carrot = new Grocery(690, 290, 110, 110, carrotImg, 0.27, "Carrot");
+	watermelon = new Grocery(800, 400, 100, 100, watermelonImg, 1.2, "Watermelon");
+	water = new Grocery(180, 95, 30, 70, waterImg, 0.28, "Water");
+	wine = new Grocery(300, 165, 25, 70, wineImg, 1.24, "Wine");
+	ryebread = new Grocery(400, 170, 40, 70, ryebreadImg, 1.02, "Ryebread");
+	baguette = new Grocery(500, 170, 80, 80, baguetteImg, 0.81, "Baguette");
 
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
@@ -82,10 +82,47 @@ function draw() {
 	textSize(20);
 	textAlign(CENTER);
 	textFont(receiptFont);
-	text("CO2 Calculator", 930 + 200 / 2, 100);
+	text("CO2 SHOPPING", 930 + 200 / 2, 100);
 
 
 	// Adaras note til Casandra; hvis du bruger clickedGrocery arrayet, så er det dem i vores kurv, i stedet for at tælle x og y.
+
+	/* På kvitteirngen: Vis CO2 for hver vare i clickedGrocery arrayet + beregn total
+	Derudover  textAlign for at give kvitterings layoutet
+	*/
+
+	let totalCO2 = 0;
+	let receiptY = 130; // startposition for tekst på kvitteringen
+
+	textSize(16);
+	textFont(receiptFont);
+
+	for (let i = 0; i < clickedGrocery.length; i++) {
+		let item = clickedGrocery[i];
+
+		textAlign(LEFT);
+		text(item.itemName, 950, receiptY);
+
+		textAlign(RIGHT);
+		text(item.CO2 + " kg", 1120, receiptY);
+
+		totalCO2 += item.CO2; // tag det tal der allerede er i 'totalCO2+' -> læg 'item.CO2' oveni -> gem resultatet
+		receiptY += 35; // rykker x antal pixel ned for hver tilføjet item
+	}
+
+	if (clickedGrocery.length > 0) {
+		line(945, receiptY, 1120, receiptY);
+		receiptY += 15;
+		textSize(16);
+
+		textAlign(LEFT);
+		text("Total:", 950, receiptY);
+
+		textAlign(RIGHT);
+		text(totalCO2.toFixed(2) + " kg CO2", 1120, receiptY);
+	}
+
+	textAlign(LEFT);
 
 
 	/*

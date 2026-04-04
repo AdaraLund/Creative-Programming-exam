@@ -5,13 +5,14 @@
  * This is a grocery
  */
 class Grocery {
-	constructor(x, y, sizeX, sizeY, img, CO2) {
+	constructor(x, y, sizeX, sizeY, img, CO2, itemName) {
 		this.x = x;
 		this.y = y;
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		this.img = img;
 		this.CO2 = CO2;
+		this.itemName = itemName;
 	}
 
 	displayGrocery() {

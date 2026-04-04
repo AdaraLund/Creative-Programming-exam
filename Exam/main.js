@@ -1,9 +1,6 @@
 //Set variables here
 let groceryList = [];
 let clickedGrocery = [];
-let receiptFont;
-let paperTexture;
-
 
 
 function preload() { // For loading before program is run
@@ -88,12 +85,20 @@ function draw() {
 
 	let anyhover = false;
 
-	// recipt
-	fill(246, 236, 215, 0); // (pt. usynlig firkant bag kvittering (0 = alpha)
-	rect(970, 50, 200, 380);
-	image(paperTexture, 970 + 200 / 2, 65 + 380 / 2, 320, 580); // Hard coding
+	// Recipt box
+	let receiptX = 970; // start-position fra venstre  
+	let receiptTopY = 10; // start-position fra toppen 
+	let receiptW = 200;  // bredde 
+	let receiptH = 500;  // højde 
 
-	// recipt, title
+	fill(246, 236, 215, 0); // (pt. usynlig firkant bag kvittering (0 = alpha)
+	rect(receiptX, receiptTopY, receiptW, receiptH); // den usynlige boks der definerer kvitteringens område
+	image(paperTexture, receiptX + receiptW / 2, receiptTopY + receiptH / 2, receiptW + 210, receiptH + 20); 
+	// paperTexture placeres i midten af boksen (derfor + bredde/2 og + højde/2)
+	// de sidste to tal er størrelsen sat til receiptW og receiptH så den passer præcis
+
+
+	// Recipt, title
 	fill(0);
 	textSize(20);
 	textAlign(CENTER);
@@ -103,14 +108,15 @@ function draw() {
 
 	// Adaras note til Casandra; hvis du bruger clickedGrocery arrayet, så er det dem i vores kurv, i stedet for at tælle x og y.
 
-	/* På kvitteirngen: Vis CO2 for hver vare i clickedGrocery arrayet + beregn total
-	Derudover  textAlign for at give kvitterings layoutet
+	/* 
+	På kvitteirngen vises CO2 for hver vare i clickedGrocery arrayet. Derefter beregnes total
+	textAlign der skifter fra left and right er for at give kvitterings layoutet
 	*/
 
 	let totalCO2 = 0;
-	let receiptY = 130; // startposition for tekst på kvitteringen
-	let receiptLeft = 985;
-	let receiptRight = 1160;
+	let receiptY = 130; // startposition for tekst på kvitteringen fra toppen
+	let receiptLeft = 995; // x-position for venstre tekst (varenavne)
+	let receiptRight = 1145; // x-position for højre tekst (CO2-værdier)
 
 	textSize(16);
 	textFont(receiptFont);
@@ -124,19 +130,20 @@ function draw() {
 		textAlign(RIGHT);
 		text(item.CO2 + " kg", receiptRight, receiptY);
 
-		totalCO2 += item.CO2; // tag det tal der allerede er i 'totalCO2+' -> læg 'item.CO2' oveni -> gem resultatet
-		receiptY += 35; // rykker x antal pixel ned for hver tilføjet item
+		totalCO2 += item.CO2; // læg varens CO2 til totalen
+		receiptY += 35; // rykker x antal pixel ned for hver tilføjet item 
 	}
 
+	// vis kun total hvis der er mindst én vare i kurven
 	if (clickedGrocery.length > 0) { // Gør at der kun står total hvis der er mindst én vare i kurven. Ellers vises intet.
-		receiptY += 15;
-		textSize(18); // gør titlen større end teksten 
+		receiptY += 15; // lidt ekstra luft før totallinjen
+		textSize(18); // gør total større end teksten 
 
 		textAlign(LEFT);
 		text("Total", receiptLeft, receiptY);
 
 		textAlign(RIGHT);
-		text(totalCO2.toFixed(2) + " kg CO2", receiptRight, receiptY);
+		text(totalCO2.toFixed(2) + " kg CO2", receiptRight, receiptY);  // toFixed(2) runder af til 2 decimaler
 	}
 
 	textAlign(LEFT);
@@ -186,7 +193,7 @@ function draw() {
 			item.targetY = random(430, 530);
 			item.isMoving = true;
 			// så flytter vi objektet fra groceryList til clickedGrocery, som er når de er i kurven.
-			clickedGrocery.push(item);
+			// clickedGrocery.push(item); Dette dobbelt-pusher. Må det slettes? :)
 
 			clickedGrocery.push(groceryList[i]); // Push clicked object to different array
 			groceryList.splice(i, 1); // This takes the i placement in our array and removes 1 element, which is the i spot
@@ -195,8 +202,6 @@ function draw() {
 			console.log("No work!"); //debugging
 		}
 	}
-
-
 
 
 	//cart back 
@@ -216,7 +221,17 @@ function draw() {
 }
 
 
+/*
+function mousePressed() {
+    for (let i = 0; i < groceryList.length; i++) { // Der gåes igennem alle produkter en efter en
+        if (groceryList[i].isHovering()) { // genbruger isHovering til at tjekke hvilket produkt der er blevet trykket på
+            clickedGrocery.push(groceryList[i]); // Den vare musen er henover bliver skubbet over i kurv-arrayet.
+            groceryList.splice(i, 1); // Den samme vare bliver fjernet fra butiks-arrayet, så den ikke vises på hylden længere.
+            break; // stopper loopet så kun én vare tilføjes per klik
+        }
+    }
+}
 
-
-
-
+mouseIsPressed = "holder du musen nede lige nu?". Det var true i mange frames, aka. fejl
+mousePressed() = "blev der klikket?" Tælles kun én gang
+*/

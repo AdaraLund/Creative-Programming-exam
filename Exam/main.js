@@ -88,7 +88,7 @@ function draw() {
 	// Recipt box
 	let receiptX = 970; // start-position fra venstre  
 	let receiptTopY = 10; // start-position fra toppen 
-	let receiptW = 200;  // bredde 
+	let receiptW = 230;  // bredde 
 	let receiptH = 500;  // højde 
 
 	fill(246, 236, 215, 0); // (pt. usynlig firkant bag kvittering (0 = alpha)
@@ -103,7 +103,7 @@ function draw() {
 	textSize(20);
 	textAlign(CENTER);
 	textFont(receiptFont);
-	text("CO2 SHOPPING", 970 + 200 / 2, 100);
+	text("CO2 SHOPPING", receiptX + receiptW / 2, 100);
 
 
 	// Adaras note til Casandra; hvis du bruger clickedGrocery arrayet, så er det dem i vores kurv, i stedet for at tælle x og y.
@@ -115,11 +115,14 @@ function draw() {
 
 	let totalCO2 = 0;
 	let receiptY = 130; // startposition for tekst på kvitteringen fra toppen
-	let receiptLeft = 995; // x-position for venstre tekst (varenavne)
-	let receiptRight = 1145; // x-position for højre tekst (CO2-værdier)
+	let receiptLeft = 1005; // x-position for venstre tekst (varenavne)
+	let receiptRight = 1160; // x-position for højre tekst (CO2-værdier)
 
-	textSize(16);
+	textSize(14);
 	textFont(receiptFont);
+
+	strokeWeight(1);
+	line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
 
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		let item = clickedGrocery[i];
@@ -131,19 +134,23 @@ function draw() {
 		text(item.CO2 + " kg", receiptRight, receiptY);
 
 		totalCO2 += item.CO2; // læg varens CO2 til totalen
-		receiptY += 35; // rykker x antal pixel ned for hver tilføjet item 
+		receiptY += 25; // rykker x antal pixel ned for hver tilføjet item 
 	}
 
 	// vis kun total hvis der er mindst én vare i kurven
 	if (clickedGrocery.length > 0) { // Gør at der kun står total hvis der er mindst én vare i kurven. Ellers vises intet.
+		strokeWeight(1);
+		line(receiptLeft, receiptY - 15, receiptRight, receiptY - 15);
+
 		receiptY += 15; // lidt ekstra luft før totallinjen
-		textSize(18); // gør total større end teksten 
+		textSize(16); // gør total større end teksten 
 
 		textAlign(LEFT);
-		text("Total", receiptLeft, receiptY);
+		text("Total CO2 KG", receiptLeft, receiptY);
 
 		textAlign(RIGHT);
-		text(totalCO2.toFixed(2) + " kg CO2", receiptRight, receiptY);  // toFixed(2) runder af til 2 decimaler
+		text(totalCO2.toFixed(2), receiptRight, receiptY);  // toFixed(2) runder af til 2 decimaler
+		//text(totalCO2.toFixed(2) + "CO2 KG", receiptRight, receiptY);  vil vi helst have "co2 kg" til venstre eller højre?
 	}
 
 	textAlign(LEFT);

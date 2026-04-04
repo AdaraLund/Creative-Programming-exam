@@ -93,6 +93,7 @@ function draw() {
 
 	let totalCO2 = 0;
 	let receiptY = 130; // startposition for tekst på kvitteringen
+	let receiptX = 1120;
 
 	textSize(16);
 	textFont(receiptFont);
@@ -104,22 +105,21 @@ function draw() {
 		text(item.itemName, 950, receiptY);
 
 		textAlign(RIGHT);
-		text(item.CO2 + " kg", 1120, receiptY);
+		text(item.CO2 + " kg", receiptX, receiptY);
 
 		totalCO2 += item.CO2; // tag det tal der allerede er i 'totalCO2+' -> læg 'item.CO2' oveni -> gem resultatet
 		receiptY += 35; // rykker x antal pixel ned for hver tilføjet item
 	}
 
-	if (clickedGrocery.length > 0) {
-		line(945, receiptY, 1120, receiptY);
+	if (clickedGrocery.length > 0) { // Gør at der kun står total hvis der er mindst én vare i kurven. Ellers vises intet.
 		receiptY += 15;
-		textSize(16);
+		textSize(18); // gør titlen større end teksten 
 
 		textAlign(LEFT);
 		text("Total:", 950, receiptY);
 
 		textAlign(RIGHT);
-		text(totalCO2.toFixed(2) + " kg CO2", 1120, receiptY);
+		text(totalCO2.toFixed(2) + " kg CO2", receiptX, receiptY);
 	}
 
 	textAlign(LEFT);

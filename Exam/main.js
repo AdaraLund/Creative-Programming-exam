@@ -162,6 +162,14 @@ function draw() {
 	for (let i = 0; i < groceryList.length; i++) {
 		if (groceryList[i].isClicked()) {
 			console.log("Clicked!"); //debugging
+			let item = groceryList[i]; // Vi gemmer objektet som blev klikket
+
+			// X og Y koordinator for at produkterne kan være inde i kurven.
+		item.targetX = random(550, 650); 
+		item.targetY = random(400, 530);
+		item.isMoving = true;
+			// så flytter vi objektet fra groceryList til clickedGrocery, som er når de er i kurven.
+		clickedGrocery.push(item);
 
 			clickedGrocery.push(groceryList[i]); // Push clicked object to different array
 			groceryList.splice(i,1); // This takes the i placement in our array and removes 1 element, which is the i spot
@@ -170,6 +178,9 @@ function draw() {
 			console.log("No work!"); //debugging
 		}
 	}
+		
+
+
 
 	//cart back 
 	image(piCartBack, 600, 470, 270, 170);

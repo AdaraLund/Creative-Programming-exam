@@ -68,7 +68,7 @@ function setup() {
 	cookies = new Grocery(820, 170, 90, 40, cookiesImg, 0.73, "Cookies");
 	milk = new Grocery(100, 162, 40, 70, milkImg, 0.50, "Milk");
 	oatMilk = new Grocery(160, 165, 40, 70, oatMilkImg, 0.40, "Oatmilk");
-	soda = new Grocery(185, 235, 40, 70, sodaImg, 0.40, "Soda");
+	soda = new Grocery(185, 235, 40, 70, sodaImg, 0.88, "Soda");
 
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning

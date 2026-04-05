@@ -2,6 +2,8 @@
 let groceryList = [];
 let clickedGrocery = [];
 
+let soundOn = true;
+
 
 function preload() { // For loading before program is run
 	// cart and background
@@ -34,7 +36,9 @@ function preload() { // For loading before program is run
 
 	// sound pictures
 	sound = loadImage('./assets/sound.png')
-	sound = loadImage('./assets/Nosound.png')
+	noSound = loadImage('./assets/noSound.png')
+
+
 }
 
 function setup() {
@@ -235,11 +239,27 @@ function draw() {
 	//front of cart, always at the end
 	image(piCartFront, 595, 510, 220, 120);
 
-	// little sound symbol
-	image(sound, 1160, 30, 40, 40);
-	// image(Nosound, 1160, 30, 40, 40); skal vise når den bliver trykket på
+	// images for sound on/off image
+	if (soundOn) {
+		image(sound, 1160, 30, 40, 40);
+	} else {
+		image(noSound, 1160, 30, 40, 40);
+	}
 }
 
+function mousePressed() {
+    // here we check if the mouse is clicking on the x and y positions, where the image is
+    if (
+        mouseX > 1140 && mouseX < 1180 &&
+        mouseY > 10 && mouseY < 50
+    ) { // if we click on sound, it will turn to noSound image and vice versa
+        if (soundOn === true) {
+            soundOn = false;
+        } else {
+            soundOn = true;
+        }
+    }
+}
 
 /*
 function mousePressed() {

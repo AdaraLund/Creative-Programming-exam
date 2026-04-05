@@ -38,7 +38,16 @@ function preload() { // For loading before program is run
 }
 
 function setup() {
-	createCanvas(1200, 550); //canvas size of screen
+	let canvas = createCanvas(1200, 550);
+	// x and y are being used for positioning the canvas in the middle of the screen.
+	let x = (windowWidth - width) / 2;
+	let y = (windowHeight - height) / 2;
+
+	let offset = 75; // offset is adjustable value that moves the canvas up or down.
+
+	canvas.position(x, y - offset); // positions the canvas in the middle of the screen, minus the y-offset.
+
+
 	frameRate(60); //framerate
 	strokeWeight(0); // size of frame of object
 	imageMode(CENTER);// placing images by their center instead of corner

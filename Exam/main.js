@@ -4,7 +4,7 @@ let clickedGrocery = [];
 
 
 function preload() { // For loading before program is run
-	// cart
+	// cart and background
 	piCartBack = loadImage('./assets/pinkcartback.png');
 	piCartFront = loadImage('./assets/pinkcartfront.png');
 	backbackground = loadImage('./assets/backbackground.png');
@@ -28,11 +28,11 @@ function preload() { // For loading before program is run
 	oatMilkImg = loadImage('./assets/oatmilk.png');
 	sodaImg = loadImage('./assets/soda.png');
 
-
+// font and receipt texture
 	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
 	paperTexture = loadImage('./assets/paperTexture.png');
 
-	// sound
+	// sound pictures
 	sound = loadImage('./assets/sound.png')
 	sound = loadImage('./assets/Nosound.png')
 }
@@ -70,12 +70,13 @@ function setup() {
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
 	groceryList.push(soda, oatMilk, milk, cookies, beer, banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette, toast);
-	console.log("Grocery list; " + groceryList.length + " objects");
+	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
 }
 
 function draw() {
 	background(250, 220, 230);
-	image(backbackground, 1200 / 2, 550 / 2, 1200, 550);
+	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
+
 	//Making x and y appear on the canvas when hovering
 	textSize(16);
 	fill(0);
@@ -83,7 +84,7 @@ function draw() {
 	text('y =' + round(mouseY), 30, 40);
 	strokeWeight(0);
 
-	let anyhover = false;
+	let anyhover = false; //  Variabel pre made for hover function
 
 	// Recipt box
 	let receiptX = 970; // start-position fra venstre  
@@ -101,25 +102,22 @@ function draw() {
 	// Recipt, title
 	fill(0);
 	textSize(20);
-	textAlign(CENTER);
+	textAlign(CENTER); // Aligned by center
 	textFont(receiptFont);
 	text("CO2 SHOPPING", receiptX + receiptW / 2, 100);
-
-
-	// Adaras note til Casandra; hvis du bruger clickedGrocery arrayet, så er det dem i vores kurv, i stedet for at tælle x og y.
 
 	/* 
 	På kvitteirngen vises CO2 for hver vare i clickedGrocery arrayet. Derefter beregnes total
 	textAlign der skifter fra left and right er for at give kvitterings layoutet
 	*/
 
-	let totalCO2 = 0;
+	let totalCO2 = 0; // starting Co2 value
 	let receiptY = 130; // startposition for tekst på kvitteringen fra toppen
 	let receiptLeft = 1005; // x-position for venstre tekst (varenavne)
 	let receiptRight = 1160; // x-position for højre tekst (CO2-værdier)
 
 	textSize(14);
-	textFont(receiptFont);
+	textFont(receiptFont); // hvorfor har vi det to gange?
 
 	// streg 1
 	strokeWeight(0.5);

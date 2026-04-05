@@ -6,20 +6,20 @@
  */
 class Grocery {
 	constructor(x, y, sizeX, sizeY, img, CO2, itemName) {
-		this.x = x;
-		this.y = y;
-		this.sizeX = sizeX;
-		this.sizeY = sizeY;
-		this.img = img;
-		this.CO2 = CO2;
-		this.itemName = itemName;
+		this.x = x; // Placering X
+		this.y = y; // Placering Y
+		this.sizeX = sizeX; // Størrelse af objekt på X
+		this.sizeY = sizeY; // Størrelse af objekt på Y
+		this.img = img; // Det billede der kobles til
+		this.CO2 = CO2; // Dets CO2 mængde
+		this.itemName = itemName; // Hvad produktet hedder
 
 		// Jeg har added dette ift easing, for Target X og Y, hvor objektet skal besæve sig til.
 		this.targetX = x;
 		this.targetY = y;
 		this.isMoving = false; //vi spørger om objekter er i bevægelse for at afgøre om den skal trækkes til kurv
 	}
-
+	// Dette displayer vores groceryList
 	displayGrocery() {
 		image(this.img, this.x, this.y, this.sizeX, this.sizeY);
 	}
@@ -56,12 +56,12 @@ class Grocery {
 
 
 
-		displayClickedGrocery() { // Denne display tager vores clickedGrocery array i stedet for originale groceryList
-		
-	// Tilføjet dette så man afgører om objektet er i bevægelse, for at kunne bruge easing til at flytte det mod target
+	displayClickedGrocery() { // Denne display tager vores clickedGrocery array i stedet for originale groceryList
+
+		// Tilføjet dette så man afgører om objektet er i bevægelse, for at kunne bruge easing til at flytte det mod target
 		if (this.isMoving) {
-		this.easing();
-	}
+			this.easing();
+		}
 		image(this.img, this.x, this.y, this.sizeX, this.sizeY);
 
 	}
@@ -72,8 +72,8 @@ class Grocery {
 		// vi flytter objektet gradvist mod positionen
 		this.x = 0.92 * this.x + 0.08 * this.targetX;
 		this.y = 0.92 * this.y + 0.08 * this.targetY;
-		
-		
+
+
 	}
 
 

@@ -38,7 +38,7 @@ function preload() { // For loading before program is run
 	sound = loadImage('./assets/sound.png')
 	noSound = loadImage('./assets/noSound.png')
 
-	// music
+	// sounds and music
 	backgroundSong = loadSound('assets/backgroundMusic.mp3'); 
 	basketSound = loadSound('assets/basket.mp3'); 
 }
@@ -49,9 +49,9 @@ function setup() {
 	let x = (windowWidth - width) / 2;
 	let y = (windowHeight - height) / 2;
 
-	let offset = 75; // offset is adjustable value that moves the canvas up or down.
+	// let offset = 75; // offset is adjustable value that moves the canvas up or down.
 
-	canvas.position(x, y - offset); // positions the canvas in the middle of the screen, minus the y-offset.
+	canvas.position(x, y); // positions the canvas in the middle of the screen, minus the y-offset.
 
 
 	frameRate(60); //framerate
@@ -219,7 +219,7 @@ function draw() {
 			item.targetY = random(430, 530);
 			item.isMoving = true;
 
-			 basketSound.play(); // play sound when item is clicked
+			basketSound.play(); // play sound when item is clicked
 			// så flytter vi objektet fra groceryList til clickedGrocery, som er når de er i kurven.
 			// clickedGrocery.push(item); Dette dobbelt-pusher. Må det slettes? :)
 

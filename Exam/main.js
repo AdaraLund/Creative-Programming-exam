@@ -101,20 +101,20 @@ function draw() {
 
 	let anyhover = false; //  Variabel pre made for hover function
 
-	// Recipt box
+	// Receipt box
 	let receiptX = 970; // start-position fra venstre  
 	let receiptTopY = 10; // start-position fra toppen 
 	let receiptW = 230;  // bredde 
 	let receiptH = 500;  // højde 
 
-	fill(246, 236, 215, 0); // (pt. usynlig firkant bag kvittering (0 = alpha)
+	fill(246, 236, 215, 0); // (gør firkant bag kvittering gennemsigtig. 0 = alpha)
 	rect(receiptX, receiptTopY, receiptW, receiptH); // den usynlige boks der definerer kvitteringens område
 	image(paperTexture, receiptX + receiptW / 2, receiptTopY + receiptH / 2, receiptW + 210, receiptH + 20); 
 	// paperTexture placeres i midten af boksen (derfor + bredde/2 og + højde/2)
 	// de sidste to tal er størrelsen sat til receiptW og receiptH så den passer præcis
 
 
-	// Recipt, title
+	// Reeipt, title
 	fill(0);
 	textSize(20);
 	textAlign(CENTER); // Aligned by center
@@ -134,10 +134,19 @@ function draw() {
 	textSize(14);
 	textFont(receiptFont); // hvorfor har vi det to gange?
 
-	// streg 1
+	// streg 1 (under titel)
+	// drawingContext bruges for at "unlock" en stribet-linje funktion p5 ikke selv har 
 	strokeWeight(0.5);
 	drawingContext.setLineDash([3, 3]); // længde på streg, længde på mellemrum
 	line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
+
+	/* Nedenfor ses et forloop hvor der gennemgåes produkterne i "clickedGrocery" arrayet. 
+	For hvert produkt skriver itemName til venstre (itemName som jeg har kaldt produkt-navnet i class)
+	og så for at holde kvitteringensstilen placere jeg "prisen" til højre
+	hence -> produktets co2 (som det er kaldt i class) og derefter tilføjes bogstaverne kg bag på teksten.
+
+	totalCO2 opdateres løbende for hvert produkt, der rykker til "clickedGrocery" array, 
+	og receiptY rykkes 25 pixels ned så næste vare placeres på en ny linje. */
 
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		let item = clickedGrocery[i];
@@ -155,7 +164,7 @@ function draw() {
 	// vis kun total hvis der er mindst én vare i kurven
 	if (clickedGrocery.length > 0) { // Gør at der kun står total hvis der er mindst én vare i kurven. Ellers vises intet.
 		
-		// streg 2
+		// streg 2 (over total)
 		strokeWeight(0.5);
 		drawingContext.setLineDash([3, 3]);
 		line(receiptLeft, receiptY - 10, receiptRight, receiptY - 10);
@@ -210,6 +219,11 @@ function draw() {
 
 	//Hvis et objekt klikkes på bliver det pushet fra et array ind i et andet array.
 	for (let i = 0; i < groceryList.length; i++) {
+		// if (clickedGrocery.length >= 10) break; 
+		/* ovenstående tilføjes hvis vi går med "your basket is full" løsning 
+		dette er for at undgå man kan tilføje flere produkter efter kvitteringen er fuld.
+		Vær obs på tallet er hardcoded og derfor skal stemme overens med længere nede i koden
+		*/
 		if (groceryList[i].isClicked()) {
 			console.log("Clicked!"); //debugging
 			let item = groceryList[i]; // Vi gemmer objektet som blev klikket
@@ -231,6 +245,20 @@ function draw() {
 		}
 	}
 
+	// Håndtering af maks længde på kvittering
+	// "Your basket is full" tekst boks
+	if (clickedGrocery.length >= 10) {
+	fill(255, 210, 220, 230);
+	strokeWeight(0);
+	rect(400, 215, 400, 120, 55);
+
+	fill(120, 50, 70);
+	textSize(28);
+	textAlign(CENTER);
+	textFont(receiptFont);
+	text("Your basket is full<3", 600, 285);
+	textAlign(LEFT);
+	}
 
 	//cart back 
 	image(piCartBack, 600, 470, 270, 170);

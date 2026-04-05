@@ -38,7 +38,9 @@ function preload() { // For loading before program is run
 	sound = loadImage('./assets/sound.png')
 	noSound = loadImage('./assets/noSound.png')
 
-
+	// music
+	backgroundSong = loadSound('assets/backgroundMusic.mp3'); 
+	basketSound = loadSound('assets/basket.mp3'); 
 }
 
 function setup() {
@@ -216,6 +218,8 @@ function draw() {
 			item.targetX = random(550, 650);
 			item.targetY = random(430, 530);
 			item.isMoving = true;
+
+			 basketSound.play(); // play sound when item is clicked
 			// så flytter vi objektet fra groceryList til clickedGrocery, som er når de er i kurven.
 			// clickedGrocery.push(item); Dette dobbelt-pusher. Må det slettes? :)
 
@@ -241,23 +245,31 @@ function draw() {
 
 	// images for sound on/off image
 	if (soundOn) {
-		image(sound, 1160, 30, 40, 40);
-	} else {
 		image(noSound, 1160, 30, 40, 40);
+	} else {
+		image(sound, 1160, 30, 40, 40);
 	}
 }
 
 function mousePressed() {
+
     // here we check if the mouse is clicking on the x and y positions, where the image is
     if (
         mouseX > 1140 && mouseX < 1180 &&
         mouseY > 10 && mouseY < 50
     ) { // if we click on sound, it will turn to noSound image and vice versa
-        if (soundOn === true) {
+        if (soundOn == true) {
             soundOn = false;
         } else {
             soundOn = true;
         }
+	 { // plays music and when clicked on mute button stops
+        if (backgroundSong.isPlaying()) {
+          backgroundSong.pause();
+        } else {
+          backgroundSong.play();
+        }
+      }
     }
 }
 

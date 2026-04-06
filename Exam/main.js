@@ -137,6 +137,17 @@ function draw() {
 
 	textSize(14);
 
+		tintValue = map(totalCO2, 0, 15, 0, 255);
+	console.log(tintValue); //debugging
+	 // Debugging for now
+	 push();
+	strokeWeight(1);
+	fill(84, 74, 63, tintValue);
+	circle(320, 20, 50);
+	pop();
+	
+
+
 
 	// streg 1 (under titel)
 	// drawingContext bruges for at "unlock" en stribet-linje funktion p5 ikke selv har 
@@ -220,11 +231,7 @@ function draw() {
 	}
 
 
-	tintValue = map(totalCO2, 0, 15, 0, 255);
-	console.log(tintValue); //debugging
-	/*	 Start på forsøg af tinting
-	tint(84, 74, 63, tintValue);
-	*/
+
 
 	//front of cart - skal være foran grocerylist display
 	image(frontbackground, 1200 / 2, 550 / 2, 1200, 550);

@@ -1,6 +1,7 @@
 //Set variables here
 let groceryList = [];
 let clickedGrocery = [];
+let tintValue;
 
 let soundOn = true;
 
@@ -30,7 +31,7 @@ function preload() { // For loading before program is run
 	oatMilkImg = loadImage('./assets/oatmilk.png');
 	sodaImg = loadImage('./assets/soda.png');
 
-// font and receipt texture
+	// font and receipt texture
 	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
 	paperTexture = loadImage('./assets/paperTexture.png');
 
@@ -39,8 +40,8 @@ function preload() { // For loading before program is run
 	noSound = loadImage('./assets/noSound.png')
 
 	// sounds and music
-	backgroundSong = loadSound('assets/backgroundMusic.mp3'); 
-	basketSound = loadSound('assets/basket.mp3'); 
+	backgroundSong = loadSound('assets/backgroundMusic.mp3');
+	basketSound = loadSound('assets/basket.mp3');
 }
 
 function setup() {
@@ -109,7 +110,7 @@ function draw() {
 
 	fill(246, 236, 215, 0); // (gør firkant bag kvittering gennemsigtig. 0 = alpha)
 	rect(receiptX, receiptTopY, receiptW, receiptH); // den usynlige boks der definerer kvitteringens område
-	image(paperTexture, receiptX + receiptW / 2, receiptTopY + receiptH / 2, receiptW + 210, receiptH + 20); 
+	image(paperTexture, receiptX + receiptW / 2, receiptTopY + receiptH / 2, receiptW + 210, receiptH + 20);
 	// paperTexture placeres i midten af boksen (derfor + bredde/2 og + højde/2)
 	// de sidste to tal er størrelsen sat til receiptW og receiptH så den passer præcis
 
@@ -133,6 +134,7 @@ function draw() {
 
 	textSize(14);
 
+
 	// streg 1 (under titel)
 	// drawingContext bruges for at "unlock" en stribet-linje funktion p5 ikke selv har 
 	strokeWeight(0.5);
@@ -146,6 +148,8 @@ function draw() {
 
 	totalCO2 opdateres løbende for hvert produkt, der rykker til "clickedGrocery" array, 
 	og receiptY rykkes 25 pixels ned så næste vare placeres på en ny linje. */
+
+
 
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		let item = clickedGrocery[i];
@@ -162,7 +166,7 @@ function draw() {
 
 	// vis kun total hvis der er mindst én vare i kurven
 	if (clickedGrocery.length > 0) { // Gør at der kun står total hvis der er mindst én vare i kurven. Ellers vises intet.
-		
+
 		// streg 2 (over total)
 		strokeWeight(0.5);
 		drawingContext.setLineDash([3, 3]);
@@ -212,12 +216,19 @@ function draw() {
 		cursor(ARROW);
 	}
 
+	/* Start på forsøg af tinting
+	tintValue = map(totalCO2, 0, 15, 0, 255);
+	
+	tint(84, 74, 63, tintValue);
+	*/
+
 	//front of cart - skal være foran grocerylist display
 	image(frontbackground, 1200 / 2, 550 / 2, 1200, 550);
 
 
 	//Hvis et objekt klikkes på bliver det pushet fra et array ind i et andet array.
 	for (let i = 0; i < groceryList.length; i++) {
+
 		if (groceryList[i].isClicked()) {
 			console.log("Clicked!"); //debugging
 			let item = groceryList[i]; // Vi gemmer objektet som blev klikket
@@ -230,6 +241,7 @@ function draw() {
 			basketSound.play(); // play sound when item is clicked
 			// så flytter vi objektet fra groceryList til clickedGrocery, som er når de er i kurven.
 
+
 			clickedGrocery.push(groceryList[i]); // Push clicked object to different array
 			groceryList.splice(i, 1); // This takes the i placement in our array and removes 1 element, which is the i spot
 
@@ -241,16 +253,16 @@ function draw() {
 	// Håndtering af maks længde på kvittering
 	// "Your basket is full" tekst boks
 	if (clickedGrocery.length >= 10) {
-	fill(255, 210, 220, 230);
-	strokeWeight(0);
-	rect(400, 215, 400, 120, 55);
+		fill(255, 210, 220, 230);
+		strokeWeight(0);
+		rect(400, 215, 400, 120, 55);
 
-	fill(120, 50, 70);
-	textSize(28);
-	textAlign(CENTER);
-	textFont(receiptFont);
-	text("Your basket is full<3", 600, 285);
-	textAlign(LEFT);
+		fill(120, 50, 70);
+		textSize(28);
+		textAlign(CENTER);
+		textFont(receiptFont);
+		text("Your basket is full<3", 600, 285);
+		textAlign(LEFT);
 	}
 
 	//cart back 
@@ -274,22 +286,22 @@ function draw() {
 
 function mousePressed() {
 
-    // here we check if the mouse is clicking on the x and y positions, where the image is
-    if (
-        mouseX > 1140 && mouseX < 1180 &&
-        mouseY > 10 && mouseY < 50
-    ) { // if we click on sound, it will turn to noSound image and vice versa
-        if (soundOn == true) {
-            soundOn = false;
-        } else {
-            soundOn = true;
-        }
-	 { // plays music and when clicked on mute button stops
-        if (backgroundSong.isPlaying()) {
-          backgroundSong.pause();
-        } else {
-          backgroundSong.play();
-        }
-      }
-    }
+	// here we check if the mouse is clicking on the x and y positions, where the image is
+	if (
+		mouseX > 1140 && mouseX < 1180 &&
+		mouseY > 10 && mouseY < 50
+	) { // if we click on sound, it will turn to noSound image and vice versa
+		if (soundOn == true) {
+			soundOn = false;
+		} else {
+			soundOn = true;
+		}
+		{ // plays music and when clicked on mute button stops
+			if (backgroundSong.isPlaying()) {
+				backgroundSong.pause();
+			} else {
+				backgroundSong.play();
+			}
+		}
+	}
 }

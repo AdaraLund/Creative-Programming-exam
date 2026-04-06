@@ -132,7 +132,6 @@ function draw() {
 	let receiptRight = 1160; // x-position for højre tekst (CO2-værdier)
 
 	textSize(14);
-	textFont(receiptFont); // hvorfor har vi det to gange?
 
 	// streg 1 (under titel)
 	// drawingContext bruges for at "unlock" en stribet-linje funktion p5 ikke selv har 
@@ -219,11 +218,6 @@ function draw() {
 
 	//Hvis et objekt klikkes på bliver det pushet fra et array ind i et andet array.
 	for (let i = 0; i < groceryList.length; i++) {
-		// if (clickedGrocery.length >= 10) break; 
-		/* ovenstående tilføjes hvis vi går med "your basket is full" løsning 
-		dette er for at undgå man kan tilføje flere produkter efter kvitteringen er fuld.
-		Vær obs på tallet er hardcoded og derfor skal stemme overens med længere nede i koden
-		*/
 		if (groceryList[i].isClicked()) {
 			console.log("Clicked!"); //debugging
 			let item = groceryList[i]; // Vi gemmer objektet som blev klikket
@@ -235,7 +229,6 @@ function draw() {
 
 			basketSound.play(); // play sound when item is clicked
 			// så flytter vi objektet fra groceryList til clickedGrocery, som er når de er i kurven.
-			// clickedGrocery.push(item); Dette dobbelt-pusher. Må det slettes? :)
 
 			clickedGrocery.push(groceryList[i]); // Push clicked object to different array
 			groceryList.splice(i, 1); // This takes the i placement in our array and removes 1 element, which is the i spot
@@ -300,18 +293,3 @@ function mousePressed() {
       }
     }
 }
-
-/*
-function mousePressed() {
-    for (let i = 0; i < groceryList.length; i++) { // Der gåes igennem alle produkter en efter en
-        if (groceryList[i].isHovering()) { // genbruger isHovering til at tjekke hvilket produkt der er blevet trykket på
-            clickedGrocery.push(groceryList[i]); // Den vare musen er henover bliver skubbet over i kurv-arrayet.
-            groceryList.splice(i, 1); // Den samme vare bliver fjernet fra butiks-arrayet, så den ikke vises på hylden længere.
-            break; // stopper loopet så kun én vare tilføjes per klik
-        }
-    }
-}
-
-mouseIsPressed = "holder du musen nede lige nu?". Det var true i mange frames, aka. fejl
-mousePressed() = "blev der klikket?" Tælles kun én gang
-*/

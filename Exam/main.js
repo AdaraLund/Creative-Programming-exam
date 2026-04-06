@@ -87,6 +87,9 @@ function setup() {
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
 	groceryList.push(soda, oatMilk, milk, cookies, beer, banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette, toast);
 	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
+
+
+
 }
 
 function draw() {
@@ -216,9 +219,10 @@ function draw() {
 		cursor(ARROW);
 	}
 
-	/* Start på forsøg af tinting
+
 	tintValue = map(totalCO2, 0, 15, 0, 255);
-	
+	console.log(tintValue); //debugging
+	/*	 Start på forsøg af tinting
 	tint(84, 74, 63, tintValue);
 	*/
 
@@ -238,6 +242,7 @@ function draw() {
 			item.targetY = random(430, 530);
 			item.isMoving = true;
 
+			basketSound.setVolume(0.3);
 			basketSound.play(); // play sound when item is clicked
 			// så flytter vi objektet fra groceryList til clickedGrocery, som er når de er i kurven.
 

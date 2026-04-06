@@ -242,7 +242,7 @@ function draw() {
 			item.targetY = random(430, 530);
 			item.isMoving = true;
 
-			basketSound.setVolume(0.3);
+			basketSound.setVolume(0.3); // Lyd! Den går fra 0-1
 			basketSound.play(); // play sound when item is clicked
 			// så flytter vi objektet fra groceryList til clickedGrocery, som er når de er i kurven.
 

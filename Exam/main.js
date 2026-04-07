@@ -4,6 +4,8 @@ let clickedGrocery = [];
 let tintValue;
 
 
+
+
 let soundOn = true;
 
 
@@ -122,8 +124,7 @@ function draw() {
 	let receiptH = 500;  // højde 
 
 
-		image(cracksExtra, 1200/2, (575 / 2) + 27.5, 1200, 550);
-		image(cracks, 1200/2, 550/2, 1200, 550);
+		
 
 	fill(246, 236, 215, 0); // (gør firkant bag kvittering gennemsigtig. 0 = alpha)
 	rect(receiptX, receiptTopY, receiptW, receiptH); // den usynlige boks der definerer kvitteringens område
@@ -182,6 +183,7 @@ function draw() {
 		totalCO2 += item.CO2; // læg varens CO2 til totalen
 		receiptY += 25; // rykker x antal pixel ned for hver tilføjet item 
 	}
+			cracking(totalCO2); // function for updating the CO2
 
 	// vis kun total hvis der er mindst én vare i kurven
 	if (clickedGrocery.length > 0) { // Gør at der kun står total hvis der er mindst én vare i kurven. Ellers vises intet.
@@ -325,5 +327,14 @@ function mousePressed() {
 			}
 		}
 	}
-
 }
+ // a function for the background having cracks after 4 and 6 kg of CO2
+	function cracking(totalCO2){
+		if (totalCO2 >= 4){
+		image(cracksExtra, 1200/2, (575 / 2) + 27.5, 1200, 550);
+		}
+		if (totalCO2 >= 6){
+ 		image(cracks, 1200/2, 550/2, 1200, 550);	
+		}
+	}
+

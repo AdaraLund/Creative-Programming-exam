@@ -126,7 +126,7 @@ function draw() {
 	text("CO2 SHOPPING", receiptX + receiptW / 2, 100);
 
 	/* 
-	På kvitteirngen vises CO2 for hver vare i clickedGrocery arrayet. Derefter beregnes total
+	På kvitteringen vises CO2 for hver vare i clickedGrocery arrayet. Derefter beregnes total
 	textAlign der skifter fra left and right er for at give kvitterings layoutet
 	*/
 
@@ -260,21 +260,7 @@ function draw() {
 		} else {
 			console.log("No work!"); //debugging
 		}
-	}
 
-	// Håndtering af maks længde på kvittering
-	// "Your basket is full" tekst boks
-	if (clickedGrocery.length >= 10) {
-		fill(255, 210, 220, 230);
-		strokeWeight(0);
-		rect(400, 215, 400, 120, 55);
-
-		fill(120, 50, 70);
-		textSize(28);
-		textAlign(CENTER);
-		textFont(receiptFont);
-		text("Your basket is full<3", 600, 285);
-		textAlign(LEFT);
 	}
 
 	//cart back 

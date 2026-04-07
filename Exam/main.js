@@ -78,7 +78,7 @@ function setup() {
 	water = new Grocery(180, 95, 30, 70, waterImg, 0.28, "Water");
 	wine = new Grocery(300, 165, 25, 70, wineImg, 1.24, "Wine");
 	ryebread = new Grocery(400, 170, 40, 70, ryebreadImg, 1.02, "Ryebread");
-	baguette = new Grocery(200, 400, 80, 80, baguetteImg, 0.81, "Baguette");
+	baguette = new Grocery(225, 350, 60, 160, baguetteImg, 0.81, "Baguette");
 	toast = new Grocery(600, 170, 70, 80, toastImg, 0.81, "Toast");
 	beer = new Grocery(140, 92, 40, 70, beerImg, 0.22, "Beer");
 	cookies = new Grocery(820, 170, 90, 40, cookiesImg, 0.73, "Cookies");

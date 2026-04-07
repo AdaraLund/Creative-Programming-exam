@@ -12,6 +12,7 @@ function preload() { // For loading before program is run
 	piCartBack = loadImage('./assets/pinkcartback.png');
 	piCartFront = loadImage('./assets/pinkcartfront.png');
 	backbackground = loadImage('./assets/backbackground.png');
+	extraStone = loadImage('./assets/extraStone.png');
 	frontbackground = loadImage('./assets/frontbackground.png');
 	shelfbasketbackground = loadImage('./assets/shelfbasket.png');
 	frontbaguettebasket = loadImage('./assets/frontbreadbasket.png');
@@ -48,7 +49,7 @@ function preload() { // For loading before program is run
 }
 
 function setup() {
-	let canvas = createCanvas(1200, 550);
+	let canvas = createCanvas(1200, 600);
 	// x and y are being used for positioning the canvas in the middle of the screen.
 	let x = (windowWidth - width) / 2;
 	let y = (windowHeight - height) / 2;
@@ -97,7 +98,9 @@ function setup() {
 
 function draw() {
 	background(250, 220, 230);
+
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
+
 	image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 
 	//Making x and y appear on the canvas when hovering
@@ -287,6 +290,7 @@ image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place
 	} else {
 		image(sound, 1160, 30, 40, 40);
 	}
+				image(extraStone, 1200/2, (575/2)+25, 1200, 600); 
 }
 
 function mousePressed() {
@@ -309,4 +313,5 @@ function mousePressed() {
 			}
 		}
 	}
+
 }

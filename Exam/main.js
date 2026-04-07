@@ -17,6 +17,10 @@ function preload() { // For loading before program is run
 	shelfbasketbackground = loadImage('./assets/shelfbasket.png');
 	frontbaguettebasket = loadImage('./assets/frontbreadbasket.png');
 
+	// This is our Cracks - i put them active for now
+	cracks = loadImage('./assets/cracks.png');
+	cracksExtra = loadImage('./assets/cracksExtra.png');
+
 	// All the images to our groceries
 	appleImg = loadImage('./assets/apple.png');
 	avocadoImg = loadImage('./assets/avocado.png');
@@ -116,6 +120,10 @@ function draw() {
 	let receiptTopY = 10; // start-position fra toppen 
 	let receiptW = 230;  // bredde 
 	let receiptH = 500;  // højde 
+
+
+		image(cracksExtra, 1200/2, (575 / 2) + 27.5, 1200, 550);
+		image(cracks, 1200/2, 550/2, 1200, 550);
 
 	fill(246, 236, 215, 0); // (gør firkant bag kvittering gennemsigtig. 0 = alpha)
 	rect(receiptX, receiptTopY, receiptW, receiptH); // den usynlige boks der definerer kvitteringens område
@@ -282,6 +290,8 @@ function draw() {
 
 	//front of cart, always at the end
 	image(piCartFront, 595, 540, 220, 120);
+
+
 
 	// images for sound on/off image
 	if (soundOn) {

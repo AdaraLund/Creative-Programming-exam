@@ -315,10 +315,13 @@ function mousePressed() {
 			soundOn = true;
 		}
 		{ // plays music and when clicked on mute button stops
+			
 			if (backgroundSong.isPlaying()) {
 				backgroundSong.pause();
 			} else {
+				backgroundSong.setVolume(0.5);
 				backgroundSong.play();
+				
 			}
 		}
 	}

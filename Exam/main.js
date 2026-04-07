@@ -52,6 +52,7 @@ function preload() { // For loading before program is run
 	// sounds and music
 	backgroundSong = loadSound('assets/backgroundMusic.mp3');
 	basketSound = loadSound('assets/basket.mp3');
+	sadSong = loadSound('assets/sadMusic.wav')
 }
 
 function setup() {
@@ -335,6 +336,10 @@ function mousePressed() {
 		}
 		if (totalCO2 >= 6){
  		image(cracks, 1200/2, 550/2, 1200, 550);	
+		sadSong.setVolume(0.5);
+		sadSong.play();
+		backgroundSong.pause();
+
 		}
 	}
 

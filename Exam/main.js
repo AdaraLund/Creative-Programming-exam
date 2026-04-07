@@ -98,9 +98,8 @@ function setup() {
 
 function draw() {
 	background(250, 220, 230);
-
+	image(extraStone, 1200 / 2, (575 / 2) + 27.5, 1200, 600);
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
-
 	image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 
 	//Making x and y appear on the canvas when hovering
@@ -159,7 +158,7 @@ function draw() {
 
 	totalCO2 opdateres løbende for hvert produkt, der rykker til "clickedGrocery" array, 
 	og receiptY rykkes 25 pixels ned så næste vare placeres på en ny linje. */
-image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
+
 
 
 
@@ -243,9 +242,9 @@ image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place
 
 
 	//front of cart - skal være foran grocerylist display
-	
+
 	image(frontbackground, 1200 / 2, 550 / 2, 1200, 550);
-	
+
 	//Hvis et objekt klikkes på bliver det pushet fra et array ind i et andet array.
 	for (let i = 0; i < groceryList.length; i++) {
 
@@ -255,7 +254,7 @@ image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place
 
 			// X og Y koordinator for at produkterne kan være inde i kurven.
 			item.targetX = random(550, 650);
-			item.targetY = random(430, 530);
+			item.targetY = random(460, 540);
 			item.isMoving = true;
 
 			basketSound.setVolume(0.3); // Lyd! Den går fra 0-1
@@ -273,7 +272,7 @@ image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place
 	}
 
 	//cart back 
-	image(piCartBack, 600, 470, 270, 170);
+	image(piCartBack, 600, 500, 270, 170);
 	image(frontbaguettebasket, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 
 	// Denne displayer vores clickedGrocery array i stedet for originale groceryList
@@ -282,7 +281,7 @@ image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place
 	}
 
 	//front of cart, always at the end
-	image(piCartFront, 595, 510, 220, 120);
+	image(piCartFront, 595, 540, 220, 120);
 
 	// images for sound on/off image
 	if (soundOn) {
@@ -290,7 +289,7 @@ image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place
 	} else {
 		image(sound, 1160, 30, 40, 40);
 	}
-				image(extraStone, 1200/2, (575/2)+25, 1200, 600); 
+
 }
 
 function mousePressed() {

@@ -81,15 +81,15 @@ function setup() {
 	carrot = new Grocery(690, 290, 110, 110, carrotImg, 0.27, "Carrot");
 	watermelon = new Grocery(800, 400, 100, 100, watermelonImg, 1.2, "Watermelon");
 	water = new Grocery(180, 95, 30, 70, waterImg, 0.28, "Water");
-	wine = new Grocery(300, 165, 25, 70, wineImg, 1.24, "Wine");
-	ryebread = new Grocery(400, 170, 40, 70, ryebreadImg, 1.02, "Ryebread");
+	wine = new Grocery(320, 64, 30, 85, wineImg, 1.24, "Wine");
+	ryebread = new Grocery(400, 168, 40, 70, ryebreadImg, 1.02, "Ryebread");
 	baguette = new Grocery(225, 350, 60, 160, baguetteImg, 0.81, "Baguette");
-	toast = new Grocery(600, 170, 70, 80, toastImg, 0.81, "Toast");
-	beer = new Grocery(140, 92, 40, 70, beerImg, 0.22, "Beer");
-	cookies = new Grocery(820, 170, 90, 40, cookiesImg, 0.73, "Cookies");
+	toast = new Grocery(600, 165, 60, 70, toastImg, 0.81, "Toast");
+	beer = new Grocery(134, 96, 40, 70, beerImg, 0.22, "Beer");
+	cookies = new Grocery(820, 180, 90, 40, cookiesImg, 0.73, "Cookies");
 	milk = new Grocery(100, 162, 40, 70, milkImg, 0.50, "Milk");
 	oatMilk = new Grocery(160, 165, 40, 70, oatMilkImg, 0.40, "Oatmilk");
-	soda = new Grocery(185, 235, 40, 70, sodaImg, 0.88, "Soda");
+	soda = new Grocery(90, 97, 40, 70, sodaImg, 0.88, "Soda");
 
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
@@ -109,8 +109,8 @@ function draw() {
 	//Making x and y appear on the canvas when hovering
 	textSize(16);
 	fill(0);
-	text('x =' + round(mouseX), 30, 20);
-	text('y =' + round(mouseY), 30, 40);
+	text('x =' + round(mouseX), 30, 33);
+	text('y =' + round(mouseY), 30, 53);
 	strokeWeight(0);
 
 	let anyhover = false; //  Variabel pre made for hover function

@@ -1,4 +1,5 @@
 //Set variables here
+let returningGrocery = []; // XDELETE
 let groceryList = [];
 let clickedGrocery = [];
 let tintValue;
@@ -168,8 +169,13 @@ function draw() {
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		let item = clickedGrocery[i];
 
-		textAlign(LEFT);
-		text(item.itemName, receiptLeft, receiptY);
+		fill(150); // XDELETE
+		textAlign(LEFT); // XDELETE
+		text("X", receiptLeft - 5, receiptY); // XDELETE
+		fill(0); // XDELETE
+
+		textAlign(LEFT); 
+		text(item.itemName, receiptLeft, receiptY); 
 
 		textAlign(RIGHT);
 		text(item.CO2 + " kg", receiptRight, receiptY);
@@ -187,8 +193,8 @@ function draw() {
 		line(receiptLeft, receiptY - 10, receiptRight, receiptY - 10);
 		drawingContext.setLineDash([]);
 
-		receiptY += 15; // lidt ekstra luft før totallinjen
-		textSize(16); // gør total større end teksten 
+		receiptY += 15; // extra space before the total 
+		textSize(16); // make total bigger than items
 
 		textAlign(LEFT);
 		text("TOTAL CO2", receiptLeft, receiptY);
@@ -236,6 +242,17 @@ function draw() {
 	//front of cart - skal være foran grocerylist display
 	image(frontbackground, 1200 / 2, 550 / 2, 1200, 550);
 
+	// XDELETE, varer på vej tilbage tegnes oven på alt
+	for (let i = returningGrocery.length - 1; i >= 0; i--) {
+		returningGrocery[i].displayReturning();
+		// når varen er tæt nok på målet, flyt den til groceryList
+		if (dist(returningGrocery[i].x, returningGrocery[i].y, returningGrocery[i].originalX, returningGrocery[i].originalY) < 5) {
+			returningGrocery[i].isMoving = false;
+			groceryList.push(returningGrocery[i]);
+			returningGrocery.splice(i, 1);
+			// XDELETE
+		}
+	}
 
 	//Hvis et objekt klikkes på bliver det pushet fra et array ind i et andet array.
 	for (let i = 0; i < groceryList.length; i++) {
@@ -301,5 +318,26 @@ function mousePressed() {
 				backgroundSong.play();
 			}
 		}
+	}
+	let receiptY = 130;
+	for (let i = 0; i < clickedGrocery.length; i++) {
+   
+	// XDELETE - hard coding - if clicked here (the x) remove item from receipt
+	if (
+		mouseX > 988 && mouseX < 1013 &&
+		mouseY > receiptY - 14 &&
+		mouseY < receiptY + 5) { 
+
+		let item = clickedGrocery[i];
+			// item.targetX = item.originalX; 
+			// item.targetY = item.originalY; 
+			item.isMoving = true;
+			// groceryList.push(item); XDELETE, stod her før, ved ikke hvad gør. 
+			returningGrocery.push(item);  // erstat med denne
+			clickedGrocery.splice(i, 1);
+			break;
+		}
+    receiptY += 25;
+	// XDELETE 
 	}
 }

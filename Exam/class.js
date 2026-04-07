@@ -18,7 +18,21 @@ class Grocery {
 		this.targetX = x;
 		this.targetY = y;
 		this.isMoving = false; //vi spørger om objekter er i bevægelse for at afgøre om den skal trækkes til kurv
+
+		// This saves the original position of the product, and is used when the product need to return after being removed from receipt
+		this.originalX = x; // XDELETE 
+   		this.originalY = y; // XDELETE 
 	}
+
+	// // XDELETE
+	displayReturning() {
+    if (this.isMoving) {
+        this.easing();
+    }
+    image(this.img, this.x, this.y, this.sizeX, this.sizeY);
+	// // XDELETE
+}
+
 	// Dette displayer vores groceryList
 	displayGrocery() {
 		image(this.img, this.x, this.y, this.sizeX, this.sizeY);

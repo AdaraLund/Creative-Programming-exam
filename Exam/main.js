@@ -52,6 +52,7 @@ function preload() { // For loading before program is run
 	// sounds and music
 	backgroundSong = loadSound('assets/backgroundMusic.mp3');
 	basketSound = loadSound('assets/basket.mp3');
+	sadSong = loadSound('assets/sadMusic.wav')
 }
 
 function setup() {
@@ -264,7 +265,7 @@ function draw() {
 
 			// X og Y koordinator for at produkterne kan være inde i kurven.
 			item.targetX = random(550, 650);
-			item.targetY = random(460, 540);
+			item.targetY = random(460, 500);
 			item.isMoving = true;
 
 			basketSound.setVolume(0.3); // Lyd! Den går fra 0-1
@@ -335,6 +336,10 @@ function mousePressed() {
 		}
 		if (totalCO2 >= 6){
  		image(cracks, 1200/2, 550/2, 1200, 550);	
+		sadSong.setVolume(0.3);
+		sadSong.play();
+		backgroundSong.pause();
+
 		}
 	}
 

@@ -20,8 +20,17 @@ class Grocery {
 		this.isMoving = false; //vi spørger om objekter er i bevægelse for at afgøre om den skal trækkes til kurv
 	}
 	// Dette displayer vores groceryList
+
 	displayGrocery() {
 		image(this.img, this.x, this.y, this.sizeX, this.sizeY);
+		/*if (totalCO2 < 5) {
+			tint(84, 74, 63);
+			image(this.img, this.x, this.y, this.sizeX, this.sizeY);
+			return;
+		} else {
+			image(this.img, this.x, this.y, this.sizeX, this.sizeY);
+		}
+			*/
 	}
 
 	/*

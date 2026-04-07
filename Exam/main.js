@@ -3,6 +3,7 @@ let groceryList = [];
 let clickedGrocery = [];
 let tintValue;
 
+
 let soundOn = true;
 
 
@@ -12,6 +13,8 @@ function preload() { // For loading before program is run
 	piCartFront = loadImage('./assets/pinkcartfront.png');
 	backbackground = loadImage('./assets/backbackground.png');
 	frontbackground = loadImage('./assets/frontbackground.png');
+	shelfbasketbackground = loadImage('./assets/shelfbasket.png');
+	frontbaguettebasket = loadImage('./assets/frontbreadbasket.png');
 
 	// All the images to our groceries
 	appleImg = loadImage('./assets/apple.png');
@@ -75,7 +78,7 @@ function setup() {
 	water = new Grocery(180, 95, 30, 70, waterImg, 0.28, "Water");
 	wine = new Grocery(300, 165, 25, 70, wineImg, 1.24, "Wine");
 	ryebread = new Grocery(400, 170, 40, 70, ryebreadImg, 1.02, "Ryebread");
-	baguette = new Grocery(500, 170, 80, 80, baguetteImg, 0.81, "Baguette");
+	baguette = new Grocery(200, 400, 80, 80, baguetteImg, 0.81, "Baguette");
 	toast = new Grocery(600, 170, 70, 80, toastImg, 0.81, "Toast");
 	beer = new Grocery(140, 92, 40, 70, beerImg, 0.22, "Beer");
 	cookies = new Grocery(820, 170, 90, 40, cookiesImg, 0.73, "Cookies");
@@ -95,6 +98,7 @@ function setup() {
 function draw() {
 	background(250, 220, 230);
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
+	image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 
 	//Making x and y appear on the canvas when hovering
 	textSize(16);
@@ -137,16 +141,6 @@ function draw() {
 
 	textSize(14);
 
-		tintValue = map(totalCO2, 0, 15, 0, 255);
-	console.log(tintValue); //debugging
-	 // Debugging for now
-	 push();
-	strokeWeight(1);
-	fill(84, 74, 63, tintValue);
-	circle(320, 20, 50);
-	pop();
-	
-
 
 
 	// streg 1 (under titel)
@@ -154,7 +148,7 @@ function draw() {
 	strokeWeight(0.5);
 	drawingContext.setLineDash([3, 3]); // længde på streg, længde på mellemrum
 	line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
-
+	drawingContext.setLineDash([]);
 	/* Nedenfor ses et forloop hvor der gennemgåes produkterne i "clickedGrocery" arrayet. 
 	For hvert produkt skriver itemName til venstre (itemName som jeg har kaldt produkt-navnet i class)
 	og så for at holde kvitteringensstilen placere jeg "prisen" til højre
@@ -162,6 +156,7 @@ function draw() {
 
 	totalCO2 opdateres løbende for hvert produkt, der rykker til "clickedGrocery" array, 
 	og receiptY rykkes 25 pixels ned så næste vare placeres på en ny linje. */
+image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 
 
 
@@ -200,6 +195,17 @@ function draw() {
 
 	textAlign(LEFT);
 
+	tintValue = map(totalCO2, 0, 15, 0, 255);
+	//console.log(tintValue); //debugging
+	// Debugging for now
+	push();
+	strokeWeight(0);
+	fill(84, 74, 63, tintValue);
+	circle(320, 20, 50);
+	pop();
+
+
+
 
 	/*
 	Går igennem arrayet med vores groceries
@@ -234,9 +240,9 @@ function draw() {
 
 
 	//front of cart - skal være foran grocerylist display
+	
 	image(frontbackground, 1200 / 2, 550 / 2, 1200, 550);
-
-
+	
 	//Hvis et objekt klikkes på bliver det pushet fra et array ind i et andet array.
 	for (let i = 0; i < groceryList.length; i++) {
 
@@ -258,7 +264,7 @@ function draw() {
 			groceryList.splice(i, 1); // This takes the i placement in our array and removes 1 element, which is the i spot
 
 		} else {
-			console.log("No work!"); //debugging
+			//console.log("No work!"); //debugging
 		}
 	}
 
@@ -279,6 +285,7 @@ function draw() {
 
 	//cart back 
 	image(piCartBack, 600, 470, 270, 170);
+	image(frontbaguettebasket, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 
 	// Denne displayer vores clickedGrocery array i stedet for originale groceryList
 	for (let i = 0; i < clickedGrocery.length; i++) {

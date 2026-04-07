@@ -11,48 +11,48 @@ let soundOn = true;
 
 function preload() { // For loading before program is run
 	// cart and background
-	piCartBack = loadImage('./assets/pinkcartback.png');
-	piCartFront = loadImage('./assets/pinkcartfront.png');
-	backbackground = loadImage('./assets/backbackground.png');
-	extraStone = loadImage('./assets/extraStone.png');
-	frontbackground = loadImage('./assets/frontbackground.png');
-	shelfbasketbackground = loadImage('./assets/shelfbasket.png');
-	frontbaguettebasket = loadImage('./assets/frontbreadbasket.png');
+	piCartBack = loadImage('./assets/images/pinkcartback.png');
+	piCartFront = loadImage('./assets/images/pinkcartfront.png');
+	backbackground = loadImage('./assets/images/backbackground.png');
+	extraStone = loadImage('./assets/images/extraStone.png');
+	frontbackground = loadImage('./assets/images/frontbackground.png');
+	shelfbasketbackground = loadImage('./assets/images/shelfbasket.png');
+	frontbaguettebasket = loadImage('./assets/images/frontbreadbasket.png');
 
 	// This is our Cracks - i put them active for now
-	cracks = loadImage('./assets/cracks.png');
-	cracksExtra = loadImage('./assets/cracksExtra.png');
+	cracks = loadImage('./assets/images/cracks.png');
+	cracksExtra = loadImage('./assets/images/cracksExtra.png');
 
 	// All the images to our groceries
-	appleImg = loadImage('./assets/apple.png');
-	avocadoImg = loadImage('./assets/avocado.png');
-	bananaImg = loadImage('./assets/banana.png');
-	cucumberImg = loadImage('./assets/cucumber.png');
-	carrotImg = loadImage('./assets/carrot.png');
-	watermelonImg = loadImage('./assets/watermelon.png');
-	waterImg = loadImage('./assets/water.png');
-	wineImg = loadImage('./assets/wine.png');
-	ryebreadImg = loadImage('./assets/rugbr.png');
-	baguetteImg = loadImage('./assets/baguette.png');
-	toastImg = loadImage('./assets/toast.png');
-	beerImg = loadImage('./assets/beer.png');
-	cookiesImg = loadImage('./assets/cookie.png');
-	milkImg = loadImage('./assets/milk.png');
-	oatMilkImg = loadImage('./assets/oatmilk.png');
-	sodaImg = loadImage('./assets/soda.png');
+	appleImg = loadImage('./assets/images/apple.png');
+	avocadoImg = loadImage('./assets/images/avocado.png');
+	bananaImg = loadImage('./assets/images/banana.png');
+	cucumberImg = loadImage('./assets/images/cucumber.png');
+	carrotImg = loadImage('./assets/images/carrot.png');
+	watermelonImg = loadImage('./assets/images/watermelon.png');
+	waterImg = loadImage('./assets/images/water.png');
+	wineImg = loadImage('./assets/images/wine.png');
+	ryebreadImg = loadImage('./assets/images/rugbr.png');
+	baguetteImg = loadImage('./assets/images/baguette.png');
+	toastImg = loadImage('./assets/images/toast.png');
+	beerImg = loadImage('./assets/images/beer.png');
+	cookiesImg = loadImage('./assets/images/cookie.png');
+	milkImg = loadImage('./assets/images/milk.png');
+	oatMilkImg = loadImage('./assets/images/oatmilk.png');
+	sodaImg = loadImage('./assets/images/soda.png');
 
 	// font and receipt texture
 	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
-	paperTexture = loadImage('./assets/paperTexture.png');
+	paperTexture = loadImage('./assets/images/paperTexture.png');
 
 	// sound pictures
-	sound = loadImage('./assets/sound.png')
-	noSound = loadImage('./assets/noSound.png')
+	sound = loadImage('./assets/images/sound.png')
+	noSound = loadImage('./assets/images/noSound.png')
 
 	// sounds and music
-	backgroundSong = loadSound('assets/backgroundMusic.mp3');
-	basketSound = loadSound('assets/basket.mp3');
-	// sadSong = loadSound('assets/sadMusic.wav')
+	backgroundSong = loadSound('assets/sounds/backgroundMusic.mp3');
+	basketSound = loadSound('assets/sounds/basket.mp3');
+	// sadSong = loadSound('assets/sounds/sadMusic.wav')
 }
 
 function setup() {

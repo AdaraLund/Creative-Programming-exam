@@ -264,7 +264,7 @@ function draw() {
 			let item = groceryList[i]; // Vi gemmer objektet som blev klikket
 
 			// X og Y koordinator for at produkterne kan være inde i kurven.
-			item.targetX = random(550, 635);
+			item.targetX = random(550, 653);
 			item.targetY = random(460, 530);
 			item.isMoving = true;
 

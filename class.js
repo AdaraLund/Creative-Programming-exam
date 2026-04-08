@@ -18,7 +18,10 @@ class Grocery {
 		this.targetX = x;
 		this.targetY = y;
 		this.isMoving = false; //vi spørger om objekter er i bevægelse for at afgøre om den skal trækkes til kurv
+		this.originalX = x; // // XDELETE - used when the product need to return after being removed from receipt
+   		this.originalY = y; // XDELETE used when the product need to return after being removed from receipt
 	}
+
 	// Dette displayer vores groceryList
 
 	displayGrocery() {

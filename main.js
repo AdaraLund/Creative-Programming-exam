@@ -41,6 +41,10 @@ function preload() { // For loading before program is run
 	milkImg = loadImage('./assets/images/milk.png');
 	oatMilkImg = loadImage('./assets/images/oatmilk.png');
 	sodaImg = loadImage('./assets/images/soda.png');
+	chickenImg = loadImage('./assets/images/chicken.png');
+	eggsImg = loadImage('./assets/images/eggs.png');
+	cheeseImg = loadImage('./assets/images/cheese.png');
+	chipsImg = loadImage('./assets/images/chips.png');
 
 	// font and receipt texture
 	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
@@ -94,10 +98,14 @@ function setup() {
 	milk = new Grocery(100, 162, 40, 70, milkImg, 0.50, "Milk");
 	oatMilk = new Grocery(160, 165, 40, 70, oatMilkImg, 0.40, "Oatmilk");
 	soda = new Grocery(90, 97, 40, 70, sodaImg, 0.88, "Soda");
+	chicken = new Grocery(100, 235, 60, 70, chickenImg, 4.91, "Chicken");
+	eggs = new Grocery(170, 240, 50, 50, eggsImg, 4.91, "Eggs");
+	cheese = new Grocery(103, 317, 50, 50, cheeseImg, 1.08, "Cheese");
+	chips = new Grocery(800, 240, 60, 60, chipsImg, 0.74, "Chips");
 
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
-	groceryList.push(soda, oatMilk, milk, cookies, beer, banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette, toast);
+	groceryList.push(chips, cheese, eggs, chicken, soda, oatMilk, milk, cookies, beer, banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette, toast);
 	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
 
 
@@ -175,13 +183,13 @@ function draw() {
 		let item = clickedGrocery[i];
 
 		// For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
-		fill(150); 
-		textAlign(LEFT); 
-		text("X", receiptLeft - 5, receiptY); 
-		fill(0); 
+		fill(150);
+		textAlign(LEFT);
+		text("X", receiptLeft - 5, receiptY);
+		fill(0);
 
-		textAlign(LEFT); 
-		text(item.itemName, receiptLeft, receiptY); 
+		textAlign(LEFT);
+		text(item.itemName, receiptLeft, receiptY);
 
 		textAlign(RIGHT);
 		text(item.CO2 + " kg", receiptRight, receiptY);
@@ -189,9 +197,9 @@ function draw() {
 		totalCO2 += item.CO2; // læg varens CO2 til totalen
 		receiptY += 25; // rykker x antal pixel ned for hver tilføjet item 
 	}
-			cracking(totalCO2); // function for updating the CO2
+	cracking(totalCO2); // function for updating the CO2
 
-	
+
 	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
 
 		// streg 2 (over total)
@@ -270,7 +278,7 @@ function draw() {
 	Items on their way back gets drawn on top of everything becuase this bit is late in draw()
 	*/
 
-	for (let i = returningGrocery.length - 1; i >= 0; i--) { 
+	for (let i = returningGrocery.length - 1; i >= 0; i--) {
 		returningGrocery[i].displayClickedGrocery();
 		if (dist(returningGrocery[i].x, returningGrocery[i].y, returningGrocery[i].originalX, returningGrocery[i].originalY) < 5) {
 			returningGrocery[i].isMoving = false;
@@ -341,49 +349,49 @@ function mousePressed() {
 			soundOn = true;
 		}
 		{ // plays music and when clicked on mute button stops
-			
+
 			if (backgroundSong.isPlaying()) {
 				backgroundSong.pause();
 			} else {
 				backgroundSong.setVolume(0.5);
 				backgroundSong.play();
-				
+
 			}
 		}
 	}
 	let receiptY = 130;
 	for (let i = 0; i < clickedGrocery.length; i++) {
-   
-	//  Hard coding - if clicked here (the x) remove item from receipt
-	if (
-		mouseX > 988 && mouseX < 1013 && 
-		mouseY > receiptY - 14 && 
-		mouseY < receiptY + 5) {  
 
-		
-		let item = clickedGrocery[i];
-			item.targetX = item.originalX; 
-			item.targetY = item.originalY; 
+		//  Hard coding - if clicked here (the x) remove item from receipt
+		if (
+			mouseX > 988 && mouseX < 1013 &&
+			mouseY > receiptY - 14 &&
+			mouseY < receiptY + 5) {
+
+
+			let item = clickedGrocery[i];
+			item.targetX = item.originalX;
+			item.targetY = item.originalY;
 			item.isMoving = true;
 			// groceryList.push(item); // Må jeg slette? Er ikke relevant efter ny kode til easing back
-			returningGrocery.push(item);  
+			returningGrocery.push(item);
 			clickedGrocery.splice(i, 1); // See it as: array.splice(startIndex, amountToBeRemoved = 1)
-			break; 
+			break;
 		}
-    receiptY += 25; 
+		receiptY += 25;
 	}
 }
- // a function for the background having cracks after 4 and 6 kg of CO2
-	function cracking(totalCO2){
-		if (totalCO2 >= 4){
-		image(cracksExtra, 1200/2, (575 / 2) + 27.5, 1200, 550);
-		}
-		if (totalCO2 >= 6){
- 		image(cracks, 1200/2, 550/2, 1200, 550);	
+// a function for the background having cracks after 4 and 6 kg of CO2
+function cracking(totalCO2) {
+	if (totalCO2 >= 4) {
+		image(cracksExtra, 1200 / 2, (575 / 2) + 27.5, 1200, 550);
+	}
+	if (totalCO2 >= 6) {
+		image(cracks, 1200 / 2, 550 / 2, 1200, 550);
 		// sadSong.setVolume(0.3);
 		// sadSong.play();
 		// backgroundSong.pause();
 
-		}
 	}
+}
 

@@ -151,8 +151,8 @@ let oatMilkImg;
 let milk; // 0.50
 let milkImg;
 
-let butter; // 0.82
-let butterImg;
+let eggs; // 0.82
+let eggsImg;
 
 //drinks
 let wine; // 1.24 

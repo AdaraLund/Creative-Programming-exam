@@ -1,5 +1,5 @@
 //Set variables here
-let returningGrocery = []; // XDELETE
+let returningGrocery = []; // deleted groceries goes from "cliked" to "returning" (and lastly back to "groceryList")
 let groceryList = [];
 let clickedGrocery = [];
 let tintValue;
@@ -107,15 +107,15 @@ function draw() {
 	let anyhover = false; //  Variabel pre made for hover function
 
 	// Receipt box
-	let receiptX = 970; // start-position fra venstre  
-	let receiptTopY = 10; // start-position fra toppen 
-	let receiptW = 230;  // bredde 
-	let receiptH = 500;  // højde 
+	let receiptX = 970; // start-position from left  
+	let receiptTopY = 10; // start-position from top  
+	let receiptW = 230;  // width 
+	let receiptH = 500;  // height 
 
-	fill(246, 236, 215, 0); // (gør firkant bag kvittering gennemsigtig. 0 = alpha)
+	fill(246, 236, 215, 0); // (Makes the rect behind the receipt transparent. 0 = alpha)
 	rect(receiptX, receiptTopY, receiptW, receiptH); // den usynlige boks der definerer kvitteringens område
 	image(paperTexture, receiptX + receiptW / 2, receiptTopY + receiptH / 2, receiptW + 210, receiptH + 20);
-	// paperTexture placeres i midten af boksen (derfor + bredde/2 og + højde/2)
+	// paperTexture placed in the middle of the box (hence: + width/2 og + height/2)
 	// de sidste to tal er størrelsen sat til receiptW og receiptH så den passer præcis
 
 
@@ -156,23 +156,25 @@ function draw() {
 	drawingContext.setLineDash([3, 3]); // længde på streg, længde på mellemrum
 	line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
 
-	/* Nedenfor ses et forloop hvor der gennemgåes produkterne i "clickedGrocery" arrayet. 
-	For hvert produkt skriver itemName til venstre (itemName som jeg har kaldt produkt-navnet i class)
-	og så for at holde kvitteringensstilen placere jeg "prisen" til højre
-	hence -> produktets co2 (som det er kaldt i class) og derefter tilføjes bogstaverne kg bag på teksten.
+	/* 
+	Below is a for-loop that goes through all products in the "clickedGrocery" array.
+	For each product, itemName is written on the left side (itemName is what I called the product name in the class),
+	and to keep the receipt style, the "price" is placed on the right side,
+	which in this case is the product's CO2 value (as it is called in the class), followed by "kg".
 
-	totalCO2 opdateres løbende for hvert produkt, der rykker til "clickedGrocery" array, 
-	og receiptY rykkes 25 pixels ned så næste vare placeres på en ny linje. */
-
+	totalCO2 is continuously updated for every product added to the "clickedGrocery" array,
+	and receiptY is moved 25 pixels down so the next item is placed on a new line.
+	*/
 
 
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		let item = clickedGrocery[i];
 
-		fill(150); // XDELETE
-		textAlign(LEFT); // XDELETE
-		text("X", receiptLeft - 5, receiptY); // XDELETE
-		fill(0); // XDELETE
+		// For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
+		fill(150); 
+		textAlign(LEFT); 
+		text("X", receiptLeft - 5, receiptY); 
+		fill(0); 
 
 		textAlign(LEFT); 
 		text(item.itemName, receiptLeft, receiptY); 
@@ -242,15 +244,22 @@ function draw() {
 	//front of cart - skal være foran grocerylist display
 	image(frontbackground, 1200 / 2, 550 / 2, 1200, 550);
 
-	// XDELETE, varer på vej tilbage tegnes oven på alt
-	for (let i = returningGrocery.length - 1; i >= 0; i--) {
-		returningGrocery[i].displayReturning();
-		// når varen er tæt nok på målet, flyt den til groceryList
+	/* 
+	Backwards loop. We loop backwards because removing an item shifts the remaining elements.
+	If we looped forwards, the next element could move into the current index and be skipped by the loop.
+	Take item i in returningGrocery and run displayClickedGrocery (as defined in Class.js). It's the easing.
+	Draw the item and move it closer to its orignal position. 
+	Dist = if the item is less than 5 pixels from original position count is as "arrived home" then...
+	...the animation stop and the product will be added back to "GroceryList" and removed from "returningGrocery"
+	Items on their way back gets drawn on top of everything becuase this bit is late in draw()
+	*/
+
+	for (let i = returningGrocery.length - 1; i >= 0; i--) { 
+		returningGrocery[i].displayClickedGrocery();
 		if (dist(returningGrocery[i].x, returningGrocery[i].y, returningGrocery[i].originalX, returningGrocery[i].originalY) < 5) {
 			returningGrocery[i].isMoving = false;
 			groceryList.push(returningGrocery[i]);
 			returningGrocery.splice(i, 1);
-			// XDELETE
 		}
 	}
 
@@ -324,20 +333,20 @@ function mousePressed() {
    
 	// XDELETE - hard coding - if clicked here (the x) remove item from receipt
 	if (
-		mouseX > 988 && mouseX < 1013 &&
-		mouseY > receiptY - 14 &&
-		mouseY < receiptY + 5) { 
+		mouseX > 988 && mouseX < 1013 && 
+		mouseY > receiptY - 14 && 
+		mouseY < receiptY + 5) {  
 
+		
 		let item = clickedGrocery[i];
-			// item.targetX = item.originalX; 
-			// item.targetY = item.originalY; 
+			item.targetX = item.originalX; 
+			item.targetY = item.originalY; 
 			item.isMoving = true;
-			// groceryList.push(item); XDELETE, stod her før, ved ikke hvad gør. 
-			returningGrocery.push(item);  // erstat med denne
-			clickedGrocery.splice(i, 1);
-			break;
+			// groceryList.push(item); // Må jeg slette? Er ikke relevant efter ny kode til easing back
+			returningGrocery.push(item);  
+			clickedGrocery.splice(i, 1); // See it as: array.splice(startIndex, amountToBeRemoved = 1)
+			break; 
 		}
-    receiptY += 25;
-	// XDELETE 
+    receiptY += 25; 
 	}
 }

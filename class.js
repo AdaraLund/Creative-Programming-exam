@@ -18,8 +18,8 @@ class Grocery {
 		this.targetX = x;
 		this.targetY = y;
 		this.isMoving = false; //vi spørger om objekter er i bevægelse for at afgøre om den skal trækkes til kurv
-		this.originalX = x; // // XDELETE - used when the product need to return after being removed from receipt
-   		this.originalY = y; // XDELETE used when the product need to return after being removed from receipt
+		this.originalX = x; // // Used when the product need to return after being removed from receipt
+   		this.originalY = y; // Used when the product need to return after being removed from receipt
 	}
 
 	// Dette displayer vores groceryList
@@ -37,10 +37,10 @@ class Grocery {
 	}
 
 	/*
-	 isHovering funktionen handler om at den tager true/false fra "anyhover",
-	 hvor den tjekker om den hover over en af objekterne, og returner true hvis hover, 
-	 false hvis ikke hover. 
-	 så den automatisk ændrer cursor state når man hover sin mus over en af objekterne.
+		The isHovering function uses the true/false value from "anyhover".
+		It checks whether the mouse is hovering over one of the objects,
+		and returns true if it is hovering, and false if it is not.
+		This allows the cursor to automatically change state when the mouse hovers over an object.
 	*/
 
 	/**

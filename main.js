@@ -191,8 +191,8 @@ function draw() {
 	}
 			cracking(totalCO2); // function for updating the CO2
 
-	// vis kun total hvis der er mindst én vare i kurven
-	if (clickedGrocery.length > 0) { // Gør at der kun står total hvis der er mindst én vare i kurven. Ellers vises intet.
+	
+	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
 
 		// streg 2 (over total)
 		strokeWeight(0.5);
@@ -204,11 +204,11 @@ function draw() {
 		textSize(16); // make total bigger than items
 
 		textAlign(LEFT);
-		text("TOTAL CO2", receiptLeft, receiptY);
+		text("TOTAL", receiptLeft, receiptY);
 
 		textAlign(RIGHT);
 		// text(totalCO2.toFixed(2), receiptRight, receiptY);  // toFixed(2) runder af til 2 decimaler
-		text(totalCO2.toFixed(2) + " KG", receiptRight, receiptY); //  vil vi helst have "co2 kg" til venstre eller højre?
+		text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, receiptY);
 	}
 
 	textAlign(LEFT);
@@ -354,7 +354,7 @@ function mousePressed() {
 	let receiptY = 130;
 	for (let i = 0; i < clickedGrocery.length; i++) {
    
-	// XDELETE - hard coding - if clicked here (the x) remove item from receipt
+	//  Hard coding - if clicked here (the x) remove item from receipt
 	if (
 		mouseX > 988 && mouseX < 1013 && 
 		mouseY > receiptY - 14 && 

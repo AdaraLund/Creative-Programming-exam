@@ -99,7 +99,7 @@ function setup() {
 	oatMilk = new Grocery(160, 165, 40, 70, oatMilkImg, 0.40, "Oatmilk");
 	soda = new Grocery(90, 97, 40, 70, sodaImg, 0.88, "Soda");
 	chicken = new Grocery(100, 235, 60, 70, chickenImg, 4.91, "Chicken");
-	eggs = new Grocery(170, 240, 50, 50, eggsImg, 4.91, "Eggs");
+	eggs = new Grocery(170, 240, 50, 50, eggsImg, 0.58, "Eggs");
 	cheese = new Grocery(103, 317, 50, 50, cheeseImg, 1.08, "Cheese");
 	chips = new Grocery(800, 240, 60, 60, chipsImg, 0.74, "Chips");
 

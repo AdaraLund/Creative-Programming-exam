@@ -139,7 +139,7 @@ let baguette; // 0.81
 let baguetteImg;
 
 //Refrigiated
-let chicken; // 4.91
+let chicken; // 0.58
 let chickenImg;
 
 let cheese; // 1.08 

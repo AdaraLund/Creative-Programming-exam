@@ -178,7 +178,6 @@ function draw() {
 	*/
 
 
-
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		let item = clickedGrocery[i];
 
@@ -384,14 +383,12 @@ function mousePressed() {
 // a function for the background having cracks after 4 and 6 kg of CO2
 function cracking(totalCO2) {
 	if (totalCO2 >= 4) {
-		image(cracksExtra, 1200 / 2, (575 / 2) + 27.5, 1200, 550);
-	}
-	if (totalCO2 >= 6) {
-		image(cracks, 1200 / 2, 550 / 2, 1200, 550);
+		image(cracksExtra, 1200 / 2, (575 / 2) + 27.5, 1200, 550, tintValue);
+		image(cracks, 1200 / 2, 550 / 2, 1200, 550, tintValue);
 		// sadSong.setVolume(0.3);
 		// sadSong.play();
 		// backgroundSong.pause();
-
 	}
+
 }
 

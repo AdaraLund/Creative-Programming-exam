@@ -328,9 +328,9 @@ function draw() {
 
 	// images for sound on/off image
 	if (soundOn) {
-		image(noSound, 1160, 30, 40, 40);
+		image(noSound, 40, 560, 40, 40);
 	} else {
-		image(sound, 1160, 30, 40, 40);
+		image(sound, 40, 560, 40, 40);
 	}
 
 }

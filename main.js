@@ -46,6 +46,9 @@ function preload() { // For loading before program is run
 	cheeseImg = loadImage('./assets/images/cheese.png');
 	chipsImg = loadImage('./assets/images/chips.png');
 
+	// restart
+	restartImg = loadImage('./assets/images/restart.png');
+
 	// font and receipt texture
 	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
 	paperTexture = loadImage('./assets/images/paperTexture.png');
@@ -332,15 +335,17 @@ function draw() {
 	} else {
 		image(sound, 40, 560, 40, 40);
 	}
-
+	image(restartImg, 95, 562, 30, 30); // restart button
 }
+
+	
 
 function mousePressed() {
 
 	// here we check if the mouse is clicking on the x and y positions, where the image is
 	if (
-		mouseX > 1140 && mouseX < 1180 &&
-		mouseY > 10 && mouseY < 50
+		mouseX > 20 && mouseX < 60 &&
+		mouseY > 545 && mouseY < 575
 	) { // if we click on sound, it will turn to noSound image and vice versa
 		if (soundOn == true) {
 			soundOn = false;

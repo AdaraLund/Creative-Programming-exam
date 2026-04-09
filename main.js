@@ -327,7 +327,10 @@ function draw() {
 	//front of cart, always at the end
 	image(piCartFront, 595, 540, 220, 120);
 
-
+	strokeWeight(0);
+	fill(255, 255, 255);
+	circle(95, 562, 40);
+	circle(40, 560, 40);
 
 	// images for sound on/off image
 	if (soundOn) {
@@ -336,6 +339,8 @@ function draw() {
 		image(sound, 40, 560, 40, 40);
 	}
 	image(restartImg, 95, 562, 30, 30); // restart button
+
+	
 }
 
 	

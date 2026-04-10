@@ -157,7 +157,7 @@ function draw() {
 
 	let totalCO2 = 0; // starting Co2 value
 	let receiptY = 130; // startposition for tekst på kvitteringen fra toppen
-	let receiptLeft = 1005; // x-position for venstre tekst (varenavne)
+	let receiptLeft = 1006; // x-position for venstre tekst (varenavne)
 	let receiptRight = 1160; // x-position for højre tekst (CO2-værdier)
 
 	textSize(14);
@@ -191,7 +191,7 @@ function draw() {
 		fill(0);
 
 		textAlign(LEFT);
-		text(item.itemName, receiptLeft, receiptY);
+		text(item.itemName, receiptLeft + 10 , receiptY); // +12 for more space betweeen x and item name
 
 		textAlign(RIGHT);
 		text(item.CO2 + " kg", receiptRight, receiptY);

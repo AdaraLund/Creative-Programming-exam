@@ -20,7 +20,13 @@ function preload() { // For loading before program is run
 	shelfbasketbackground = loadImage('./assets/images/shelfbasket.png');
 	frontbaguettebasket = loadImage('./assets/images/frontbreadbasket.png');
 
-	// This is our Cracks - i put them active for now
+	//Plants
+	plant1_1 = loadImage('./assets/images/plants/plant1_1.png');
+	plant2_1 = loadImage('./assets/images/plants/plant2_1.png');
+	plant3_1 = loadImage('./assets/images/plants/plant3_1.png');
+	plant4_1 = loadImage('./assets/images/plants/plant4_1.png');
+
+	// This is our Cracks
 	cracks = loadImage('./assets/images/cracks.png');
 	cracksExtra = loadImage('./assets/images/cracksExtra.png');
 
@@ -120,6 +126,10 @@ function draw() {
 	image(extraStone, 1200 / 2, (575 / 2) + 27.5, 1200, 600);
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 	image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
+	image(plant1_1, 440, 50, 100, 120);
+	image(plant2_1, 515, 45, 110, 130);
+	image(plant3_1, 800, 35, 100, 150);
+	image(plant4_1, 870, 75, 110, 110);
 
 	//Making x and y appear on the canvas when hovering
 	textSize(16);
@@ -191,7 +201,7 @@ function draw() {
 		fill(0);
 
 		textAlign(LEFT);
-		text(item.itemName, receiptLeft + 10 , receiptY); // +12 for more space betweeen x and item name
+		text(item.itemName, receiptLeft + 10, receiptY); // +12 for more space betweeen x and item name
 
 		textAlign(RIGHT);
 		text(item.CO2 + " kg", receiptRight, receiptY);
@@ -340,10 +350,10 @@ function draw() {
 	}
 	image(restartImg, 95, 562, 30, 30); // restart button
 
-	
+
 }
 
-	
+
 
 function mousePressed() {
 

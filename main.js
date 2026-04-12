@@ -52,6 +52,12 @@ function preload() { // For loading before program is run
 	cheeseImg = loadImage('./assets/images/cheese.png');
 	chipsImg = loadImage('./assets/images/chips.png');
 
+	nutellaImg = loadImage('./assets/images/nutella.png');
+	flowersImg = loadImage('./assets/images/flowers.png');
+	oreoImg = loadImage('./assets/images/oreo.png');
+	ramenImg = loadImage('./assets/images/ramen.png');
+	cornflakesImg = loadImage('./assets/images/cornflakes.png');
+
 	// restart
 	restartImg = loadImage('./assets/images/restart.png');
 
@@ -101,7 +107,7 @@ function setup() {
 	wine = new Grocery(320, 64, 30, 85, wineImg, 1.24, "Wine");
 	ryebread = new Grocery(400, 168, 40, 70, ryebreadImg, 1.02, "Ryebread");
 	baguette = new Grocery(225, 350, 60, 160, baguetteImg, 0.81, "Baguette");
-	toast = new Grocery(600, 165, 60, 70, toastImg, 0.81, "Toast");
+	toast = new Grocery(650, 165, 60, 70, toastImg, 0.81, "Toast");
 	beer = new Grocery(134, 96, 40, 70, beerImg, 0.22, "Beer");
 	cookies = new Grocery(820, 180, 90, 40, cookiesImg, 0.73, "Cookies");
 	milk = new Grocery(100, 162, 40, 70, milkImg, 0.50, "Milk");
@@ -113,8 +119,16 @@ function setup() {
 	chips = new Grocery(800, 240, 60, 60, chipsImg, 0.74, "Chips");
 
 
+	// CO2 passer ikke her
+	nutella = new Grocery(480, 240, 50, 60, nutellaImg, 0.88, "Nutella"); 
+	flowers = new Grocery(640, 82, 110, 70, flowersImg, 4.91, "Flowers");
+	oreo = new Grocery(350, 250, 80, 35, oreoImg, 0.58, "Oreo");
+	ramen = new Grocery(540, 170, 60, 60, ramenImg, 1.08, "Ramen");
+	cornflakes = new Grocery(630, 240, 60, 60, cornflakesImg, 0.74, "Cornflakes");
+
+
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
-	groceryList.push(chips, cheese, eggs, chicken, soda, oatMilk, milk, cookies, beer, banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette, toast);
+	groceryList.push(nutella, flowers, oreo, ramen, cornflakes, chips, cheese, eggs, chicken, soda, oatMilk, milk, cookies, beer, banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette, toast);
 	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
 
 

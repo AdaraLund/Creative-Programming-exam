@@ -138,6 +138,24 @@ let cookiesImg;
 let baguette; // 0.81
 let baguetteImg;
 
+// nutella, flowers, oreo, ramen, cornflakes
+
+let nutella;
+let nutellaImg;
+
+let flowers;
+let flowersImg;
+
+let oreo;
+let oreoImg;
+
+let ramen;
+let ramenImg;
+
+let cornflakes;
+let cornflakesImg;
+
+
 //Refrigiated
 let chicken; // 0.58
 let chickenImg;

@@ -128,7 +128,7 @@ function draw() {
 	image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 	image(plant1_1, 440, 50, 100, 120);
 	image(plant2_1, 515, 45, 110, 130);
-	image(plant3_1, 800, 35, 100, 150);
+	image(plant3_1, 790, 35, 100, 150);
 	image(plant4_1, 870, 75, 110, 110);
 
 	//Making x and y appear on the canvas when hovering

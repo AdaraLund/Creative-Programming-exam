@@ -3,6 +3,9 @@ let returningGrocery = []; // deleted groceries goes from "cliked" to "returning
 let groceryList = [];
 let clickedGrocery = [];
 let tintValue;
+let button;
+// for changing from start screen to main screen to end screen
+let screen = 0;
 
 
 
@@ -84,6 +87,15 @@ function setup() {
 	strokeWeight(0); // size of frame of object
 	imageMode(CENTER);// placing images by their center instead of corner
 
+	// created a button, that changes screen when pressed
+	button = createButton("Checkout");
+  	button.position(550, 230);
+  	button.mousePressed(changeScreen);
+	//styling the button with font, size and padding
+	button.style("font-family", receiptFont); 
+	button.style("font-size", "24px");
+	button.style("padding", "10px 20px");
+
 	// All our objects are defined as groceries
 
 	// CHANGES TO COME;
@@ -122,6 +134,14 @@ function setup() {
 }
 
 function draw() {
+	if (screen === 0) {
+		background(255, 255, 255);
+		textSize(24);
+		textFont(receiptFont);
+		text("Welcome to the CO2 supermarket simulator! Click to start!", 400, 300);
+		return;
+	}
+
 	background(250, 220, 230);
 	image(extraStone, 1200 / 2, (575 / 2) + 27.5, 1200, 600);
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
@@ -409,6 +429,13 @@ function cracking(totalCO2) {
 		// sadSong.play();
 		// backgroundSong.pause();
 	}
-
 }
+
+	function changeScreen() {
+		if (screen === 0) {
+			screen = 1;
+			button.hide();
+		}
+	}
+
 

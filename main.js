@@ -3,7 +3,7 @@ let returningGrocery = []; // deleted groceries goes from "cliked" to "returning
 let groceryList = [];
 let clickedGrocery = [];
 let tintValue;
-let button;
+
 // for changing from start screen to main screen to end screen
 let screen = 0;
 
@@ -19,6 +19,8 @@ function preload() { // For loading before program is run
 	frontbackground = loadImage('./assets/images/frontbackground.png');
 	shelfbasketbackground = loadImage('./assets/images/shelfbasket.png');
 	frontbaguettebasket = loadImage('./assets/images/frontbreadbasket.png');
+	startbackground = loadImage('./assets/images/start.jpg');
+	endbackground = loadImage('./assets/images/co2.avif');
 
 	//Plants
 	plant1_1 = loadImage('./assets/images/plants/plant1_1.png');
@@ -84,25 +86,40 @@ function setup() {
 	strokeWeight(0); // size of frame of object
 	imageMode(CENTER);// placing images by their center instead of corner
 
-	// start button
+	// buttons
 	// created a button, that changes screen when pressed
 	button1 = createButton("Start");
-  	button1.position(550, 230);
+  	button1.position(910, 490);
   	button1.mousePressed(startGame);
 	//styling the button with font, size and padding
-	button1.style("font-family", receiptFont); 
-	button1.style("font-size", "24px");
-	button1.style("padding", "10px 20px");
-
+	button1.style("font-family", "Special Elite");
+	button1.style("font-size", "33px");
+	button1.style("padding", "15px 34px");
+	button1.style("background-color", "white");
+	button1.style("color", "black");
+	button1.style("border-radius", "5px");	
+	button1.style("cursor", "pointer");
+	
 	// end button
 	button2 = createButton("Checkout");
 	button2.hide();
-  	button2.position(600, 500);
+  	button2.position(1380, 689);
   	button2.mousePressed(endGame);
-	//styling the button with font, size and padding
-	button2.style("font-family", receiptFont); 
+	button2.style("font-family", "Special Elite");
 	button2.style("font-size", "24px");
 	button2.style("padding", "10px 20px");
+	button2.style("border-radius", "5px");	
+	button2.style("cursor", "pointer");
+
+	// replay button
+	button3 = createButton("Replay");
+	button3.hide();
+  	button3.position(910, 490);
+  	button3.mousePressed(start);
+	button3.style("font-family", "Special Elite");
+	button3.style("font-size", "24px");
+	button3.style("padding", "10px 20px");
+	button3.style("cursor", "pointer");
 
 
 	// All our objects are defined as groceries
@@ -143,18 +160,19 @@ function setup() {
 }
 
 function draw() {
-	if (screen === 0) {
-		background(255, 255, 255);
+	if (screen == 0) {
+		image(startbackground, 1200 / 2, 550 / 2, 1200, 550);
 		textSize(24);
 		textFont(receiptFont);
 		text("Welcome to the CO2 supermarket simulator! Click to start!", 400, 300);
 		return;
 	}
-	if (screen === 2) {
-		background(255, 255, 255);
+	if (screen == 2) {
+		image(endbackground, 1200 / 2, 550 / 2, 1200, 550);
+		fill(0, 0, 0);
 		textSize(24);
 		textFont(receiptFont);
-		text("End", 400, 300);
+		text("Facts about CO2 usage and giving a comparison", 400, 300);
 		return;
 	}
 
@@ -448,6 +466,12 @@ function cracking(totalCO2) {
 	}
 }
 
+function start() {
+	screen = 0;
+	button1.show();
+	button2.hide();
+	button3.hide();
+}
 function startGame() {
 	screen = 1;
 	button1.hide();
@@ -457,5 +481,6 @@ function startGame() {
 function endGame() {
 		screen = 2;
 		button2.hide();
+		button3.show();
 }
 

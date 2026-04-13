@@ -118,14 +118,11 @@ function setup() {
 	eggs = new Grocery(170, 240, 50, 50, eggsImg, 0.58, "Eggs");
 	cheese = new Grocery(103, 317, 50, 50, cheeseImg, 1.08, "Cheese");
 	chips = new Grocery(800, 240, 60, 60, chipsImg, 0.74, "Chips");
-
-
-	// CO2 passer ikke her
-	nutella = new Grocery(480, 240, 50, 60, nutellaImg, 0.88, "Nutella"); 
-	flowers = new Grocery(640, 82, 110, 70, flowersImg, 4.91, "Flowers");
-	oreo = new Grocery(350, 250, 80, 35, oreoImg, 0.58, "Oreo");
-	ramen = new Grocery(540, 170, 60, 60, ramenImg, 1.08, "Ramen");
-	cornflakes = new Grocery(630, 240, 60, 60, cornflakesImg, 0.74, "Cornflakes");
+	nutella = new Grocery(480, 240, 50, 60, nutellaImg, 1.57, "Nutella"); 
+	flowers = new Grocery(640, 82, 110, 70, flowersImg, 10.4, "Flowers");
+	oreo = new Grocery(350, 250, 80, 35, oreoImg, 4.7, "Oreo");
+	ramen = new Grocery(540, 170, 60, 60, ramenImg, 0.65, "Ramen");
+	cornflakes = new Grocery(630, 240, 60, 60, cornflakesImg, 1.74, "Cornflakes");
 
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning

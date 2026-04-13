@@ -19,6 +19,7 @@ function preload() { // For loading before program is run
 	frontbackground = loadImage('./assets/images/frontbackground.png');
 	shelfbasketbackground = loadImage('./assets/images/shelfbasket.png');
 	frontbaguettebasket = loadImage('./assets/images/frontbreadbasket.png');
+	xImg = loadImage('./assets/images/x.png');
 
 	//Plants
 	plant1_1 = loadImage('./assets/images/plants/plant1_1.png');
@@ -211,7 +212,7 @@ function draw() {
 		// For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
 		fill(150);
 		textAlign(LEFT);
-		text("X", receiptLeft - 5, receiptY);
+		image(xImg, receiptLeft , receiptY - 3, 15,15);
 		fill(0);
 
 		textAlign(LEFT);

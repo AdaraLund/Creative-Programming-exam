@@ -99,14 +99,14 @@ function setup() {
 	// placering er forkert
 
 	apple = new Grocery(330, 390, 60, 60, appleImg, 0.61, "Apple");
-	banana = new Grocery(470, 290, 80, 80, bananaImg, 1.02, "Banana");
+	banana = new Grocery(470, 290, 80, 60, bananaImg, 1.02, "Banana");
 	avocado = new Grocery(340, 300, 70, 50, avocadoImg, 0.73, "Avocado");
-	cucumber = new Grocery(550, 395, 80, 80, cucumberImg, 0.14, "Cucumber");
-	carrot = new Grocery(690, 290, 110, 110, carrotImg, 0.27, "Carrot");
+	cucumber = new Grocery(550, 395, 100, 50, cucumberImg, 0.14, "Cucumber");
+	carrot = new Grocery(690, 290, 110, 70, carrotImg, 0.27, "Carrot");
 	watermelon = new Grocery(800, 400, 100, 100, watermelonImg, 1.2, "Watermelon");
 	water = new Grocery(180, 95, 30, 70, waterImg, 0.28, "Water");
 	wine = new Grocery(320, 64, 30, 85, wineImg, 1.24, "Wine");
-	ryebread = new Grocery(400, 168, 40, 70, ryebreadImg, 1.02, "Ryebread");
+	ryebread = new Grocery(400, 168, 90, 50, ryebreadImg, 1.02, "Ryebread");
 	baguette = new Grocery(225, 350, 60, 160, baguetteImg, 0.81, "Baguette");
 	toast = new Grocery(650, 165, 60, 70, toastImg, 0.81, "Toast");
 	beer = new Grocery(134, 96, 40, 70, beerImg, 0.22, "Beer");
@@ -118,11 +118,11 @@ function setup() {
 	eggs = new Grocery(170, 240, 50, 50, eggsImg, 0.58, "Eggs");
 	cheese = new Grocery(103, 317, 50, 50, cheeseImg, 1.08, "Cheese");
 	chips = new Grocery(800, 240, 60, 60, chipsImg, 0.74, "Chips");
-	nutella = new Grocery(480, 240, 50, 60, nutellaImg, 1.57, "Nutella"); 
+	nutella = new Grocery(480, 240, 50, 60, nutellaImg, 1.57, "Nutella");
 	flowers = new Grocery(640, 82, 110, 70, flowersImg, 10.4, "Flowers");
 	oreo = new Grocery(350, 250, 80, 35, oreoImg, 4.7, "Oreo");
 	ramen = new Grocery(540, 170, 60, 60, ramenImg, 0.65, "Ramen");
-	cornflakes = new Grocery(630, 240, 60, 60, cornflakesImg, 1.74, "Cornflakes");
+	cornflakes = new Grocery(630, 240, 60, 70, cornflakesImg, 1.74, "Cornflakes");
 
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
@@ -209,7 +209,7 @@ function draw() {
 		// For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
 		fill(150);
 		textAlign(LEFT);
-		image(xImg, receiptLeft , receiptY - 3, 15,15);
+		image(xImg, receiptLeft, receiptY - 3, 15, 15);
 		fill(0);
 
 		textAlign(LEFT);

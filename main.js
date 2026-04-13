@@ -19,8 +19,7 @@ function preload() { // For loading before program is run
 	frontbackground = loadImage('./assets/images/frontbackground.png');
 	shelfbasketbackground = loadImage('./assets/images/shelfbasket.png');
 	frontbaguettebasket = loadImage('./assets/images/frontbreadbasket.png');
-	startbackground = loadImage('./assets/images/start.jpg');
-	endbackground = loadImage('./assets/images/co2.avif');
+	
 
 	//Plants
 	plant1_1 = loadImage('./assets/images/plants/plant1_1.png');
@@ -94,10 +93,8 @@ function setup() {
 	//styling the button with font, size and padding
 	button1.style("font-family", "Special Elite");
 	button1.style("font-size", "33px");
-	button1.style("padding", "15px 34px");
-	button1.style("background-color", "white");
-	button1.style("color", "black");
-	button1.style("border-radius", "5px");	
+	button1.style("padding", "12px 31px");
+	button1.style("border-radius", "8px");	
 	button1.style("cursor", "pointer");
 	
 	// end button
@@ -110,6 +107,7 @@ function setup() {
 	button2.style("padding", "10px 20px");
 	button2.style("border-radius", "5px");	
 	button2.style("cursor", "pointer");
+	button2.style("border-color", "darkgrey");
 
 	// replay button
 	button3 = createButton("Replay");
@@ -161,18 +159,18 @@ function setup() {
 
 function draw() {
 	if (screen == 0) {
-		image(startbackground, 1200 / 2, 550 / 2, 1200, 550);
+		background(186, 186, 186);
 		textSize(24);
 		textFont(receiptFont);
-		text("Welcome to the CO2 supermarket simulator! Click to start!", 400, 300);
+		text("Welcome to the CO2 supermarket simulator, click to start!", 300, 300);
 		return;
 	}
 	if (screen == 2) {
-		image(endbackground, 1200 / 2, 550 / 2, 1200, 550);
+		background(217, 172, 163);
 		fill(0, 0, 0);
 		textSize(24);
 		textFont(receiptFont);
-		text("Facts about CO2 usage and giving a comparison", 400, 300);
+		text("Facts about CO2 usage and giving a comparison", 300, 300);
 		return;
 	}
 

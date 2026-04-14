@@ -20,6 +20,7 @@ function preload() { // For loading before program is run
 	shelfbasketbackground = loadImage('./assets/images/shelfbasket.png');
 	frontbaguettebasket = loadImage('./assets/images/frontbreadbasket.png');
 	xImg = loadImage('./assets/images/x.png');
+	wares = loadImage('./assets/images/wares.png');
 
 	//Plants
 	plant1_1 = loadImage('./assets/images/plants/plant1_1.png');
@@ -112,16 +113,16 @@ function setup() {
 	cucumber = new Grocery(550, 395, 100, 50, cucumberImg, 0.14, "Cucumber");
 	carrot = new Grocery(690, 290, 110, 70, carrotImg, 0.27, "Carrot");
 	watermelon = new Grocery(800, 400, 100, 100, watermelonImg, 1.2, "Watermelon");
-	water = new Grocery(180, 95, 30, 70, waterImg, 0.28, "Water");
-	wine = new Grocery(320, 64, 30, 85, wineImg, 1.24, "Wine");
+	water = new Grocery(77, 99, 30, 70, waterImg, 0.28, "Water");
+	wine = new Grocery(323, 70, 25, 82, wineImg, 1.24, "Wine");
 	ryebread = new Grocery(400, 168, 90, 50, ryebreadImg, 1.02, "Ryebread");
 	baguette = new Grocery(225, 350, 60, 160, baguetteImg, 0.81, "Baguette");
 	toast = new Grocery(650, 165, 60, 70, toastImg, 0.81, "Toast");
-	beer = new Grocery(134, 96, 40, 70, beerImg, 0.22, "Beer");
+	beer = new Grocery(180, 100, 40, 65, beerImg, 0.22, "Beer");
 	cookies = new Grocery(820, 180, 90, 40, cookiesImg, 0.73, "Cookies");
 	milk = new Grocery(100, 162, 40, 70, milkImg, 0.50, "Milk");
 	oatMilk = new Grocery(160, 165, 40, 70, oatMilkImg, 0.40, "Oatmilk");
-	soda = new Grocery(90, 97, 40, 70, sodaImg, 0.88, "Soda");
+	soda = new Grocery(130, 97, 40, 70, sodaImg, 0.88, "Soda");
 	chicken = new Grocery(100, 235, 60, 70, chickenImg, 4.91, "Chicken");
 	eggs = new Grocery(170, 240, 50, 50, eggsImg, 0.58, "Eggs");
 	cheese = new Grocery(103, 317, 50, 50, cheeseImg, 1.08, "Cheese");
@@ -146,7 +147,7 @@ function draw() {
 	image(extraStone, 1200 / 2, (575 / 2) + 27.5, 1200, 600);
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 	image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
-
+	image(wares, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 
 
 	//Making x and y appear on the canvas when hovering
@@ -228,25 +229,25 @@ function draw() {
 		receiptY += 25; // rykker x antal pixel ned for hver tilføjet item 
 	}
 	cracking(totalCO2); // function for updating the CO2
-	
-	if (totalCO2 > 10 && totalCO2 < 20){ // Dying plant if CO2 is between 10 and 20
-	image(plant1_2, 440, 50, 100, 120);
-	image(plant2_2, 515, 45, 110, 130);
-	image(plant3_2, 790, 35, 100, 150);
-	image(plant4_2, 870, 75, 110, 110);
 
-	} else if (totalCO2 >20 ){ // Dead plant if CO2 is higher than 20
-	image(plant1_3, 440, 50, 100, 120);
-	image(plant2_3, 515, 45, 110, 130);
-	image(plant3_3, 790, 35, 100, 150);
-	image(plant4_3, 870, 75, 110, 110);
+	if (totalCO2 > 10 && totalCO2 < 20) { // Dying plant if CO2 is between 10 and 20
+		image(plant1_2, 440, 50, 100, 120);
+		image(plant2_2, 515, 45, 110, 130);
+		image(plant3_2, 790, 35, 100, 150);
+		image(plant4_2, 870, 75, 110, 110);
+
+	} else if (totalCO2 > 20) { // Dead plant if CO2 is higher than 20
+		image(plant1_3, 440, 50, 100, 120);
+		image(plant2_3, 515, 45, 110, 130);
+		image(plant3_3, 790, 35, 100, 150);
+		image(plant4_3, 870, 75, 110, 110);
 
 	} else { // Our healthy plants if CO2 is less than 10
-	image(plant1_1, 440, 50, 100, 120);
-	image(plant2_1, 515, 45, 110, 130);
-	image(plant3_1, 790, 35, 100, 150);
-	image(plant4_1, 870, 75, 110, 110);
-}
+		image(plant1_1, 440, 50, 100, 120);
+		image(plant2_1, 515, 45, 110, 130);
+		image(plant3_1, 790, 35, 100, 150);
+		image(plant4_1, 870, 75, 110, 110);
+	}
 
 	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
 

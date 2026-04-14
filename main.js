@@ -115,23 +115,23 @@ function setup() {
 	watermelon = new Grocery(800, 400, 100, 100, watermelonImg, 1.2, "Watermelon");
 	water = new Grocery(77, 99, 30, 70, waterImg, 0.28, "Water");
 	wine = new Grocery(323, 70, 25, 82, wineImg, 1.24, "Wine");
-	ryebread = new Grocery(400, 168, 90, 50, ryebreadImg, 1.02, "Ryebread");
+	ryebread = new Grocery(425, 177, 98, 50, ryebreadImg, 1.02, "Ryebread");
 	baguette = new Grocery(225, 350, 60, 160, baguetteImg, 0.81, "Baguette");
-	toast = new Grocery(650, 165, 60, 70, toastImg, 0.81, "Toast");
+	toast = new Grocery(540, 173, 60, 70, toastImg, 0.81, "Toast");
 	beer = new Grocery(180, 100, 40, 65, beerImg, 0.22, "Beer");
-	cookies = new Grocery(820, 180, 90, 40, cookiesImg, 0.73, "Cookies");
-	milk = new Grocery(100, 162, 40, 70, milkImg, 0.50, "Milk");
-	oatMilk = new Grocery(160, 165, 40, 70, oatMilkImg, 0.40, "Oatmilk");
+	cookies = new Grocery(630, 240, 90, 40, cookiesImg, 0.73, "Cookies");
+	milk = new Grocery(102, 170, 33, 55, milkImg, 0.50, "Milk");
+	oatMilk = new Grocery(168, 168, 35, 59, oatMilkImg, 0.40, "Oatmilk");
 	soda = new Grocery(130, 97, 40, 70, sodaImg, 0.88, "Soda");
 	chicken = new Grocery(100, 235, 60, 70, chickenImg, 4.91, "Chicken");
 	eggs = new Grocery(170, 240, 50, 50, eggsImg, 0.58, "Eggs");
 	cheese = new Grocery(103, 317, 50, 50, cheeseImg, 1.08, "Cheese");
 	chips = new Grocery(800, 240, 60, 60, chipsImg, 0.74, "Chips");
 	nutella = new Grocery(480, 240, 50, 60, nutellaImg, 1.57, "Nutella");
-	flowers = new Grocery(640, 82, 110, 70, flowersImg, 10.4, "Flowers");
+	flowers = new Grocery(690, 82, 110, 70, flowersImg, 10.4, "Flowers");
 	oreo = new Grocery(350, 250, 80, 35, oreoImg, 4.7, "Oreo");
-	ramen = new Grocery(540, 170, 60, 60, ramenImg, 0.65, "Ramen");
-	cornflakes = new Grocery(630, 240, 60, 70, cornflakesImg, 1.74, "Cornflakes");
+	ramen = new Grocery(850, 180, 53, 53, ramenImg, 0.65, "Ramen");
+	cornflakes = new Grocery(680, 173, 63, 73, cornflakesImg, 1.74, "Cornflakes");
 
 
 	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning

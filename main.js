@@ -107,29 +107,29 @@ function setup() {
 	//dimensioner er forkert
 	// placering er forkert
 
-	apple = new Grocery(330, 390, 60, 60, appleImg, 0.61, "Apple");
-	banana = new Grocery(470, 290, 80, 60, bananaImg, 1.02, "Banana");
-	avocado = new Grocery(340, 300, 70, 50, avocadoImg, 0.73, "Avocado");
-	cucumber = new Grocery(550, 395, 100, 50, cucumberImg, 0.14, "Cucumber");
-	carrot = new Grocery(690, 290, 110, 70, carrotImg, 0.27, "Carrot");
-	watermelon = new Grocery(800, 400, 100, 100, watermelonImg, 1.2, "Watermelon");
+	apple = new Grocery(750, 300, 60, 60, appleImg, 0.61, "Apple");
+	banana = new Grocery(550, 386, 80, 60, bananaImg, 1.02, "Banana");
+	avocado = new Grocery(610, 310, 70, 50, avocadoImg, 0.73, "Avocado");
+	cucumber = new Grocery(440, 310, 120, 50, cucumberImg, 0.14, "Cucumber");
+	carrot = new Grocery(340, 380, 120, 90, carrotImg, 0.27, "Carrot");
+	watermelon = new Grocery(722, 400, 90, 90, watermelonImg, 1.2, "Watermelon");
 	water = new Grocery(77, 99, 30, 70, waterImg, 0.28, "Water");
-	wine = new Grocery(323, 70, 25, 82, wineImg, 1.24, "Wine");
+	wine = new Grocery(330, 60, 32, 100, wineImg, 1.24, "Wine");
 	ryebread = new Grocery(425, 177, 98, 50, ryebreadImg, 1.02, "Ryebread");
 	baguette = new Grocery(225, 350, 60, 160, baguetteImg, 0.81, "Baguette");
 	toast = new Grocery(540, 173, 60, 70, toastImg, 0.81, "Toast");
 	beer = new Grocery(180, 100, 40, 65, beerImg, 0.22, "Beer");
-	cookies = new Grocery(630, 240, 90, 40, cookiesImg, 0.73, "Cookies");
+	cookies = new Grocery(610, 255, 95, 45, cookiesImg, 0.73, "Cookies");
 	milk = new Grocery(102, 170, 33, 55, milkImg, 0.50, "Milk");
 	oatMilk = new Grocery(168, 168, 35, 59, oatMilkImg, 0.40, "Oatmilk");
 	soda = new Grocery(130, 97, 40, 70, sodaImg, 0.88, "Soda");
-	chicken = new Grocery(100, 235, 60, 70, chickenImg, 4.91, "Chicken");
-	eggs = new Grocery(170, 240, 50, 50, eggsImg, 0.58, "Eggs");
-	cheese = new Grocery(103, 317, 50, 50, cheeseImg, 1.08, "Cheese");
-	chips = new Grocery(800, 240, 60, 60, chipsImg, 0.74, "Chips");
-	nutella = new Grocery(480, 240, 50, 60, nutellaImg, 1.57, "Nutella");
+	chicken = new Grocery(185, 240, 55, 65, chickenImg, 4.91, "Chicken");
+	eggs = new Grocery(150, 370, 55, 55, eggsImg, 0.58, "Eggs");
+	cheese = new Grocery(150, 317, 60, 60, cheeseImg, 1.08, "Cheese");
+	chips = new Grocery(850, 250, 57, 60, chipsImg, 0.74, "Chips");
+	nutella = new Grocery(732, 250, 50, 60, nutellaImg, 1.57, "Nutella");
 	flowers = new Grocery(690, 82, 110, 70, flowersImg, 10.4, "Flowers");
-	oreo = new Grocery(350, 250, 80, 35, oreoImg, 4.7, "Oreo");
+	oreo = new Grocery(420, 260, 83, 34, oreoImg, 4.7, "Oreo");
 	ramen = new Grocery(850, 180, 53, 53, ramenImg, 0.65, "Ramen");
 	cornflakes = new Grocery(680, 173, 63, 73, cornflakesImg, 1.74, "Cornflakes");
 

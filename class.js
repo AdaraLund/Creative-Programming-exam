@@ -102,6 +102,8 @@ class Grocery {
 
 //fruit and vegs
 
+let xImg;
+
 let apple;
 let appleImg;
 

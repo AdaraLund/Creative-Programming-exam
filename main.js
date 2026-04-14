@@ -23,9 +23,17 @@ function preload() { // For loading before program is run
 
 	//Plants
 	plant1_1 = loadImage('./assets/images/plants/plant1_1.png');
+	plant1_2 = loadImage('./assets/images/plants/plant1_2.png');
+	plant1_3 = loadImage('./assets/images/plants/plant1_3.png');
 	plant2_1 = loadImage('./assets/images/plants/plant2_1.png');
+	plant2_2 = loadImage('./assets/images/plants/plant2_2.png');
+	plant2_3 = loadImage('./assets/images/plants/plant2_3.png');
 	plant3_1 = loadImage('./assets/images/plants/plant3_1.png');
+	plant3_2 = loadImage('./assets/images/plants/plant3_2.png');
+	plant3_3 = loadImage('./assets/images/plants/plant3_3.png');
 	plant4_1 = loadImage('./assets/images/plants/plant4_1.png');
+	plant4_2 = loadImage('./assets/images/plants/plant4_2.png');
+	plant4_3 = loadImage('./assets/images/plants/plant4_3.png');
 
 	// This is our Cracks
 	cracks = loadImage('./assets/images/cracks.png');
@@ -138,10 +146,8 @@ function draw() {
 	image(extraStone, 1200 / 2, (575 / 2) + 27.5, 1200, 600);
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 	image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
-	image(plant1_1, 440, 50, 100, 120);
-	image(plant2_1, 515, 45, 110, 130);
-	image(plant3_1, 790, 35, 100, 150);
-	image(plant4_1, 870, 75, 110, 110);
+
+
 
 	//Making x and y appear on the canvas when hovering
 	textSize(16);
@@ -222,7 +228,25 @@ function draw() {
 		receiptY += 25; // rykker x antal pixel ned for hver tilføjet item 
 	}
 	cracking(totalCO2); // function for updating the CO2
+	
+	if (totalCO2 > 10 && totalCO2 < 20){ // Dying plant if CO2 is between 10 and 20
+	image(plant1_2, 440, 50, 100, 120);
+	image(plant2_2, 515, 45, 110, 130);
+	image(plant3_2, 790, 35, 100, 150);
+	image(plant4_2, 870, 75, 110, 110);
 
+	} else if (totalCO2 >20 ){ // Dead plant if CO2 is higher than 20
+	image(plant1_3, 440, 50, 100, 120);
+	image(plant2_3, 515, 45, 110, 130);
+	image(plant3_3, 790, 35, 100, 150);
+	image(plant4_3, 870, 75, 110, 110);
+
+	} else { // Our healthy plants if CO2 is less than 10
+	image(plant1_1, 440, 50, 100, 120);
+	image(plant2_1, 515, 45, 110, 130);
+	image(plant3_1, 790, 35, 100, 150);
+	image(plant4_1, 870, 75, 110, 110);
+}
 
 	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
 

@@ -222,25 +222,26 @@ function draw()  {
 		// For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
 		fill(150);
 		textAlign(LEFT);
-		image(xImg, receiptLeft, itemY - 3, 15, 15); // SCROLL
+		image(xImg, receiptLeft, itemY - 3, 15, 15); // SCROLL, før stod der receiptY frem ofr itemY
 		fill(0);
 
 		textAlign(LEFT);
-		text(item.itemName, receiptLeft + 10, itemY); // SCROLL (orgiantl) +12 for more space betweeen x and item name
+		text(item.itemName, receiptLeft + 10, itemY); // SCROLL før stod der receiptY frem ofr itemY (orgiantl) +12 for more space betweeen x and item name
 
 		textAlign(RIGHT);
-		text(item.CO2 + " kg", receiptRight, itemY); // SCROLL
+		text(item.CO2 + " kg", receiptRight, itemY); // SCROLL før stod der receiptY frem ofr itemY
 
 		totalCO2 += item.CO2; // læg varens CO2 til totalen
 		receiptY += 30; // rykker x antal pixel ned for hver tilføjet item, husk at ændre i mousepressed
 	}
 
+// SCROLL START
+
 	drawingContext.restore();
 
-// SCROLL START
 // ScrollThumb is the movable part of the scrollbaren
 	let totalItems = clickedGrocery.length;
-	let maxScroll = max(0, (totalItems - maxVisible) * 25);
+	let maxScroll = max(0, (totalItems - maxVisible) * 25); //*
 
 if (totalItems > maxVisible) {
     let scrollbarX = receiptX + receiptW - 8;
@@ -257,8 +258,8 @@ if (totalItems > maxVisible) {
 
     fill(120);
     rect(scrollbarX, scrollThumbY, 4, scrollThumbH, 2);
-// SCROLL SLUT
 }
+// SCROLL SLUT
 
 	cracking(totalCO2); // function for updating the CO2
 

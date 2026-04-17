@@ -3,9 +3,8 @@ let returningGrocery = []; // deleted groceries goes from "cliked" to "returning
 let groceryList = [];
 let clickedGrocery = [];
 let tintValue;
-
-
-
+let scrollOffset = 0; // SCROLL
+let maxVisible = 9; // SCROLL
 
 let soundOn = true;
 
@@ -142,7 +141,7 @@ function setup() {
 
 }
 
-function draw() {
+function draw()  {
 	background(250, 220, 230);
 	image(extraStone, 1200 / 2, (575 / 2) + 27.5, 1200, 600);
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
@@ -191,8 +190,6 @@ function draw() {
 
 	textSize(14);
 
-
-
 	// streg 1 (under titel)
 	// drawingContext bruges for at "unlock" en stribet-linje funktion p5 ikke selv har 
 	strokeWeight(0.5);
@@ -209,25 +206,60 @@ function draw() {
 	and receiptY is moved 25 pixels down so the next item is placed on a new line.
 	*/
 
+	// SCROLL START
+
+	drawingContext.save();
+	drawingContext.beginPath();
+	drawingContext.rect(receiptX, receiptTopY + 80, receiptW, 300);
+	drawingContext.clip();
+	
+	// SCROLL SLUT
 
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		let item = clickedGrocery[i];
+		let itemY = receiptY - scrollOffset;   // SCROLL
 
 		// For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
 		fill(150);
 		textAlign(LEFT);
-		image(xImg, receiptLeft, receiptY - 3, 15, 15);
+		image(xImg, receiptLeft, itemY - 3, 15, 15); // SCROLL
 		fill(0);
 
 		textAlign(LEFT);
-		text(item.itemName, receiptLeft + 10, receiptY); // +12 for more space betweeen x and item name
+		text(item.itemName, receiptLeft + 10, itemY); // SCROLL (orgiantl) +12 for more space betweeen x and item name
 
 		textAlign(RIGHT);
-		text(item.CO2 + " kg", receiptRight, receiptY);
+		text(item.CO2 + " kg", receiptRight, itemY); // SCROLL
 
 		totalCO2 += item.CO2; // læg varens CO2 til totalen
-		receiptY += 25; // rykker x antal pixel ned for hver tilføjet item 
+		receiptY += 30; // rykker x antal pixel ned for hver tilføjet item, husk at ændre i mousepressed
 	}
+
+	drawingContext.restore();
+
+// SCROLL START
+// ScrollThumb is the movable part of the scrollbaren
+	let totalItems = clickedGrocery.length;
+	let maxScroll = max(0, (totalItems - maxVisible) * 25);
+
+if (totalItems > maxVisible) {
+    let scrollbarX = receiptX + receiptW - 8;
+    let scrollbarTopY = receiptTopY + 115;
+    let scrollbarH = 360;
+
+    fill(200);
+    noStroke();
+    rect(scrollbarX, scrollbarTopY, 4, scrollbarH, 2);
+
+    let scrollThumbH = map(maxVisible, 0, totalItems, 0, scrollbarH);
+    let scrollThumbY = map(scrollOffset, 0, maxScroll, scrollbarTopY, scrollbarTopY + scrollbarH - scrollThumbH);
+
+
+    fill(120);
+    rect(scrollbarX, scrollThumbY, 4, scrollThumbH, 2);
+// SCROLL SLUT
+}
+
 	cracking(totalCO2); // function for updating the CO2
 
 	if (totalCO2 > 10 && totalCO2 < 20) { // Dying plant if CO2 is between 10 and 20
@@ -251,21 +283,23 @@ function draw() {
 
 	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
 
+	let totalY = receiptTopY + 410; //SCROLL
+
 		// streg 2 (over total)
 		strokeWeight(0.5);
 		drawingContext.setLineDash([3, 3]);
-		line(receiptLeft, receiptY - 10, receiptRight, receiptY - 10);
+		line(receiptLeft, totalY - 15, receiptRight, totalY - 15); // SCROLL tidligere: line(receiptLeft, receiptY - 10, receiptRight, receiptY - 10);
 		drawingContext.setLineDash([]);
 
-		receiptY += 15; // extra space before the total 
+		// receiptY += 15; // SCROLL, slettet ifbm. scroll. tidligere komentar: extra space before the total 
 		textSize(16); // make total bigger than items
+   		fill(0); // Resets fill. If not here, 'total' text becomes grey
 
 		textAlign(LEFT);
-		text("TOTAL", receiptLeft, receiptY);
-
+		text("TOTAL", receiptLeft,totalY); // SCROLL tidligere: text("TOTAL", receiptLeft, receiptY);
 		textAlign(RIGHT);
 		// text(totalCO2.toFixed(2), receiptRight, receiptY);  // toFixed(2) runder af til 2 decimaler
-		text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, receiptY);
+	 	text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, totalY);	// SCROLL tidligere text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, receiptY);
 	}
 
 	textAlign(LEFT);
@@ -416,6 +450,7 @@ function mousePressed() {
 		}
 	}
 	let receiptY = 130;
+
 	for (let i = 0; i < clickedGrocery.length; i++) {
 
 		//  Hard coding - if clicked here (the x) remove item from receipt
@@ -434,7 +469,7 @@ function mousePressed() {
 			clickedGrocery.splice(i, 1); // See it as: array.splice(startIndex, amountToBeRemoved = 1)
 			break;
 		}
-		receiptY += 25;
+		receiptY += 30; // Husk at ændre to steder
 	}
 }
 // a function for the background having cracks after 4 and 6 kg of CO2
@@ -446,6 +481,20 @@ function cracking(totalCO2) {
 		// sadSong.play();
 		// backgroundSong.pause();
 	}
-
 }
+	
+// SCROLL START
+function mouseWheel(event) {
+    if (mouseX > 960 && mouseX < 1200 &&
+        mouseY > 10  && mouseY < 510) {
 
+        let totalItems = clickedGrocery.length;
+        let maxScroll = max(0, (totalItems - maxVisible) * 30);
+
+        scrollOffset += event.delta * 0.5;
+        scrollOffset = constrain(scrollOffset, 0, maxScroll);
+
+        return false;
+    	}
+	}
+// SCROLL SLUT

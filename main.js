@@ -5,7 +5,8 @@ let clickedGrocery = [];
 let tintValue;
 let scrollOffset = 0; // SCROLL
 let maxVisible = 9; // SCROLL
-
+const RECEIPT_ROW_SPACING = 30; // SCROLL
+const RECEIPT_START_Y = 130; // SCROLL
 let soundOn = true;
 
 
@@ -184,9 +185,9 @@ function draw()  {
 	*/
 
 	let totalCO2 = 0; // starting Co2 value
-	let receiptY = 130; // startposition for tekst på kvitteringen fra toppen
 	let receiptLeft = 1006; // x-position for venstre tekst (varenavne)
 	let receiptRight = 1160; // x-position for højre tekst (CO2-værdier)
+	let receiptY = RECEIPT_START_Y; // startposition for tekst på kvitteringen fra toppen
 
 	textSize(14);
 
@@ -207,10 +208,10 @@ function draw()  {
 	*/
 
 	// SCROLL START
-
+	// Clip content to the receipt aream anything outside is hidden, preventing the list from overflowing when scrolled.
 	drawingContext.save();
 	drawingContext.beginPath();
-	drawingContext.rect(receiptX, receiptTopY + 80, receiptW, 300);
+	drawingContext.rect(receiptX, receiptTopY + 100, receiptW, 300);
 	drawingContext.clip();
 	
 	// SCROLL SLUT
@@ -232,18 +233,18 @@ function draw()  {
 		text(item.CO2 + " kg", receiptRight, itemY); // SCROLL før stod der receiptY frem ofr itemY
 
 		totalCO2 += item.CO2; // læg varens CO2 til totalen
-		receiptY += 30; // rykker x antal pixel ned for hver tilføjet item, husk at ændre i mousepressed
+		receiptY += RECEIPT_ROW_SPACING; // rykker x antal pixel ned for hver tilføjet item,
 	}
 
 // SCROLL START
 
 	drawingContext.restore();
 
-// ScrollThumb is the movable part of the scrollbaren
 	let totalItems = clickedGrocery.length;
-	let maxScroll = max(0, (totalItems - maxVisible) * 25); //*
+	let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING); //
 
-if (totalItems > maxVisible) {
+if (totalItems > maxVisible) { // says: only show scrollbar if theres more items in basket than space for on receipt
+	// Layout of scrollbar
     let scrollbarX = receiptX + receiptW - 8;
     let scrollbarTopY = receiptTopY + 115;
     let scrollbarH = 360;
@@ -252,6 +253,7 @@ if (totalItems > maxVisible) {
     noStroke();
     rect(scrollbarX, scrollbarTopY, 4, scrollbarH, 2);
 
+	// The dark part. ScrollThumb is the movable part of the scrollbar
     let scrollThumbH = map(maxVisible, 0, totalItems, 0, scrollbarH);
     let scrollThumbY = map(scrollOffset, 0, maxScroll, scrollbarTopY, scrollbarTopY + scrollbarH - scrollThumbH);
 
@@ -450,27 +452,28 @@ function mousePressed() {
 			}
 		}
 	}
-	let receiptY = 130;
+	let receiptY = RECEIPT_START_Y; // 
 
 	for (let i = 0; i < clickedGrocery.length; i++) {
+	let itemY = receiptY - scrollOffset;   // samme logik som i draw()
 
 		//  Hard coding - if clicked here (the x) remove item from receipt
 		if (
 			mouseX > 988 && mouseX < 1013 &&
-			mouseY > receiptY - 14 &&
-			mouseY < receiptY + 5) {
+			mouseY > itemY - 14 &&
+			mouseY < itemY + 5) {
 
 
 			let item = clickedGrocery[i];
 			item.targetX = item.originalX;
 			item.targetY = item.originalY;
 			item.isMoving = true;
-			// groceryList.push(item); // Må jeg slette? Er ikke relevant efter ny kode til easing back
+			
 			returningGrocery.push(item);
 			clickedGrocery.splice(i, 1); // See it as: array.splice(startIndex, amountToBeRemoved = 1)
 			break;
 		}
-		receiptY += 30; // Husk at ændre to steder
+		receiptY += RECEIPT_ROW_SPACING;
 	}
 }
 // a function for the background having cracks after 4 and 6 kg of CO2
@@ -490,7 +493,7 @@ function mouseWheel(event) {
         mouseY > 10  && mouseY < 510) {
 
         let totalItems = clickedGrocery.length;
-        let maxScroll = max(0, (totalItems - maxVisible) * 30);
+		let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING);
 
         scrollOffset += event.delta * 0.5;
         scrollOffset = constrain(scrollOffset, 0, maxScroll);

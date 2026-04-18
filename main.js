@@ -102,11 +102,6 @@ function setup() {
 
 	// All our objects are defined as groceries
 
-	// CHANGES TO COME;
-	// str er forkert
-	//dimensioner er forkert
-	// placering er forkert
-
 	apple = new Grocery(750, 300, 60, 60, appleImg, 0.61, "Apple");
 	banana = new Grocery(550, 386, 80, 60, bananaImg, 1.02, "Banana");
 	avocado = new Grocery(610, 310, 70, 50, avocadoImg, 0.73, "Avocado");
@@ -134,7 +129,7 @@ function setup() {
 	cornflakes = new Grocery(680, 173, 63, 73, cornflakesImg, 1.74, "Cornflakes");
 
 
-	// Lige nu pusher jeg manuelt vores frugter, indtil bedre løsning
+	// Our grocery objects are pushed into an array
 	groceryList.push(nutella, flowers, oreo, ramen, cornflakes, chips, cheese, eggs, chicken, soda, oatMilk, milk, cookies, beer, banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette, toast);
 	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
 
@@ -169,7 +164,8 @@ function draw() {
 	rect(receiptX, receiptTopY, receiptW, receiptH); // den usynlige boks der definerer kvitteringens område
 	image(paperTexture, receiptX + receiptW / 2, receiptTopY + receiptH / 2, receiptW + 210, receiptH + 20);
 	// paperTexture placed in the middle of the box (hence: + width/2 og + height/2)
-	// de sidste to tal er størrelsen sat til receiptW og receiptH så den passer præcis
+	// the last two nr are the size put to receiptW and receipt H so it fits perfectly
+
 
 
 	// Reeipt, title
@@ -180,23 +176,23 @@ function draw() {
 	text("CO2 SHOPPING", receiptX + receiptW / 2, 100);
 
 	/* 
-	På kvitteringen vises CO2 for hver vare i clickedGrocery arrayet. Derefter beregnes total
-	textAlign der skifter fra left and right er for at give kvitterings layoutet
+	On the receipt it shows the Co2 for each grocery in clickedGrocery array. Then the full 
+	amount i calculcated. Textalign changes are to make the layout of receipt
 	*/
 
 	let totalCO2 = 0; // starting Co2 value
-	let receiptY = 130; // startposition for tekst på kvitteringen fra toppen
-	let receiptLeft = 1006; // x-position for venstre tekst (varenavne)
-	let receiptRight = 1160; // x-position for højre tekst (CO2-værdier)
+	let receiptY = 130; //startposition for text on the receipt
+	let receiptLeft = 1006; // x-position for left text (grocery names)
+	let receiptRight = 1160; // x-position for right text (CO2)
 
 	textSize(14);
 
 
 
-	// streg 1 (under titel)
-	// drawingContext bruges for at "unlock" en stribet-linje funktion p5 ikke selv har 
+	// line 1 (under titel)
+	// drawingContext used to unlock a dotted line 
 	strokeWeight(0.5);
-	drawingContext.setLineDash([3, 3]); // længde på streg, længde på mellemrum
+	drawingContext.setLineDash([3, 3]); //length of line and length of blank space
 	line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
 
 	/* 
@@ -225,8 +221,8 @@ function draw() {
 		textAlign(RIGHT);
 		text(item.CO2 + " kg", receiptRight, receiptY);
 
-		totalCO2 += item.CO2; // læg varens CO2 til totalen
-		receiptY += 25; // rykker x antal pixel ned for hver tilføjet item 
+		totalCO2 += item.CO2; // add the grocerys CO2 to the total
+		receiptY += 25; //Goes x amount of pixel down per added item 
 	}
 	cracking(totalCO2); // function for updating the CO2
 
@@ -251,7 +247,7 @@ function draw() {
 
 	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
 
-		// streg 2 (over total)
+		// line 2 (over total)
 		strokeWeight(0.5);
 		drawingContext.setLineDash([3, 3]);
 		line(receiptLeft, receiptY - 10, receiptRight, receiptY - 10);
@@ -283,10 +279,8 @@ function draw() {
 
 
 	/*
-	Går igennem arrayet med vores groceries
-	For hver af elementerne i vores array kalder den i vores Grocery Class
-	For hver af de elementer tager den informationerne i Display functionen i Class.js
-	Den placerer så alle billederne.
+	Goes through our grocery array
+	For each element of the array it places its attached image.
 	*/
 	for (let i = 0; i < groceryList.length; i++) {
 		groceryList[i].displayGrocery();
@@ -294,10 +288,9 @@ function draw() {
 	}
 
 	/*
-	 isHovering funktionen handler om at den tager true/false fra "anyhover",
-	 hvor den tjekker om den hover over en af objekterne, og returner true hvis hover, 
-	 false hvis ikke hover. 
-	 så den automatisk ændrer cursor state når man hover sin mus over en af objekterne.
+	isHovering is taking true/false from "anyhover",
+	where it checks if it hovers one of the objects.
+	True if hover, false if not. Then changes cursor if true
 	*/
 
 	for (let i = 0; i < groceryList.length; i++) {
@@ -314,7 +307,7 @@ function draw() {
 
 
 
-	//front of cart - skal være foran grocerylist display
+	//front of cart - has to be in front of grocery display
 
 	image(frontbackground, 1200 / 2, 550 / 2, 1200, 550);
 	/* 
@@ -336,23 +329,22 @@ function draw() {
 		}
 	}
 
-	//Hvis et objekt klikkes på bliver det pushet fra et array ind i et andet array.
+	//If an object is clicked, its pushed to a different array
 	for (let i = 0; i < groceryList.length; i++) {
 
 		if (groceryList[i].isClicked()) {
 			console.log("Clicked!"); //debugging
-			let item = groceryList[i]; // Vi gemmer objektet som blev klikket
+			let item = groceryList[i]; // Save the clicked object
 
-			// X og Y koordinator for at produkterne kan være inde i kurven.
+			// X and Y for within the basket
 			item.targetX = random(550, 653);
 			item.targetY = random(460, 530);
 			item.isMoving = true;
 
-			basketSound.setVolume(0.3); // Lyd! Den går fra 0-1
+			basketSound.setVolume(0.3); // Sound volume, goes from 0-1
 			basketSound.play(); // play sound when item is clicked
-			// så flytter vi objektet fra groceryList til clickedGrocery, som er når de er i kurven.
-
-
+			// 
+			
 			clickedGrocery.push(groceryList[i]); // Push clicked object to different array
 			groceryList.splice(i, 1); // This takes the i placement in our array and removes 1 element, which is the i spot
 
@@ -366,7 +358,7 @@ function draw() {
 	image(piCartBack, 600, 500, 270, 170);
 	image(frontbaguettebasket, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 
-	// Denne displayer vores clickedGrocery array i stedet for originale groceryList
+	// this displays our clickedGrocery array 
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		clickedGrocery[i].displayClickedGrocery();
 	}

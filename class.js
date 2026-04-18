@@ -1,39 +1,31 @@
 
-// her er der ingen functions, da den så crasher. Tænker det er fordi den overrider main functions. 
 
 /**
  * This is a grocery
  */
 class Grocery {
 	constructor(x, y, sizeX, sizeY, img, CO2, itemName) {
-		this.x = x; // Placering X
-		this.y = y; // Placering Y
-		this.sizeX = sizeX; // Størrelse af objekt på X
-		this.sizeY = sizeY; // Størrelse af objekt på Y
-		this.img = img; // Det billede der kobles til
-		this.CO2 = CO2; // Dets CO2 mængde
-		this.itemName = itemName; // Hvad produktet hedder
+		this.x = x; // Placement X
+		this.y = y; // Placement Y
+		this.sizeX = sizeX; // Size of object on its X
+		this.sizeY = sizeY; // Size of object on its Y
+		this.img = img; // The picture attached
+		this.CO2 = CO2; // It's CO2 amount
+		this.itemName = itemName; // The name of the product
 
-		// Jeg har added dette ift easing, for Target X og Y, hvor objektet skal besæve sig til.
+		// I've added this for easing, so theres a target X and Y, where the object should float there. 
 		this.targetX = x;
 		this.targetY = y;
-		this.isMoving = false; //vi spørger om objekter er i bevægelse for at afgøre om den skal trækkes til kurv
+		this.isMoving = false; // We ask if the object is moving, to decide if it should be dragged to basket
 		this.originalX = x; // // Used when the product need to return after being removed from receipt
    		this.originalY = y; // Used when the product need to return after being removed from receipt
 	}
 
-	// Dette displayer vores groceryList
+	//This is what displays our starting grocery list
 
 	displayGrocery() {
 		image(this.img, this.x, this.y, this.sizeX, this.sizeY);
-		/*if (totalCO2 < 5) {
-			tint(84, 74, 63);
-			image(this.img, this.x, this.y, this.sizeX, this.sizeY);
-			return;
-		} else {
-			image(this.img, this.x, this.y, this.sizeX, this.sizeY);
-		}
-			*/
+
 	}
 
 	/*
@@ -68,9 +60,8 @@ class Grocery {
 
 
 
-	displayClickedGrocery() { // Denne display tager vores clickedGrocery array i stedet for originale groceryList
-
-		// Tilføjet dette så man afgører om objektet er i bevægelse, for at kunne bruge easing til at flytte det mod target
+	displayClickedGrocery() { // This displays our clicked objects array instead of our starting array
+		// Added to determine if the object is moving, to be able to make use of easing
 		if (this.isMoving) {
 			this.easing();
 		}
@@ -79,9 +70,8 @@ class Grocery {
 	}
 
 
-	easing() { // 
-
-		// vi flytter objektet gradvist mod positionen
+	easing() { 
+		// This is the easing towards our basket
 		this.x = 0.92 * this.x + 0.08 * this.targetX;
 		this.y = 0.92 * this.y + 0.08 * this.targetY;
 
@@ -124,7 +114,7 @@ let watermelon;
 
 
 //Dry goods 
-//Cas: Noterne er Co2 pr. product
+//Cas: The notes are Co2 pr product
 let toast; // 0.81
 let toastImg;
 
@@ -187,71 +177,3 @@ let beerImg;
 let water; // 0.28 
 let waterImg;
 
-
-/*  Det her er hvad Adara og Line lavede sammen, og er indsat for nemt at sammenligne
-class Grocery {
-	constructor(x, y, sizeX, sizeY, img, co2){
-		this.x = x;
-		this.y = y;
-		this.sizeX = sizeX;
-		this.sizeY = sizeY;
-		this.img = img;
-		this.co2 = co2;
-		//de behøves ikke være givet oppe i parantes, du kan også skrive:
-		//this.shakyEffect = random(30, 50);
-		//så bliver alle objekter af typen Grocery givet en shakyEffect mellem 30 og 50
-	}
-
-	display(showCaseNo){
-		showCaseNo = showCaseNo * 50; //50 er abritær afstand mellem frugter
-		image(this.img, this.x + showCaseNo, this.y);
-	}
-
-	checkPlacement(){ // ikke nødvendig hvis i bare laver det til klik
-		if(this.x < NUMMER && this.x > NUMMER && /*samme for this.y...) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-}
-
-_______ // Den her linje betyder i et andet dokument
-
-//alt det her sker i sketch.js
-
-
-
-let groceryList = [];
-let appleImg;
-
-function preLoad(){
-	appleImg = loadImage(...);
-}
-
-function setup() {
-
-let apple = new Grocery(..., "CO2", appleImg);
-let banana = new Grocery(...);
-
-groceryList.push(apple, banana);
-
-}
-
-
-//DRAW
-function draw(){
-
-	for(let i = 0; i < groceryList.length; i++){
-	groceryList[i].display(i); //displayer alle elementer på listen
-	}
-
-	for(let i = 0; i < groceryList.length; i++){
-	if(groceryList[i].checkPlacement){
-		//gør noget
-		groceryList.splice(i, 1); //fjerner element fra liste, ikke nødvendig at checkPlacement medmindre i bruger drag
-	}
-   
-}
-}
-*/

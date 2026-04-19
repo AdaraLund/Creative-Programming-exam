@@ -4,13 +4,15 @@ let groceryList = [];
 let clickedGrocery = [];
 let tintValue;
 
-
-
 let backgroundSong;
 let basketSound;
 let soundOn = false;
 let currentSong = 0; // Keeps track of the song that is currently playing, 0 means no song yet
 
+let scrollOffset = 0; 
+let maxVisible = 9; 
+const RECEIPT_ROW_SPACING = 30; 
+const RECEIPT_START_Y = 130; 
 
 
 function preload() { // For loading before program is run
@@ -142,7 +144,7 @@ function setup() {
 
 }
 
-function draw() {
+function draw()  {
 	background(250, 220, 230);
 	image(extraStone, 1200 / 2, (575 / 2) + 27.5, 1200, 600);
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
@@ -186,19 +188,31 @@ function draw() {
 	*/
 
 	let totalCO2 = 0; // starting Co2 value
-	let receiptY = 130; //startposition for text on the receipt
 	let receiptLeft = 1006; // x-position for left text (grocery names)
 	let receiptRight = 1160; // x-position for right text (CO2)
+	let receiptY = RECEIPT_START_Y; // startposition for text on the receipt
 
 	textSize(14);
-
-
 
 	// line 1 (under titel)
 	// drawingContext used to unlock a dotted line 
 	strokeWeight(0.5);
 	drawingContext.setLineDash([3, 3]); //length of line and length of blank space
 	line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
+
+
+	/* 
+	DrawingContext is a library for shortcuts, also used other places
+	We save the current drawing state so we can restore it later. 
+	Then start defining a new shape. (simply required before drawing a clipping area)
+	Define the rectangle that will act as the clipping mask.
+	Apply the clipping mask (anything drawn outside the rect above will be hidden)
+	*/
+
+	drawingContext.save(); 
+	drawingContext.beginPath();
+	drawingContext.rect(receiptX, receiptTopY + 100, receiptW, 290);
+	drawingContext.clip();
 
 	/* 
 	Below is a for-loop that goes through all products in the "clickedGrocery" array.
@@ -209,26 +223,55 @@ function draw() {
 	totalCO2 is continuously updated for every product added to the "clickedGrocery" array,
 	and receiptY is moved 25 pixels down so the next item is placed on a new line.
 	*/
-
-
+	
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		let item = clickedGrocery[i];
+		let itemY = receiptY - scrollOffset;   // This moves the item up/down based on position before including what is scrolled
 
 		// For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
 		fill(150);
 		textAlign(LEFT);
-		image(xImg, receiptLeft, receiptY - 3, 15, 15);
+		image(xImg, receiptLeft, itemY - 3, 15, 15); // SCROLL
 		fill(0);
 
 		textAlign(LEFT);
-		text(item.itemName, receiptLeft + 10, receiptY); // +12 for more space betweeen x and item name
+		text(item.itemName, receiptLeft + 10, itemY); // SCROLL (orgiantl) +12 for more space betweeen x and item name
 
 		textAlign(RIGHT);
-		text(item.CO2 + " kg", receiptRight, receiptY);
+		text(item.CO2 + " kg", receiptRight, itemY); // SCROLL 
 
 		totalCO2 += item.CO2; // add the grocerys CO2 to the total
-		receiptY += 25; //Goes x amount of pixel down per added item 
+		receiptY += RECEIPT_ROW_SPACING; // Goes x amount of pixel down per added item 
 	}
+
+	drawingContext.restore();
+
+	let totalItems = clickedGrocery.length;
+	let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING); // Maximum distance the list can scroll. 
+
+	if (totalItems > maxVisible) { // says: only show scrollbar if theres more items in basket than space for on receipt
+	
+	// Layout of scrollbar
+    let scrollbarX = receiptX + receiptW - 32;
+    let scrollbarTopY = receiptTopY + 105;
+    let scrollbarH = 286;
+	let scrollbarW = 5
+
+    fill(230);
+    noStroke();
+    rect(scrollbarX, scrollbarTopY, scrollbarW, scrollbarH, 2);
+
+	// Layout of the scrollThumb (the movable part of the scrollbar)
+    let scrollThumbH = map(maxVisible, 0, totalItems, 0, scrollbarH);
+    let scrollThumbY = map(scrollOffset, 0, maxScroll, scrollbarTopY, scrollbarTopY + scrollbarH - scrollThumbH);
+
+
+    fill(120);
+	rect(scrollbarX, scrollThumbY, scrollbarW, scrollThumbH, 4);
+}
+
+
+
 	cracking(totalCO2); // function for updating the CO2
 	
 	/* If sound is on and CO2 is above or equal 4, switch to sad music (only if it's not already playing) 
@@ -271,22 +314,21 @@ function draw() {
 	}
 
 	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
+	let totalY = receiptTopY + 410; //SCROLL - Keep total fixed below the scroll area
 
 		// line 2 (over total)
 		strokeWeight(0.5);
 		drawingContext.setLineDash([3, 3]);
-		line(receiptLeft, receiptY - 10, receiptRight, receiptY - 10);
-		drawingContext.setLineDash([]);
+		line(receiptLeft, totalY - 15, receiptRight, totalY - 15) 
 
-		receiptY += 15; // extra space before the total 
 		textSize(16); // make total bigger than items
+   		fill(0); // Resets fill. If not here, 'total' text becomes grey
 
 		textAlign(LEFT);
-		text("TOTAL", receiptLeft, receiptY);
-
+		text("TOTAL", receiptLeft,totalY); // SCROLL tidligere: text("TOTAL", receiptLeft, receiptY);
 		textAlign(RIGHT);
 		// text(totalCO2.toFixed(2), receiptRight, receiptY);  // toFixed(2) runder af til 2 decimaler
-		text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, receiptY);
+	 	text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, totalY);	// SCROLL tidligere text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, receiptY);
 	}
 
 	textAlign(LEFT);
@@ -420,27 +462,28 @@ function mousePressed() {
 		  currentSong = 0; // 
 	  }
 	}
+	let receiptY = RECEIPT_START_Y; 
 
-	let receiptY = 130;
 	for (let i = 0; i < clickedGrocery.length; i++) {
+	let itemY = receiptY - scrollOffset;   // samme logik som i draw()
 
 		//  Hard coding - if clicked here (the x) remove item from receipt
 		if (
 			mouseX > 988 && mouseX < 1013 &&
-			mouseY > receiptY - 14 &&
-			mouseY < receiptY + 5) {
+			mouseY > itemY - 14 &&
+			mouseY < itemY + 5) {
 
 
 			let item = clickedGrocery[i];
 			item.targetX = item.originalX;
 			item.targetY = item.originalY;
 			item.isMoving = true;
-			// groceryList.push(item); // Må jeg slette? Er ikke relevant efter ny kode til easing back
+			
 			returningGrocery.push(item);
 			clickedGrocery.splice(i, 1); // See it as: array.splice(startIndex, amountToBeRemoved = 1)
 			break;
 		}
-		receiptY += 25;
+		receiptY += RECEIPT_ROW_SPACING;
 	}
 }
 // a function for the background having cracks after 4 and 6 kg of CO2
@@ -448,7 +491,21 @@ function cracking(totalCO2) {
 	if (totalCO2 >= 4) {
 		image(cracksExtra, 1200 / 2, (575 / 2) + 27.5, 1200, 550);
 		image(cracks, 1200 / 2, 550 / 2, 1200, 550);
-
 	}
 }
+	
+// SCROLL START
+function mouseWheel(event) { // a build in p5 function 
+    if (mouseX > 960 && mouseX < 1200 &&
+        mouseY > 10  && mouseY < 510) {
 
+        let totalItems = clickedGrocery.length;
+		let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING); // Calculates how much you can scroll down. 
+
+        scrollOffset += event.delta * 0.5; // event.delta: how much the mouse scroll. * 0.5 to slow it down.
+        scrollOffset = constrain(scrollOffset, 0, maxScroll); // Doesn't let the user scroll past the first or last item.
+
+        return false; // Prevent the browser from also scrolling the page.
+    	}
+	}
+// SCROLL SLUT

@@ -211,7 +211,7 @@ function draw()  {
 	// Clip content to the receipt aream anything outside is hidden, preventing the list from overflowing when scrolled.
 	drawingContext.save();
 	drawingContext.beginPath();
-	drawingContext.rect(receiptX, receiptTopY + 100, receiptW, 300);
+	drawingContext.rect(receiptX, receiptTopY + 100, receiptW, 290);
 	drawingContext.clip();
 	
 	// SCROLL SLUT
@@ -223,14 +223,14 @@ function draw()  {
 		// For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
 		fill(150);
 		textAlign(LEFT);
-		image(xImg, receiptLeft, itemY - 3, 15, 15); // SCROLL, før stod der receiptY frem ofr itemY
+		image(xImg, receiptLeft, itemY - 3, 15, 15); // SCROLL
 		fill(0);
 
 		textAlign(LEFT);
-		text(item.itemName, receiptLeft + 10, itemY); // SCROLL før stod der receiptY frem ofr itemY (orgiantl) +12 for more space betweeen x and item name
+		text(item.itemName, receiptLeft + 10, itemY); // SCROLL (orgiantl) +12 for more space betweeen x and item name
 
 		textAlign(RIGHT);
-		text(item.CO2 + " kg", receiptRight, itemY); // SCROLL før stod der receiptY frem ofr itemY
+		text(item.CO2 + " kg", receiptRight, itemY); // SCROLL 
 
 		totalCO2 += item.CO2; // læg varens CO2 til totalen
 		receiptY += RECEIPT_ROW_SPACING; // rykker x antal pixel ned for hver tilføjet item,
@@ -243,15 +243,17 @@ function draw()  {
 	let totalItems = clickedGrocery.length;
 	let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING); //
 
-if (totalItems > maxVisible) { // says: only show scrollbar if theres more items in basket than space for on receipt
+	if (totalItems > maxVisible) { // says: only show scrollbar if theres more items in basket than space for on receipt
+	
 	// Layout of scrollbar
-    let scrollbarX = receiptX + receiptW - 8;
-    let scrollbarTopY = receiptTopY + 115;
-    let scrollbarH = 360;
+    let scrollbarX = receiptX + receiptW - 32;
+    let scrollbarTopY = receiptTopY + 105;
+    let scrollbarH = 286;
+	let scrollbarW = 5
 
-    fill(200);
+    fill(230);
     noStroke();
-    rect(scrollbarX, scrollbarTopY, 4, scrollbarH, 2);
+    rect(scrollbarX, scrollbarTopY, scrollbarW, scrollbarH, 2);
 
 	// The dark part. ScrollThumb is the movable part of the scrollbar
     let scrollThumbH = map(maxVisible, 0, totalItems, 0, scrollbarH);
@@ -259,7 +261,7 @@ if (totalItems > maxVisible) { // says: only show scrollbar if theres more items
 
 
     fill(120);
-    rect(scrollbarX, scrollThumbY, 4, scrollThumbH, 2);
+	rect(scrollbarX, scrollThumbY, scrollbarW, scrollThumbH, 4);
 }
 // SCROLL SLUT
 
@@ -488,17 +490,17 @@ function cracking(totalCO2) {
 }
 	
 // SCROLL START
-function mouseWheel(event) {
+function mouseWheel(event) { // a build in p5 function 
     if (mouseX > 960 && mouseX < 1200 &&
         mouseY > 10  && mouseY < 510) {
 
         let totalItems = clickedGrocery.length;
-		let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING);
+		let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING); // Calculates how much you can scroll down. 
 
-        scrollOffset += event.delta * 0.5;
-        scrollOffset = constrain(scrollOffset, 0, maxScroll);
+        scrollOffset += event.delta * 0.5; // event.delta: how much the mouse scrolled. * 0.5 to slow it down.
+        scrollOffset = constrain(scrollOffset, 0, maxScroll); // Doesn't let the user scroll past the first or last item.
 
-        return false;
+        return false; // Prevent the browser from also scrolling the page.
     	}
 	}
 // SCROLL SLUT

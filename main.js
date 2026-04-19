@@ -187,7 +187,7 @@ function draw()  {
 	textSize(20);
 	textAlign(CENTER); // Aligned by center
 	textFont(receiptFont);
-	text("CO2 SHOPPING", receiptX + receiptW / 2, 100);
+	text("CO2 SHOPPING", receiptX + receiptW / 2, 92);
 
 	/* 
 	On the receipt it shows the Co2 for each grocery in clickedGrocery array. Then the full 
@@ -210,8 +210,8 @@ function draw()  {
 	strokeWeight(0.5);
 	drawingContext.setLineDash([3, 3]); //length of line and length of blank space
 	drawingContext.beginPath();
-	drawingContext.moveTo(receiptLeft, receiptY - 20);
-	drawingContext.lineTo(receiptRight, receiptY - 20);
+	drawingContext.moveTo(receiptLeft, receiptY - 25);
+	drawingContext.lineTo(receiptRight, receiptY - 25);
 	drawingContext.stroke();
 	drawingContext.setLineDash([]);
 	

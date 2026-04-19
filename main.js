@@ -8,6 +8,7 @@ let backgroundSong;
 let basketSound;
 let soundOn = false;
 let currentSong = 0; // Keeps track of the song that is currently playing, 0 means no song yet
+let screen = 0;
 
 let scrollOffset = 0; 
 let maxVisible = 9; 
@@ -141,10 +142,16 @@ function setup() {
 	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
 
 
+	button1 = createButton('Start');
+
+	button2 = createButton('Checkout');
+
+	button3 = createButton('Restart');
 
 }
 
 function draw()  {
+	
 	background(250, 220, 230);
 	image(extraStone, 1200 / 2, (575 / 2) + 27.5, 1200, 600);
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
@@ -509,3 +516,29 @@ function mouseWheel(event) { // a build in p5 function
     	}
 	}
 // SCROLL SLUT
+
+
+function Beginning(){
+	scene = 0;
+	button2.hide();
+	button3.hide();
+	button1.show();
+  }
+
+  function Start(){
+		scene = 1;
+		button1.hide();
+		button2.show();
+		button3.hide();
+	
+  }
+
+
+  function End(){
+		scene = 2;
+		button2.hide();
+		button1.hide();
+		button3.show();
+	
+  }
+

@@ -197,6 +197,20 @@ function draw()  {
 	drawingContext.setLineDash([3, 3]); // længde på streg, længde på mellemrum
 	line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
 
+
+	/* 
+	DrawingContext is a library for shortcuts, also used other places
+	We save the current drawing state so we can restore it later. 
+	Then start defining a new shape. (simply required before drawing a clipping area)
+	Define the rectangle that will act as the clipping mask.
+	Apply the clipping mask (anything drawn outside the rect above will be hidden)
+	*/
+
+	drawingContext.save(); 
+	drawingContext.beginPath();
+	drawingContext.rect(receiptX, receiptTopY + 100, receiptW, 290);
+	drawingContext.clip();
+
 	/* 
 	Below is a for-loop that goes through all products in the "clickedGrocery" array.
 	For each product, itemName is written on the left side (itemName is what I called the product name in the class),
@@ -206,19 +220,10 @@ function draw()  {
 	totalCO2 is continuously updated for every product added to the "clickedGrocery" array,
 	and receiptY is moved 25 pixels down so the next item is placed on a new line.
 	*/
-
-	// SCROLL START
-	// Clip content to the receipt aream anything outside is hidden, preventing the list from overflowing when scrolled.
-	drawingContext.save();
-	drawingContext.beginPath();
-	drawingContext.rect(receiptX, receiptTopY + 100, receiptW, 290);
-	drawingContext.clip();
 	
-	// SCROLL SLUT
-
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		let item = clickedGrocery[i];
-		let itemY = receiptY - scrollOffset;   // SCROLL
+		let itemY = receiptY - scrollOffset;   // This moves the item up/down based on position before including what is scrolled
 
 		// For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
 		fill(150);
@@ -236,12 +241,10 @@ function draw()  {
 		receiptY += RECEIPT_ROW_SPACING; // rykker x antal pixel ned for hver tilføjet item,
 	}
 
-// SCROLL START
-
 	drawingContext.restore();
 
 	let totalItems = clickedGrocery.length;
-	let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING); //
+	let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING); // Maximum distance the list can scroll. 
 
 	if (totalItems > maxVisible) { // says: only show scrollbar if theres more items in basket than space for on receipt
 	
@@ -255,7 +258,7 @@ function draw()  {
     noStroke();
     rect(scrollbarX, scrollbarTopY, scrollbarW, scrollbarH, 2);
 
-	// The dark part. ScrollThumb is the movable part of the scrollbar
+	// Layout of the scrollThumb (the movable part of the scrollbar)
     let scrollThumbH = map(maxVisible, 0, totalItems, 0, scrollbarH);
     let scrollThumbY = map(scrollOffset, 0, maxScroll, scrollbarTopY, scrollbarTopY + scrollbarH - scrollThumbH);
 
@@ -263,7 +266,8 @@ function draw()  {
     fill(120);
 	rect(scrollbarX, scrollThumbY, scrollbarW, scrollThumbH, 4);
 }
-// SCROLL SLUT
+
+
 
 	cracking(totalCO2); // function for updating the CO2
 
@@ -287,16 +291,13 @@ function draw()  {
 	}
 
 	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
-
-	let totalY = receiptTopY + 410; //SCROLL
+	let totalY = receiptTopY + 410; //SCROLL - Keep total fixed below the scroll area
 
 		// streg 2 (over total)
 		strokeWeight(0.5);
 		drawingContext.setLineDash([3, 3]);
-		line(receiptLeft, totalY - 15, receiptRight, totalY - 15); // SCROLL tidligere: line(receiptLeft, receiptY - 10, receiptRight, receiptY - 10);
-		drawingContext.setLineDash([]);
+		line(receiptLeft, totalY - 15, receiptRight, totalY - 15) 
 
-		// receiptY += 15; // SCROLL, slettet ifbm. scroll. tidligere komentar: extra space before the total 
 		textSize(16); // make total bigger than items
    		fill(0); // Resets fill. If not here, 'total' text becomes grey
 
@@ -497,7 +498,7 @@ function mouseWheel(event) { // a build in p5 function
         let totalItems = clickedGrocery.length;
 		let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING); // Calculates how much you can scroll down. 
 
-        scrollOffset += event.delta * 0.5; // event.delta: how much the mouse scrolled. * 0.5 to slow it down.
+        scrollOffset += event.delta * 0.5; // event.delta: how much the mouse scroll. * 0.5 to slow it down.
         scrollOffset = constrain(scrollOffset, 0, maxScroll); // Doesn't let the user scroll past the first or last item.
 
         return false; // Prevent the browser from also scrolling the page.

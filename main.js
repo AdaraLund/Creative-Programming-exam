@@ -139,20 +139,44 @@ function setup() {
 	groceryList.push(nutella, flowers, oreo, ramen, cornflakes, chips, cheese, eggs, chicken, soda, oatMilk, milk, cookies, beer, banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette, toast);
 	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
 
-
+	// start button
 	button1 = createButton('Start');
 	button1.mousePressed(Start);
-	button1.position(width / 2 - 30, height / 2 - 10);
+	button1.position(680, 350);
+	button1.style("font-family", "Special Elite");
+	button1.style("font-size", "24px");
+	button1.style("padding", "5px 20px");
+	button1.style("background-color", "white");
+	button1.style("color", "black");
+	button1.style("border-radius", "5px");	
+	button1.style("cursor", "pointer");
+	
+	// Checkout button
 
 	button2 = createButton('Checkout');
 	button2.mousePressed(End);
-	button2.position(300, 300);
+	button2.position(1180, 635);
 	button2.hide();
+	button2.style("font-family", "Special Elite");
+	button2.style("font-size", "19px");
+	button2.style("padding", "7px 17px");
+	button2.style("background-color", "white");
+	button2.style("color", "black");
+	button2.style("border-radius", "5px");	
+	button2.style("cursor", "pointer");
 
+	// restart button
 	button3 = createButton('Restart');
 	button3.mousePressed(Beginning);
-	button3.position(300, 350);
+	button3.position(680, 350);
 	button3.hide();
+	button3.style("font-family", "Special Elite");
+	button3.style("font-size", "24px");
+	button3.style("padding", "5px 20px");
+	button3.style("background-color", "white");
+	button3.style("color", "black");
+	button3.style("border-radius", "5px");	
+	button3.style("cursor", "pointer");
 
 }
 
@@ -160,14 +184,20 @@ function draw() {
 	if (scene == 0) {
 		background(235, 183, 186);
 		fill(0,0,0);
-		text("Welcome", 1200/2, 200);
+		textAlign(CENTER, CENTER);
+		textSize(48);
+		textFont(receiptFont);
+		text("Welcome", width / 2, height / 2 - 80);
 		return;
 	} 
 
 	if (scene == 2) {
 		background(235, 183, 186);
 		fill(0,0,0);
-		text("End", 1200/2, 200);
+		textAlign(CENTER, CENTER);
+	textSize(28);
+	textFont(receiptFont);
+	text("End, facts and comparison with CO2", width / 2, height / 2 - 80);
 		return;
 	} 
 	background(250, 220, 230);

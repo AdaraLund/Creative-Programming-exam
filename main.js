@@ -8,7 +8,8 @@ let backgroundSong;
 let basketSound;
 let soundOn = false;
 let currentSong = 0; // Keeps track of the song that is currently playing, 0 means no song yet
-let screen = 0;
+
+let scene = 0;
 
 let scrollOffset = 0; 
 let maxVisible = 9; 
@@ -142,16 +143,68 @@ function setup() {
 	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
 
 
-	button1 = createButton('Start');
-
-	button2 = createButton('Checkout');
-
-	button3 = createButton('Restart');
+		// start button
+		button1 = createButton('Start');
+		button1.mousePressed(Start);
+		button1.position(680, 350);
+		button1.style("font-family", "Special Elite");
+		button1.style("font-size", "24px");
+		button1.style("padding", "5px 20px");
+		button1.style("background-color", "white");
+		button1.style("color", "black");
+		button1.style("border-radius", "5px");	
+		button1.style("cursor", "pointer");
+		
+		// Checkout button
+	
+		button2 = createButton('Checkout');
+		button2.mousePressed(End);
+		button2.position(1180, 635);
+		button2.hide();
+		button2.style("font-family", "Special Elite");
+		button2.style("font-size", "19px");
+		button2.style("padding", "7px 17px");
+		button2.style("background-color", "white");
+		button2.style("color", "black");
+		button2.style("border-radius", "5px");	
+		button2.style("cursor", "pointer");
+	
+		// restart button
+		button3 = createButton('Restart');
+		button3.mousePressed(Beginning);
+		button3.position(680, 350);
+		button3.hide();
+		button3.style("font-family", "Special Elite");
+		button3.style("font-size", "24px");
+		button3.style("padding", "5px 20px");
+		button3.style("background-color", "white");
+		button3.style("color", "black");
+		button3.style("border-radius", "5px");	
+		button3.style("cursor", "pointer");
 
 }
 
 function draw()  {
 	
+	if (scene === 0) {
+		background(235, 183, 186);
+		textAlign(CENTER, CENTER);
+		fill(0,0,0);
+		textSize(48);
+		textFont(receiptFont);
+		text("Welcome", width / 2, height / 2 - 80);
+		return;
+	  }
+	  
+	  if (scene === 2) {
+		background(235, 183, 186);
+		textAlign(CENTER, CENTER);
+		fill(0,0,0);
+		textSize(28);
+		textFont(receiptFont);
+		text("End, facts and comparison with CO2", width / 2, height / 2 - 80);
+		return;
+	  }
 	background(250, 220, 230);
 	image(extraStone, 1200 / 2, (575 / 2) + 27.5, 1200, 600);
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center

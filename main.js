@@ -408,8 +408,9 @@ function draw()  {
 		textAlign(LEFT);
 		text("TOTAL", receiptLeft,totalY); 
 		textAlign(RIGHT);
-	 	text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, totalY)
+	 	text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, totalY) 
 		textAlign(LEFT);
+		}
 
 	tintValue = map(totalCO2, 0, 15, 0, 255);
 	//console.log(tintValue); //debugging

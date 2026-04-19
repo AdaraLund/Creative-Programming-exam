@@ -168,7 +168,7 @@ function draw()  {
 	let receiptH = 500;  // height 
 
 	fill(246, 236, 215, 0); // (Makes the rect behind the receipt transparent. 0 = alpha)
-	rect(receiptX, receiptTopY, receiptW, receiptH); // den usynlige boks der definerer kvitteringens område
+	rect(receiptX, receiptTopY, receiptW, receiptH); // the invisible box that defines the receipt-area
 	image(paperTexture, receiptX + receiptW / 2, receiptTopY + receiptH / 2, receiptW + 210, receiptH + 20);
 	// paperTexture placed in the middle of the box (hence: + width/2 og + height/2)
 	// the last two nr are the size put to receiptW and receipt H so it fits perfectly
@@ -194,12 +194,20 @@ function draw()  {
 
 	textSize(14);
 
-	// line 1 (under titel)
-	// drawingContext used to unlock a dotted line 
+	/* line 1 (under titel)
+	the regular p5: line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
+ 	conflicts with drawingContext.clip(), so we use the Canvas 2D API way to make lines
+	same for line 2
+	 */
+
 	strokeWeight(0.5);
 	drawingContext.setLineDash([3, 3]); //length of line and length of blank space
-	line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
-
+	drawingContext.beginPath();
+	drawingContext.moveTo(receiptLeft, receiptY - 20);
+	drawingContext.lineTo(receiptRight, receiptY - 20);
+	drawingContext.stroke();
+	drawingContext.setLineDash([]);
+	
 
 	/* 
 	DrawingContext is a library for shortcuts, also used other places
@@ -228,17 +236,22 @@ function draw()  {
 		let item = clickedGrocery[i];
 		let itemY = receiptY - scrollOffset;   // This moves the item up/down based on position before including what is scrolled
 
-		// For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
+		/*
+		For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
+		Use itemY instead of receiptY so the row moves when scrolling 
+		*/
+
 		fill(150);
 		textAlign(LEFT);
-		image(xImg, receiptLeft, itemY - 3, 15, 15); // SCROLL
+		image(xImg, receiptLeft, itemY - 3, 15, 15); 
+
 		fill(0);
 
 		textAlign(LEFT);
-		text(item.itemName, receiptLeft + 10, itemY); // SCROLL (orgiantl) +12 for more space betweeen x and item name
+		text(item.itemName, receiptLeft + 10, itemY); 
 
 		textAlign(RIGHT);
-		text(item.CO2 + " kg", receiptRight, itemY); // SCROLL 
+		text(item.CO2 + " kg", receiptRight, itemY);
 
 		totalCO2 += item.CO2; // add the grocerys CO2 to the total
 		receiptY += RECEIPT_ROW_SPACING; // Goes x amount of pixel down per added item 
@@ -314,21 +327,25 @@ function draw()  {
 	}
 
 	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
-	let totalY = receiptTopY + 410; //SCROLL - Keep total fixed below the scroll area
+	let totalY = receiptTopY + 410; // Keep total fixed below the scroll area
 
 		// line 2 (over total)
 		strokeWeight(0.5);
 		drawingContext.setLineDash([3, 3]);
-		line(receiptLeft, totalY - 15, receiptRight, totalY - 15) 
+		drawingContext.beginPath();
+		drawingContext.moveTo(receiptLeft, totalY - 20);
+		drawingContext.lineTo(receiptRight, totalY - 20);
+		drawingContext.stroke();
+		drawingContext.setLineDash([]);
+		// line(receiptLeft, totalY - 15, receiptRight, totalY - 15)  
 
 		textSize(16); // make total bigger than items
    		fill(0); // Resets fill. If not here, 'total' text becomes grey
 
 		textAlign(LEFT);
-		text("TOTAL", receiptLeft,totalY); // SCROLL tidligere: text("TOTAL", receiptLeft, receiptY);
+		text("TOTAL", receiptLeft,totalY); //  
 		textAlign(RIGHT);
-		// text(totalCO2.toFixed(2), receiptRight, receiptY);  // toFixed(2) runder af til 2 decimaler
-	 	text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, totalY);	// SCROLL tidligere text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, receiptY);
+	 	text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, totalY); 
 	}
 
 	textAlign(LEFT);
@@ -494,7 +511,6 @@ function cracking(totalCO2) {
 	}
 }
 	
-// SCROLL START
 function mouseWheel(event) { // a build in p5 function 
     if (mouseX > 960 && mouseX < 1200 &&
         mouseY > 10  && mouseY < 510) {
@@ -508,4 +524,3 @@ function mouseWheel(event) { // a build in p5 function
         return false; // Prevent the browser from also scrolling the page.
     	}
 	}
-// SCROLL SLUT

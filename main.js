@@ -10,6 +10,7 @@ let backgroundSong;
 let basketSound;
 let soundOn = false;
 let currentSong = 0; // Keeps track of the song that is currently playing, 0 means no song yet
+let scene = 0;
 
 
 
@@ -139,10 +140,36 @@ function setup() {
 	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
 
 
+	button1 = createButton('Start');
+	button1.mousePressed(Start);
+	button1.position(width / 2 - 30, height / 2 - 10);
+
+	button2 = createButton('Checkout');
+	button2.mousePressed(End);
+	button2.position(300, 300);
+	button2.hide();
+
+	button3 = createButton('Restart');
+	button3.mousePressed(Beginning);
+	button3.position(300, 350);
+	button3.hide();
 
 }
 
 function draw() {
+	if (scene == 0) {
+		background(235, 183, 186);
+		fill(0,0,0);
+		text("Welcome", 1200/2, 200);
+		return;
+	} 
+
+	if (scene == 2) {
+		background(235, 183, 186);
+		fill(0,0,0);
+		text("End", 1200/2, 200);
+		return;
+	} 
 	background(250, 220, 230);
 	image(extraStone, 1200 / 2, (575 / 2) + 27.5, 1200, 600);
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
@@ -443,12 +470,38 @@ function mousePressed() {
 		receiptY += 25;
 	}
 }
-// a function for the background having cracks after 4 and 6 kg of CO2
+// a function for the background having cracks after increasing in CO2
 function cracking(totalCO2) {
-	if (totalCO2 >= 4) {
-		image(cracksExtra, 1200 / 2, (575 / 2) + 27.5, 1200, 550);
-		image(cracks, 1200 / 2, 550 / 2, 1200, 550);
 
-	}
-}
+  // working with opacity of cracks image, not working yet.
+	// let alphaValue = map(totalCO2, 4, 20, 0, 255);
+	// tint(255, alphaValue);
+	// image(cracks, 1200 / 2, 550 / 2, 1200, 550);
+  }
+
+
+  function Beginning(){
+	scene = 0;
+	button2.hide();
+	button3.hide();
+	button1.show();
+  }
+
+  function Start(){
+		scene = 1;
+		button1.hide();
+		button2.show();
+		button3.hide();
+	
+  }
+
+
+  function End(){
+		scene = 2;
+		button2.hide();
+		button1.hide();
+		button3.show();
+	
+  }
+
 

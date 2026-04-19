@@ -6,8 +6,11 @@ let tintValue;
 
 
 
+let backgroundSong;
+let basketSound;
+let soundOn = false;
+let currentSong = 0; // Keeps track of the song that is currently playing, 0 means no song yet
 
-let soundOn = true;
 
 
 function preload() { // For loading before program is run
@@ -80,9 +83,11 @@ function preload() { // For loading before program is run
 	noSound = loadImage('./assets/images/noSound.png')
 
 	// sounds and music
-	backgroundSong = loadSound('assets/sounds/backgroundMusic.mp3');
 	basketSound = loadSound('assets/sounds/basket.mp3');
-	// sadSong = loadSound('assets/sounds/sadMusic.wav')
+	backgroundSong = loadSound('assets/sounds/backgroundMusic.mp3');
+	sadSong = loadSound('assets/sounds/sadMusic.mp3');
+
+	
 }
 
 function setup() {
@@ -225,6 +230,26 @@ function draw() {
 		receiptY += 25; //Goes x amount of pixel down per added item 
 	}
 	cracking(totalCO2); // function for updating the CO2
+	
+	/* If sound is on and CO2 is above or equal 4, switch to sad music (only if it's not already playing) 
+	and stop the previous song */
+	if (soundOn) {
+		if (totalCO2 >= 4) {
+		  if (currentSong !== sadSong) {
+			if (currentSong) currentSong.stop();
+			sadSong.setVolume(0.5);
+			sadSong.loop();
+			currentSong = sadSong;
+		  }
+		} else { // we do the same for the background song
+		  if (currentSong !== backgroundSong) {
+			if (currentSong) currentSong.stop();
+			backgroundSong.setVolume(0.5);
+			backgroundSong.loop();
+			currentSong = backgroundSong;
+		  }
+		}
+	  }
 
 	if (totalCO2 > 10 && totalCO2 < 20) { // Dying plant if CO2 is between 10 and 20
 		image(plant1_2, 440, 50, 100, 120);
@@ -373,10 +398,10 @@ function draw() {
 
 	// images for sound on/off image
 	if (soundOn) {
-		image(noSound, 40, 560, 40, 40);
-	} else {
 		image(sound, 40, 560, 40, 40);
-	}
+	  } else {
+		image(noSound, 40, 560, 40, 40);
+	  }
 	image(restartImg, 95, 562, 30, 30); // restart button
 
 
@@ -387,26 +412,15 @@ function draw() {
 function mousePressed() {
 
 	// here we check if the mouse is clicking on the x and y positions, where the image is
-	if (
-		mouseX > 20 && mouseX < 60 &&
-		mouseY > 545 && mouseY < 575
-	) { // if we click on sound, it will turn to noSound image and vice versa
-		if (soundOn == true) {
-			soundOn = false;
-		} else {
-			soundOn = true;
-		}
-		{ // plays music and when clicked on mute button stops
-
-			if (backgroundSong.isPlaying()) {
-				backgroundSong.pause();
-			} else {
-				backgroundSong.setVolume(0.5);
-				backgroundSong.play();
-
-			}
-		}
+	if (mouseX > 20 && mouseX < 60 && mouseY > 545 && mouseY < 575) {
+		soundOn = !soundOn;
+	  // Turns sound on/off when clicking the icon, if sound is turned off, stop the current music and reset it
+		if (!soundOn) {
+		  if (currentSong) currentSong.stop();
+		  currentSong = 0; // 
+	  }
 	}
+
 	let receiptY = 130;
 	for (let i = 0; i < clickedGrocery.length; i++) {
 
@@ -434,10 +448,7 @@ function cracking(totalCO2) {
 	if (totalCO2 >= 4) {
 		image(cracksExtra, 1200 / 2, (575 / 2) + 27.5, 1200, 550);
 		image(cracks, 1200 / 2, 550 / 2, 1200, 550);
-		// sadSong.setVolume(0.3);
-		// sadSong.play();
-		// backgroundSong.pause();
-	}
 
+	}
 }
 

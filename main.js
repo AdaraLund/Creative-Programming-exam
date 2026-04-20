@@ -255,10 +255,12 @@ function draw()  {
 	textSize(14);
 
 	/* 
-	line 1 (under titel)
+	DrawingContext is a library for shortcuts, also used other places
+	
+	line 1 (under title)
 	the regular p5: line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
- 	conflicts with drawingContext.clip(), so we use the Canvas 2D API way to make lines
-	same for line 2
+ 	conflicts with drawingContext.clip(), so we use the 'Canvas 2D API' way to make lines.
+	Same for line 2
 	 */
 
 	
@@ -272,7 +274,6 @@ function draw()  {
 
 
 	/* 
-	DrawingContext is a library for shortcuts, also used other places
 	We save the current drawing state so we can restore it later. 
 	Then start defining a new shape. (simply required before drawing a clipping area)
 	Define the rectangle that will act as the clipping mask.
@@ -295,7 +296,6 @@ function draw()  {
 	and receiptY is moved 25 pixels down so the next item is placed on a new line.
 	*/
 
-
 	
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		let item = clickedGrocery[i];
@@ -305,6 +305,7 @@ function draw()  {
 		For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
 		Use itemY instead of receiptY so the row moves when scrolling 
 		*/
+
 		fill(150);
 		textAlign(LEFT);
 		image(xImg, receiptLeft, itemY - 3, 15, 15); 
@@ -502,7 +503,7 @@ function draw()  {
 
 	//cart back 
 	image(piCartBack, 600, 500, 270, 170);
-	image(frontbaguettebasket, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
+	image(frontbaguettebasket, 1200 / 2, 550 / 2, 1200, 550); // 2 since we place images by center
 
 	// this displays our clickedGrocery array 
 	for (let i = 0; i < clickedGrocery.length; i++) {
@@ -544,7 +545,7 @@ function mousePressed() {
 	let receiptY = RECEIPT_START_Y; 
 
 	for (let i = 0; i < clickedGrocery.length; i++) {
-	let itemY = receiptY - scrollOffset;   // samme logik som i draw()
+	let itemY = receiptY - scrollOffset;   // Same logic as in draw()
 
 		//  Hard coding - if clicked here (the x) remove item from receipt
 		if (

@@ -146,7 +146,7 @@ function setup() {
 		// start button
 		button1 = createButton('Start');
 		button1.mousePressed(Start);
-		button1.position(680, 350);
+		button1.position(750, 540);
 		button1.style("font-family", "Special Elite");
 		button1.style("font-size", "24px");
 		button1.style("padding", "5px 20px");
@@ -159,7 +159,7 @@ function setup() {
 	
 		button2 = createButton('Checkout');
 		button2.mousePressed(End);
-		button2.position(1180, 635);
+		button2.position(1220, 695);
 		button2.hide();
 		button2.style("font-family", "Special Elite");
 		button2.style("font-size", "19px");
@@ -172,7 +172,7 @@ function setup() {
 		// restart button
 		button3 = createButton('Restart');
 		button3.mousePressed(Beginning);
-		button3.position(680, 350);
+		button3.position(750, 540);
 		button3.hide();
 		button3.style("font-family", "Special Elite");
 		button3.style("font-size", "24px");

@@ -156,7 +156,6 @@ function setup() {
 		button1.style("cursor", "pointer");
 		
 		// Checkout button
-	
 		button2 = createButton('Checkout');
 		button2.mousePressed(End);
 		button2.position(1220, 695);
@@ -542,7 +541,11 @@ function mousePressed() {
 		  if (currentSong) currentSong.stop();
 		  currentSong = 0; // 
 	  }
+	} 
+	if (mouseX > 75 && mouseX < 115 && mouseY > 545 && mouseY < 575) {
+		location.reload();
 	}
+	
 	let receiptY = RECEIPT_START_Y; 
 
 	for (let i = 0; i < clickedGrocery.length; i++) {

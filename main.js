@@ -11,10 +11,10 @@ let currentSong = 0; // Keeps track of the song that is currently playing, 0 mea
 
 let scene = 0;
 
-let scrollOffset = 0; 
-let maxVisible = 9; 
-const RECEIPT_ROW_SPACING = 30; 
-const RECEIPT_START_Y = 130; 
+let scrollOffset = 0;
+let maxVisible = 9;
+const RECEIPT_ROW_SPACING = 30;
+const RECEIPT_START_Y = 130;
 
 
 function preload() { // For loading before program is run
@@ -42,6 +42,7 @@ function preload() { // For loading before program is run
 	plant4_1 = loadImage('./assets/images/plants/plant4_1.png');
 	plant4_2 = loadImage('./assets/images/plants/plant4_2.png');
 	plant4_3 = loadImage('./assets/images/plants/plant4_3.png');
+	notforsale = loadImage('./assets/images/plants/notforsale.png');
 
 	// This is our Cracks
 	cracks = loadImage('./assets/images/cracks.png');
@@ -91,7 +92,7 @@ function preload() { // For loading before program is run
 	backgroundSong = loadSound('assets/sounds/backgroundMusic.mp3');
 	sadSong = loadSound('assets/sounds/sadMusic.mp3');
 
-	
+
 }
 
 function setup() {
@@ -143,68 +144,68 @@ function setup() {
 	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
 
 
-		// start button
-		button1 = createButton('Start');
-		button1.mousePressed(Start);
-		button1.position(750, 540);
-		button1.style("font-family", "Special Elite");
-		button1.style("font-size", "24px");
-		button1.style("padding", "5px 20px");
-		button1.style("background-color", "white");
-		button1.style("color", "black");
-		button1.style("border-radius", "5px");	
-		button1.style("cursor", "pointer");
-		
-		// Checkout button
-		button2 = createButton('Checkout');
-		button2.mousePressed(End);
-		button2.position(1220, 695);
-		button2.hide();
-		button2.style("font-family", "Special Elite");
-		button2.style("font-size", "19px");
-		button2.style("padding", "7px 17px");
-		button2.style("background-color", "white");
-		button2.style("color", "black");
-		button2.style("border-radius", "5px");	
-		button2.style("cursor", "pointer");
-	
-		// restart button
-		button3 = createButton('Restart');
-		button3.mousePressed(Beginning);
-		button3.position(750, 540);
-		button3.hide();
-		button3.style("font-family", "Special Elite");
-		button3.style("font-size", "24px");
-		button3.style("padding", "5px 20px");
-		button3.style("background-color", "white");
-		button3.style("color", "black");
-		button3.style("border-radius", "5px");	
-		button3.style("cursor", "pointer");
+	// start button
+	button1 = createButton('Start');
+	button1.mousePressed(Start);
+	button1.position(750, 540);
+	button1.style("font-family", "Special Elite");
+	button1.style("font-size", "24px");
+	button1.style("padding", "5px 20px");
+	button1.style("background-color", "white");
+	button1.style("color", "black");
+	button1.style("border-radius", "5px");
+	button1.style("cursor", "pointer");
+
+	// Checkout button
+	button2 = createButton('Checkout');
+	button2.mousePressed(End);
+	button2.position(1220, 695);
+	button2.hide();
+	button2.style("font-family", "Special Elite");
+	button2.style("font-size", "19px");
+	button2.style("padding", "7px 17px");
+	button2.style("background-color", "white");
+	button2.style("color", "black");
+	button2.style("border-radius", "5px");
+	button2.style("cursor", "pointer");
+
+	// restart button
+	button3 = createButton('Restart');
+	button3.mousePressed(Beginning);
+	button3.position(750, 540);
+	button3.hide();
+	button3.style("font-family", "Special Elite");
+	button3.style("font-size", "24px");
+	button3.style("padding", "5px 20px");
+	button3.style("background-color", "white");
+	button3.style("color", "black");
+	button3.style("border-radius", "5px");
+	button3.style("cursor", "pointer");
 
 }
 
-function draw()  {
+function draw() {
 
 
 	if (scene === 0) {
 		background(235, 183, 186);
 		textAlign(CENTER, CENTER);
-		fill(0,0,0);
+		fill(0, 0, 0);
 		textSize(48);
 		textFont(receiptFont);
 		text("Welcome", width / 2, height / 2 - 80);
 		return;
-	  }
-	  
-	  if (scene === 2) {
+	}
+
+	if (scene === 2) {
 		background(235, 183, 186);
 		textAlign(CENTER, CENTER);
-		fill(0,0,0);
+		fill(0, 0, 0);
 		textSize(28);
 		textFont(receiptFont);
 		text("End, facts and comparison with CO2", width / 2, height / 2 - 80);
 		return;
-	  }
+	}
 	background(250, 220, 230);
 	image(extraStone, 1200 / 2, (575 / 2) + 27.5, 1200, 600);
 	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
@@ -259,11 +260,11 @@ function draw()  {
 	
 	line 1 (under title)
 	the regular p5: line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
- 	conflicts with drawingContext.clip(), so we use the 'Canvas 2D API' way to make lines.
+	  conflicts with drawingContext.clip(), so we use the 'Canvas 2D API' way to make lines.
 	Same for line 2
 	 */
 
-	
+
 	strokeWeight(0.5);
 	drawingContext.setLineDash([3, 3]); //length of line and length of blank space
 	drawingContext.beginPath();
@@ -281,7 +282,7 @@ function draw()  {
 	*/
 
 
-	drawingContext.save(); 
+	drawingContext.save();
 	drawingContext.beginPath();
 	drawingContext.rect(receiptX, receiptTopY + 100, receiptW, 290);
 	drawingContext.clip();
@@ -296,7 +297,7 @@ function draw()  {
 	and receiptY is moved 25 pixels down so the next item is placed on a new line.
 	*/
 
-	
+
 	for (let i = 0; i < clickedGrocery.length; i++) {
 		let item = clickedGrocery[i];
 		let itemY = receiptY - scrollOffset;   // This moves the item up/down based on position before including what is scrolled
@@ -308,11 +309,11 @@ function draw()  {
 
 		fill(150);
 		textAlign(LEFT);
-		image(xImg, receiptLeft, itemY - 3, 15, 15); 
+		image(xImg, receiptLeft, itemY - 3, 15, 15);
 		fill(0);
 
 		textAlign(LEFT);
-		text(item.itemName, receiptLeft + 10, itemY); 
+		text(item.itemName, receiptLeft + 10, itemY);
 
 		textAlign(RIGHT);
 		text(item.CO2 + " kg", receiptRight, itemY);
@@ -327,49 +328,49 @@ function draw()  {
 	let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING); // Maximum distance the list can scroll. 
 
 	if (totalItems > maxVisible) { // says: only show scrollbar if theres more items in basket than space for on receipt
-	
-	// Layout of scrollbar
-    let scrollbarX = receiptX + receiptW - 32;
-    let scrollbarTopY = receiptTopY + 105;
-    let scrollbarH = 286;
-	let scrollbarW = 5
 
-    fill(230);
-    noStroke();
-    rect(scrollbarX, scrollbarTopY, scrollbarW, scrollbarH, 2);
+		// Layout of scrollbar
+		let scrollbarX = receiptX + receiptW - 32;
+		let scrollbarTopY = receiptTopY + 105;
+		let scrollbarH = 286;
+		let scrollbarW = 5
 
-	// Layout of the scrollThumb (the movable part of the scrollbar)
-    let scrollThumbH = map(maxVisible, 0, totalItems, 0, scrollbarH);
-    let scrollThumbY = map(scrollOffset, 0, maxScroll, scrollbarTopY, scrollbarTopY + scrollbarH - scrollThumbH);
+		fill(230);
+		noStroke();
+		rect(scrollbarX, scrollbarTopY, scrollbarW, scrollbarH, 2);
+
+		// Layout of the scrollThumb (the movable part of the scrollbar)
+		let scrollThumbH = map(maxVisible, 0, totalItems, 0, scrollbarH);
+		let scrollThumbY = map(scrollOffset, 0, maxScroll, scrollbarTopY, scrollbarTopY + scrollbarH - scrollThumbH);
 
 
-    fill(120);
-	rect(scrollbarX, scrollThumbY, scrollbarW, scrollThumbH, 4);
-}
+		fill(120);
+		rect(scrollbarX, scrollThumbY, scrollbarW, scrollThumbH, 4);
+	}
 
 
 
 	cracking(totalCO2); // function for updating the CO2
-	
+
 	/* If sound is on and CO2 is above or equal 4, switch to sad music (only if it's not already playing) 
 	and stop the previous song */
 	if (soundOn) {
 		if (totalCO2 >= 10) {
-		  if (currentSong !== sadSong) {
-			if (currentSong) currentSong.stop();
-			sadSong.setVolume(0.5);
-			sadSong.loop();
-			currentSong = sadSong;
-		  }
+			if (currentSong !== sadSong) {
+				if (currentSong) currentSong.stop();
+				sadSong.setVolume(0.5);
+				sadSong.loop();
+				currentSong = sadSong;
+			}
 		} else { // we do the same for the background song
-		  if (currentSong !== backgroundSong) {
-			if (currentSong) currentSong.stop();
-			backgroundSong.setVolume(0.5);
-			backgroundSong.loop();
-			currentSong = backgroundSong;
-		  }
+			if (currentSong !== backgroundSong) {
+				if (currentSong) currentSong.stop();
+				backgroundSong.setVolume(0.5);
+				backgroundSong.loop();
+				currentSong = backgroundSong;
+			}
 		}
-	  }
+	}
 
 	if (totalCO2 > 10 && totalCO2 < 20) { // Dying plant if CO2 is between 10 and 20
 		image(plant1_2, 440, 50, 100, 120);
@@ -390,8 +391,13 @@ function draw()  {
 		image(plant4_1, 870, 75, 110, 110);
 	}
 
+	image(notforsale, 843, 74, 30, 30);
+	image(notforsale, 790, 85, 30, 30);
+	image(notforsale, 437, 85, 30, 30);
+	image(notforsale, 517, 85, 30, 30);
+
 	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
-	let totalY = receiptTopY + 410; // Keep total fixed below the scroll area
+		let totalY = receiptTopY + 410; // Keep total fixed below the scroll area
 
 		// line 2 (over total)
 		strokeWeight(0.5);
@@ -404,14 +410,14 @@ function draw()  {
 		// line(receiptLeft, totalY - 15, receiptRight, totalY - 15) 
 
 		textSize(16); // make total bigger than items
-   		fill(0); // Resets fill. If not here, 'total' text becomes grey
+		fill(0); // Resets fill. If not here, 'total' text becomes grey
 
 		textAlign(LEFT);
-		text("TOTAL", receiptLeft,totalY); 
+		text("TOTAL", receiptLeft, totalY);
 		textAlign(RIGHT);
-	 	text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, totalY) 
+		text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, totalY)
 		textAlign(LEFT);
-		}
+	}
 
 	tintValue = map(totalCO2, 0, 15, 0, 255);
 	//console.log(tintValue); //debugging
@@ -491,7 +497,7 @@ function draw()  {
 			basketSound.setVolume(0.3); // Sound volume, goes from 0-1
 			basketSound.play(); // play sound when item is clicked
 			// 
-			
+
 			clickedGrocery.push(groceryList[i]); // Push clicked object to different array
 			groceryList.splice(i, 1); // This takes the i placement in our array and removes 1 element, which is the i spot
 
@@ -521,9 +527,9 @@ function draw()  {
 	// images for sound on/off image
 	if (soundOn) {
 		image(sound, 40, 560, 40, 40);
-	  } else {
+	} else {
 		image(noSound, 40, 560, 40, 40);
-	  }
+	}
 	image(restartImg, 95, 562, 30, 30); // restart button
 
 
@@ -536,20 +542,20 @@ function mousePressed() {
 	// here we check if the mouse is clicking on the x and y positions, where the image is
 	if (mouseX > 20 && mouseX < 60 && mouseY > 545 && mouseY < 575) {
 		soundOn = !soundOn;
-	  // Turns sound on/off when clicking the icon, if sound is turned off, stop the current music and reset it
+		// Turns sound on/off when clicking the icon, if sound is turned off, stop the current music and reset it
 		if (!soundOn) {
-		  if (currentSong) currentSong.stop();
-		  currentSong = 0; // 
-	  }
-	} 
+			if (currentSong) currentSong.stop();
+			currentSong = 0; // 
+		}
+	}
 	if (mouseX > 75 && mouseX < 115 && mouseY > 545 && mouseY < 575) {
 		location.reload();
 	}
-	
-	let receiptY = RECEIPT_START_Y; 
+
+	let receiptY = RECEIPT_START_Y;
 
 	for (let i = 0; i < clickedGrocery.length; i++) {
-	let itemY = receiptY - scrollOffset;   // Same logic as in draw()
+		let itemY = receiptY - scrollOffset;   // Same logic as in draw()
 
 		//  Hard coding - if clicked here (the x) remove item from receipt
 		if (
@@ -562,7 +568,7 @@ function mousePressed() {
 			item.targetX = item.originalX;
 			item.targetY = item.originalY;
 			item.isMoving = true;
-			
+
 			returningGrocery.push(item);
 			clickedGrocery.splice(i, 1); // See it as: array.splice(startIndex, amountToBeRemoved = 1)
 			break;
@@ -577,43 +583,43 @@ function cracking(totalCO2) {
 		image(cracks, 1200 / 2, 550 / 2, 1200, 550);
 	}
 }
-	
-function mouseWheel(event) { // a build in p5 function 
-    if (mouseX > 960 && mouseX < 1200 &&
-        mouseY > 10  && mouseY < 510) {
 
-        let totalItems = clickedGrocery.length;
+function mouseWheel(event) { // a build in p5 function 
+	if (mouseX > 960 && mouseX < 1200 &&
+		mouseY > 10 && mouseY < 510) {
+
+		let totalItems = clickedGrocery.length;
 		let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING); // Calculates how much you can scroll down. 
 
-        scrollOffset += event.delta * 0.5; // event.delta: how much the mouse scroll. * 0.5 to slow it down.
-        scrollOffset = constrain(scrollOffset, 0, maxScroll); // Doesn't let the user scroll past the first or last item.
+		scrollOffset += event.delta * 0.5; // event.delta: how much the mouse scroll. * 0.5 to slow it down.
+		scrollOffset = constrain(scrollOffset, 0, maxScroll); // Doesn't let the user scroll past the first or last item.
 
-        return false; // Prevent the browser from also scrolling the page.
-    	}
+		return false; // Prevent the browser from also scrolling the page.
 	}
+}
 
 
-function Beginning(){
+function Beginning() {
 	scene = 0;
 	button2.hide();
 	button3.hide();
 	button1.show();
-  }
+}
 
-  function Start(){
-		scene = 1;
-		button1.hide();
-		button2.show();
-		button3.hide();
-	
-  }
+function Start() {
+	scene = 1;
+	button1.hide();
+	button2.show();
+	button3.hide();
+
+}
 
 
-  function End(){
-		scene = 2;
-		button2.hide();
-		button1.hide();
-		button3.show();
-	
-  }
+function End() {
+	scene = 2;
+	button2.hide();
+	button1.hide();
+	button3.show();
+
+}
 

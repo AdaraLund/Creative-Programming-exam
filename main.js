@@ -355,7 +355,7 @@ function draw()  {
 	/* If sound is on and CO2 is above or equal 4, switch to sad music (only if it's not already playing) 
 	and stop the previous song */
 	if (soundOn) {
-		if (totalCO2 >= 4) {
+		if (totalCO2 >= 10) {
 		  if (currentSong !== sadSong) {
 			if (currentSong) currentSong.stop();
 			sadSong.setVolume(0.5);

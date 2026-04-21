@@ -1,6 +1,5 @@
 
-// GROCERIES
-// Each object has: name, file (filename without .png), x, y, w, h, co2
+// GROCERIES = name, file (filename without .png), x, y, w, h, co2
 
 const GROCERY_DATA = [
   // Fruit & veg
@@ -36,9 +35,7 @@ const GROCERY_DATA = [
 ];
 
 
-// PLANTS 
-// Each object has: id, x, y, w, h
-// Stages: 1 = healthy, 2 = dying, 3 = dead
+// PLANTS = id, x, y, w, h
 const PLANT_DATA = [
   { id: "plant1", x: 440, y: 50, w: 100, h: 120 },
   { id: "plant2", x: 515, y: 45, w: 110, h: 130 },

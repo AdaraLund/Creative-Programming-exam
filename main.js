@@ -131,11 +131,11 @@ function setup() {
 	eggs = new Grocery(150, 370, 55, 55, eggsImg, 0.58, "Eggs");
 	cheese = new Grocery(150, 317, 60, 60, cheeseImg, 1.08, "Cheese");
 	chips = new Grocery(850, 250, 57, 60, chipsImg, 0.74, "Chips");
-	nutella = new Grocery(732, 250, 50, 60, nutellaImg, 1.57, "Nutella");
+	nutella = new Grocery(732, 250, 50, 60, nutellaImg, 3.1, "Nutella");
 	flowers = new Grocery(690, 82, 110, 70, flowersImg, 10.4, "Flowers");
-	oreo = new Grocery(420, 260, 83, 34, oreoImg, 4.7, "Oreo");
-	ramen = new Grocery(850, 180, 53, 53, ramenImg, 0.65, "Ramen");
-	cornflakes = new Grocery(680, 173, 63, 73, cornflakesImg, 1.74, "Cornflakes");
+	oreo = new Grocery(420, 260, 83, 34, oreoImg, 0.44, "Oreo");
+	ramen = new Grocery(850, 180, 53, 53, ramenImg, 0.14, "Ramen");
+	cornflakes = new Grocery(680, 173, 63, 73, cornflakesImg, 1.22, "Cornflakes");
 
 
 	// Our grocery objects are pushed into an array

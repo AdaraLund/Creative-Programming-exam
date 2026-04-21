@@ -185,7 +185,8 @@ function setup() {
 }
 
 function draw()  {
-	
+
+
 	if (scene === 0) {
 		background(235, 183, 186);
 		textAlign(CENTER, CENTER);

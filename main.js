@@ -16,6 +16,9 @@ let maxVisible = 9;
 const RECEIPT_ROW_SPACING = 30; 
 const RECEIPT_START_Y = 130; 
 
+// These two objects are filled in preload() 
+let groceryImages = {}; 
+let plantImages = {};  
 
 function preload() { // For loading before program is run
 	// cart and background
@@ -29,51 +32,9 @@ function preload() { // For loading before program is run
 	xImg = loadImage('./assets/images/x.png');
 	wares = loadImage('./assets/images/wares.png');
 
-	//Plants
-	plant1_1 = loadImage('./assets/images/plants/plant1_1.png');
-	plant1_2 = loadImage('./assets/images/plants/plant1_2.png');
-	plant1_3 = loadImage('./assets/images/plants/plant1_3.png');
-	plant2_1 = loadImage('./assets/images/plants/plant2_1.png');
-	plant2_2 = loadImage('./assets/images/plants/plant2_2.png');
-	plant2_3 = loadImage('./assets/images/plants/plant2_3.png');
-	plant3_1 = loadImage('./assets/images/plants/plant3_1.png');
-	plant3_2 = loadImage('./assets/images/plants/plant3_2.png');
-	plant3_3 = loadImage('./assets/images/plants/plant3_3.png');
-	plant4_1 = loadImage('./assets/images/plants/plant4_1.png');
-	plant4_2 = loadImage('./assets/images/plants/plant4_2.png');
-	plant4_3 = loadImage('./assets/images/plants/plant4_3.png');
-
 	// This is our Cracks
 	cracks = loadImage('./assets/images/cracks.png');
 	cracksExtra = loadImage('./assets/images/cracksExtra.png');
-
-	// All the images to our groceries
-	appleImg = loadImage('./assets/images/apple.png');
-	avocadoImg = loadImage('./assets/images/avocado.png');
-	bananaImg = loadImage('./assets/images/banana.png');
-	cucumberImg = loadImage('./assets/images/cucumber.png');
-	carrotImg = loadImage('./assets/images/carrot.png');
-	watermelonImg = loadImage('./assets/images/watermelon.png');
-	waterImg = loadImage('./assets/images/water.png');
-	wineImg = loadImage('./assets/images/wine.png');
-	ryebreadImg = loadImage('./assets/images/rugbr.png');
-	baguetteImg = loadImage('./assets/images/baguette.png');
-	toastImg = loadImage('./assets/images/toast.png');
-	beerImg = loadImage('./assets/images/beer.png');
-	cookiesImg = loadImage('./assets/images/cookie.png');
-	milkImg = loadImage('./assets/images/milk.png');
-	oatMilkImg = loadImage('./assets/images/oatmilk.png');
-	sodaImg = loadImage('./assets/images/soda.png');
-	chickenImg = loadImage('./assets/images/chicken.png');
-	eggsImg = loadImage('./assets/images/eggs.png');
-	cheeseImg = loadImage('./assets/images/cheese.png');
-	chipsImg = loadImage('./assets/images/chips.png');
-
-	nutellaImg = loadImage('./assets/images/nutella.png');
-	flowersImg = loadImage('./assets/images/flowers.png');
-	oreoImg = loadImage('./assets/images/oreo.png');
-	ramenImg = loadImage('./assets/images/ramen.png');
-	cornflakesImg = loadImage('./assets/images/cornflakes.png');
 
 	// restart
 	restartImg = loadImage('./assets/images/restart.png');
@@ -91,7 +52,21 @@ function preload() { // For loading before program is run
 	backgroundSong = loadSound('assets/sounds/backgroundMusic.mp3');
 	sadSong = loadSound('assets/sounds/sadMusic.mp3');
 
-	
+	// Grocery images (one loop instead of 25 lines)
+	// Uses the "file" field (same as filename) from GROCERY_DATA in data.js
+	for (let g of GROCERY_DATA) {
+		groceryImages[g.file] = loadImage(`./assets/images/${g.file}.png`);
+	}
+
+	// Plant images 
+	// Uses the "id" field from PLANT_DATA in data.js
+	for (let p of PLANT_DATA) {
+		plantImages[p.id] = [
+		loadImage(`./assets/images/plants/${p.id}_1.png`),
+		loadImage(`./assets/images/plants/${p.id}_2.png`),
+		loadImage(`./assets/images/plants/${p.id}_3.png`),
+		];
+	}	
 }
 
 function setup() {
@@ -109,37 +84,10 @@ function setup() {
 	strokeWeight(0); // size of frame of object
 	imageMode(CENTER);// placing images by their center instead of corner
 
-	// All our objects are defined as groceries
-
-	apple = new Grocery(750, 300, 60, 60, appleImg, 0.61, "Apple");
-	banana = new Grocery(550, 386, 80, 60, bananaImg, 1.02, "Banana");
-	avocado = new Grocery(610, 310, 70, 50, avocadoImg, 0.73, "Avocado");
-	cucumber = new Grocery(440, 310, 120, 50, cucumberImg, 0.14, "Cucumber");
-	carrot = new Grocery(340, 380, 120, 90, carrotImg, 0.27, "Carrot");
-	watermelon = new Grocery(722, 400, 90, 90, watermelonImg, 1.2, "Watermelon");
-	water = new Grocery(77, 99, 30, 70, waterImg, 0.28, "Water");
-	wine = new Grocery(330, 60, 32, 100, wineImg, 1.24, "Wine");
-	ryebread = new Grocery(425, 177, 98, 50, ryebreadImg, 1.02, "Ryebread");
-	baguette = new Grocery(225, 350, 60, 160, baguetteImg, 0.81, "Baguette");
-	toast = new Grocery(540, 173, 60, 70, toastImg, 0.81, "Toast");
-	beer = new Grocery(180, 100, 40, 65, beerImg, 0.22, "Beer");
-	cookies = new Grocery(610, 255, 95, 45, cookiesImg, 0.73, "Cookies");
-	milk = new Grocery(102, 170, 33, 55, milkImg, 0.50, "Milk");
-	oatMilk = new Grocery(168, 168, 35, 59, oatMilkImg, 0.40, "Oatmilk");
-	soda = new Grocery(130, 97, 40, 70, sodaImg, 0.88, "Soda");
-	chicken = new Grocery(185, 240, 55, 65, chickenImg, 4.91, "Chicken");
-	eggs = new Grocery(150, 370, 55, 55, eggsImg, 0.58, "Eggs");
-	cheese = new Grocery(150, 317, 60, 60, cheeseImg, 1.08, "Cheese");
-	chips = new Grocery(850, 250, 57, 60, chipsImg, 0.74, "Chips");
-	nutella = new Grocery(732, 250, 50, 60, nutellaImg, 1.57, "Nutella");
-	flowers = new Grocery(690, 82, 110, 70, flowersImg, 10.4, "Flowers");
-	oreo = new Grocery(420, 260, 83, 34, oreoImg, 4.7, "Oreo");
-	ramen = new Grocery(850, 180, 53, 53, ramenImg, 0.65, "Ramen");
-	cornflakes = new Grocery(680, 173, 63, 73, cornflakesImg, 1.74, "Cornflakes");
-
-
-	// Our grocery objects are pushed into an array
-	groceryList.push(nutella, flowers, oreo, ramen, cornflakes, chips, cheese, eggs, chicken, soda, oatMilk, milk, cookies, beer, banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette, toast);
+	// Replaced all the "new Grocery"-lines + groceryList.push()
+	for (let g of GROCERY_DATA) {
+		groceryList.push(new Grocery(g.x, g.y, g.w, g.h, groceryImages[g.file], g.co2, g.name));
+	}
 	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
 
 
@@ -371,24 +319,11 @@ function draw()  {
 		}
 	  }
 
-	if (totalCO2 > 10 && totalCO2 < 20) { // Dying plant if CO2 is between 10 and 20
-		image(plant1_2, 440, 50, 100, 120);
-		image(plant2_2, 515, 45, 110, 130);
-		image(plant3_2, 790, 35, 100, 150);
-		image(plant4_2, 870, 75, 110, 110);
+	let stage = totalCO2 > 20 ? 2 : totalCO2 > 10 ? 1 : 0;
 
-	} else if (totalCO2 > 20) { // Dead plant if CO2 is higher than 20
-		image(plant1_3, 440, 50, 100, 120);
-		image(plant2_3, 515, 45, 110, 130);
-		image(plant3_3, 790, 35, 100, 150);
-		image(plant4_3, 870, 75, 110, 110);
-
-	} else { // Our healthy plants if CO2 is less than 10
-		image(plant1_1, 440, 50, 100, 120);
-		image(plant2_1, 515, 45, 110, 130);
-		image(plant3_1, 790, 35, 100, 150);
-		image(plant4_1, 870, 75, 110, 110);
-	}
+  for (let p of PLANT_DATA) {
+    image(plantImages[p.id][stage], p.x, p.y, p.w, p.h);
+  }
 
 	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
 	let totalY = receiptTopY + 410; // Keep total fixed below the scroll area

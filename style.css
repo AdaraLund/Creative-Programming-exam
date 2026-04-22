@@ -3,6 +3,27 @@ html, body {
   padding: 0;
 }
 
+body {
+  /* TILFØJET IFBM SCROLL */
+  background-color: rgb(235, 183, 186); /* samme pink som din baggrund */
+  display: flex; /* Enables "flexbox" - a CSS system that makes it easy to position elements */
+  justify-content: center; /* Centers the canvas horizontally */
+  align-items: center; /* Centers the canvas vertically */
+  min-height: 100vh; /* Makes sure the body fills the entire browser window in height, so the centering works. vh means "viewport height" */
+  overflow: hidden; /* Hides everything that goes beyond the page, so scrollbars don't appear when the frame is larger than the window */
+}
+
+canvas {
+  display: block;
+   /* TILFØJET IFBM SCROLL */
+ position: relative; 
+  /* 'position relative' Tells the canvas to stay in its normal place in the page flow, 
+  but allows other elements to be positioned relative to it. 
+  Without this, the frame (which uses position: fixed) 
+  might not align correctly with the canvas in some browsers */
+
+}
+
 canvas {
   display: block;
 }

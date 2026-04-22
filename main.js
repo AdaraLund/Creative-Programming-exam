@@ -28,6 +28,7 @@ function preload() { // For loading before program is run
 	frontbaguettebasket = loadImage('./assets/images/frontbreadbasket.png');
 	xImg = loadImage('./assets/images/x.png');
 	wares = loadImage('./assets/images/wares.png');
+	frameImg = loadImage('./assets/images/frame.png');
 
 	//Plants
 	plant1_1 = loadImage('./assets/images/plants/plant1_1.png');
@@ -96,19 +97,37 @@ function preload() { // For loading before program is run
 }
 
 function setup() {
+
+/* TILFØJET IFBM FRAME
+This is the only way to create frame "outside" the canvas. As we otherwise have to update all the hardcoding!
+This is a HTML element on top of canvas */
+let frameDiv = createElement('div'); // Creates an empty HTML box element
+frameDiv.style('position', 'fixed'); // Locks the box to the browser window so it doesn't scroll
+frameDiv.style('top', '50%');        // Centrerer vertikalt
+frameDiv.style('left', '50%');       // Centrerer horisontalt
+frameDiv.style('transform', 'translate(-50%, -50%)'); // Trækker den tilbage til midten
+frameDiv.style('width', '1610px');   // 100px større end canvas så framen rager ud på siderne
+frameDiv.style('height', '810px');   // 100px større end canvas så framen rager ud top og bund
+frameDiv.style('background-image', 'url(./assets/images/frame.png)'); // Sets our frame image as the background of the box
+frameDiv.style('background-size', '100% 100%'); // Stretches the frame image to fill the entire box
+frameDiv.style('pointer-events', 'none'); // This lets you click "through" the picture
+frameDiv.style('z-index', '9999');   // Places the box on top of everything else (higher number = further in front)
+
 	let canvas = createCanvas(1200, 600);
 	// x and y are being used for positioning the canvas in the middle of the screen.
-	let x = (windowWidth - width) / 2;
-	let y = (windowHeight - height) / 2;
+	// SLET IFBM FRAME let x = (windowWidth - width) / 2;
+	// SLET IFBM FRAME let y = (windowHeight - height) / 2;
+	// SLET IFBM FRAME canvas.position(x, y); // positions the canvas in the middle of the screen, minus the y-offset.
 
+	
 	// let offset = 75; // offset is adjustable value that moves the canvas up or down.
-
-	canvas.position(x, y); // positions the canvas in the middle of the screen, minus the y-offset.
-
 
 	frameRate(60); //framerate
 	strokeWeight(0); // size of frame of object
 	imageMode(CENTER);// placing images by their center instead of corner
+
+	// I setup(), efter du har lavet canvas:
+let canvasEl = document.querySelector('canvas');
 
 	// All our objects are defined as groceries
 
@@ -185,6 +204,8 @@ function setup() {
 }
 
 function draw() {
+
+const FRAME_THICKNESS = 20;
 
 
 	if (scene === 0) {
@@ -531,7 +552,6 @@ function draw() {
 		image(noSound, 40, 560, 40, 40);
 	}
 	image(restartImg, 95, 562, 30, 30); // restart button
-
 
 }
 

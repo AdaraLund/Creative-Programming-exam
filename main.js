@@ -98,26 +98,41 @@ function preload() { // For loading before program is run
 
 function setup() {
 
-/* TILFØJET IFBM FRAME
-This is the only way to create frame "outside" the canvas. As we otherwise have to update all the hardcoding!
-This is a HTML element on top of canvas */
-let frameDiv = createElement('div'); // Creates an empty HTML box element
-frameDiv.style('position', 'fixed'); // Locks the box to the browser window so it doesn't scroll
-frameDiv.style('top', '50%');        // Centrerer vertikalt
-frameDiv.style('left', '50%');       // Centrerer horisontalt
-frameDiv.style('transform', 'translate(-50%, -50%)'); // Trækker den tilbage til midten
-frameDiv.style('width', '1610px');   // 100px større end canvas så framen rager ud på siderne
-frameDiv.style('height', '810px');   // 100px større end canvas så framen rager ud top og bund
-frameDiv.style('background-image', 'url(./assets/images/frame.png)'); // Sets our frame image as the background of the box
-frameDiv.style('background-size', '100% 100%'); // Stretches the frame image to fill the entire box
-frameDiv.style('pointer-events', 'none'); // This lets you click "through" the picture
-frameDiv.style('z-index', '9999');   // Places the box on top of everything else (higher number = further in front)
+	/* This is a HTML element on top of canvas to create a frame outside the canvas
+	without having to change all of our hardcoding */
+	let frameDiv = createElement('div'); // Creates an empty HTML box element
+
+	frameDiv.style('position', 'fixed'); // Locks the box to the browser window so it doesn't scroll
+
+	/*
+	top: 50% and left: 50% place the corner of the box in the middle. 
+	But we want the middle of the box in the middle. 
+	So the 'transform' moves the box back half a step
+	so the middle of the box is in the middle of the screen.
+	*/ 
+	frameDiv.style('top', '50%');      
+	frameDiv.style('left', '50%');     
+	frameDiv.style('transform', 'translate(-50%, -50%)'); 
+
+	// We make the box a little larger than the canvas (1200x600) so that the frame extends on all sides.
+	frameDiv.style('width', '1610px');  
+	frameDiv.style('height', '810px');   
+
+	frameDiv.style('background-image', 'url(./assets/images/frame.png)'); // Sets our frame image as the background of the HTML box
+	frameDiv.style('background-size', '100% 100%'); // Stretches the frame image to fill the box
+	frameDiv.style('pointer-events', 'none'); // This lets you click "through" the picture
+
+
 
 	let canvas = createCanvas(1200, 600);
+	/* SLETTET IFBM FRAME
+	These lines manually calculated where the canvas should be placed. Now CSS do the centering automatically 
+	*/
+
 	// x and y are being used for positioning the canvas in the middle of the screen.
-	// SLET IFBM FRAME let x = (windowWidth - width) / 2;
-	// SLET IFBM FRAME let y = (windowHeight - height) / 2;
-	// SLET IFBM FRAME canvas.position(x, y); // positions the canvas in the middle of the screen, minus the y-offset.
+	// let x = (windowWidth - width) / 2;
+	// let y = (windowHeight - height) / 2;
+	// canvas.position(x, y); // positions the canvas in the middle of the screen, minus the y-offset.
 
 	
 	// let offset = 75; // offset is adjustable value that moves the canvas up or down.

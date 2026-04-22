@@ -142,8 +142,6 @@ function setup() {
 	strokeWeight(0); // size of frame of object
 	imageMode(CENTER);// placing images by their center instead of corner
 
-	// I setup(), efter du har lavet canvas:
-let canvasEl = document.querySelector('canvas');
 
 	// All our objects are defined as groceries
 
@@ -220,9 +218,6 @@ let canvasEl = document.querySelector('canvas');
 }
 
 function draw() {
-
-const FRAME_THICKNESS = 20;
-
 
 	if (scene === 0) {
 		background(235, 183, 186);

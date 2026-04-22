@@ -100,27 +100,28 @@ function setup() {
 
 	/* This is a HTML element on top of canvas to create a frame outside the canvas
 	without having to change all of our hardcoding */
-	let frameDiv = createElement('div'); // Creates an empty HTML box element
+	let frameDiv = createElement('div'); // Creates an empty HTML box element called frameDiv
 
-	frameDiv.style('position', 'fixed'); // Locks the box to the browser window so it doesn't scroll
+	// Styling the HTML div "box"
+		frameDiv.style('position', 'fixed'); // Locks the box to the browser window so it doesn't scroll
 
-	/*
-	top: 50% and left: 50% place the corner of the box in the middle. 
-	But we want the middle of the box in the middle. 
-	So the 'transform' moves the box back half a step
-	so the middle of the box is in the middle of the screen.
-	*/ 
-	frameDiv.style('top', '50%');      
-	frameDiv.style('left', '50%');     
-	frameDiv.style('transform', 'translate(-50%, -50%)'); 
+		/*
+		top: 50% and left: 50% place the corner of the box in the middle. 
+		But we want the middle of the box in the middle. 
+		So the 'transform' moves the box back half a step
+		so the middle of the box is in the middle of the screen.
+		*/ 
+		frameDiv.style('top', '50%');      
+		frameDiv.style('left', '50%');     
+		frameDiv.style('transform', 'translate(-50%, -50%)'); 
 
-	// We make the box a little larger than the canvas (1200x600) so that the frame extends on all sides.
-	frameDiv.style('width', '1610px');  
-	frameDiv.style('height', '810px');   
+		// We make the box a little larger than the canvas (1200x600) so that the frame extends on all sides.
+		frameDiv.style('width', '1610px');  
+		frameDiv.style('height', '810px');   
 
-	frameDiv.style('background-image', 'url(./assets/images/frame.png)'); // Sets our frame image as the background of the HTML box
-	frameDiv.style('background-size', '100% 100%'); // Stretches the frame image to fill the box
-	frameDiv.style('pointer-events', 'none'); // This lets you click "through" the picture
+		frameDiv.style('background-image', 'url(./assets/images/frame.png)'); // Sets our frame image as the background of the HTML box
+		frameDiv.style('background-size', '100% 100%'); // Stretches the frame image to fill the box
+		frameDiv.style('pointer-events', 'none'); // This lets you click "through" the picture
 
 
 

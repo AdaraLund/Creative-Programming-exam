@@ -10,12 +10,28 @@ let soundOn = false;
 let currentSong = 0; // Keeps track of the song that is currently playing, 0 means no song yet
 
 let scene = 0;
+let finalCO2 = 0;
 
 let scrollOffset = 0;
 let maxVisible = 9;
 const RECEIPT_ROW_SPACING = 30;
 const RECEIPT_START_Y = 130;
 
+function getFact(co2) {
+  if (co2 < 0.5) {
+    return "That's equivalent to sending a few emails!";
+  } else if (co2 < 2) {
+    return "That's equivalent to driving a few km by car.";
+  } else if (co2 < 5) {
+    return "That's equivalent to one night in a hotel.";
+  } else if (co2 < 10) {
+    return "That's equivalent to a pair of imported jeans.";
+  } else if (co2 < 20) {
+    return "That's equivalent to a year of video gaming.";
+  } else {
+    return "That's equivalent to a year of watching TV - that's a lot!";
+  }
+}
 
 function preload() { // For loading before program is run
 	// cart and background
@@ -235,7 +251,9 @@ function draw() {
 		fill(0, 0, 0);
 		textSize(28);
 		textFont(receiptFont);
-		text("End, facts and comparison with CO2", width / 2, height / 2 - 80);
+		text("Your total CO2: " + finalCO2.toFixed(2) + " kg", width / 2, height / 2 - 120);
+		textSize(18);
+		text(getFact(finalCO2), width / 2, height / 2 - 70);
 		return;
 	}
 	background(250, 220, 230);
@@ -647,6 +665,10 @@ function Start() {
 
 
 function End() {
+	 finalCO2 = 0;
+  for (let i = 0; i < clickedGrocery.length; i++) {
+    finalCO2 += clickedGrocery[i].CO2;
+  }
 	scene = 2;
 	button2.hide();
 	button1.hide();

@@ -7,8 +7,8 @@ body {
   /* TILFØJET IFBM SCROLL */
   background-color: rgb(235, 183, 186); /* same pink as current added where earlier was white */
   display: flex; /* Enable "flexbox" (a CSS system) that makes it easy to position elements, fx. what makes the center functions below work */
-  justify-content: center; /* Centers the canvas horizontally */
-  align-items: center; /* Centers the canvas vertically */
+  /* justify-content: center; /* Centers the canvas horizontally */
+ /* align-items: center; /* Centers the canvas vertically */ */
   min-height: 100vh; /* Makes sure the body fills the entire browser window in height, so the centering works. vh = "viewport height" */
   overflow: hidden; /* Hides everything that goes beyond the page, so scrollbars don't appear when the frame is larger than the window */
 }

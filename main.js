@@ -119,7 +119,7 @@ function setup() {
 	let frameDiv = createElement('div'); // Creates an empty HTML box element called frameDiv
 
 	// Styling the HTML div "box"
-		frameDiv.style('position', 'fixed'); // Locks the box to the browser window so it doesn't scroll
+		frameDiv.style('position', 'absolute'); // Puts the boarder on top 
 
 		/*
 		top: 50% and left: 50% place the corner of the box in the middle. 
@@ -129,11 +129,11 @@ function setup() {
 		*/ 
 		frameDiv.style('top', '50%');      
 		frameDiv.style('left', '50%');     
-		frameDiv.style('transform', 'translate(-50%, -50%)'); 
+		frameDiv.style('transform', 'translate(-50%, -50%)');
 
 		// We make the box a little larger than the canvas (1200x600) so that the frame extends on all sides.
-		frameDiv.style('width', '1610px');  
-		frameDiv.style('height', '810px');   
+		frameDiv.style('width', '1610px');
+		frameDiv.style('height', '810px');
 
 		frameDiv.style('background-image', 'url(./assets/images/frame.png)'); // Sets our frame image as the background of the HTML box
 		frameDiv.style('background-size', '100% 100%'); // Stretches the frame image to fill the box
@@ -142,14 +142,12 @@ function setup() {
 
 
 	let canvas = createCanvas(1200, 600);
-	/* SLETTET IFBM FRAME
-	These lines manually calculated where the canvas should be placed. Now CSS do the centering automatically 
-	*/
-
+	
+	// These lines manually calculated where the canvas should be placed. Now CSS do the centering automatically 
 	// x and y are being used for positioning the canvas in the middle of the screen.
-	// let x = (windowWidth - width) / 2;
-	// let y = (windowHeight - height) / 2;
-	// canvas.position(x, y); // positions the canvas in the middle of the screen, minus the y-offset.
+	let x = (windowWidth - width) / 2;
+	let y = (windowHeight - height) / 2;
+	canvas.position(x, y); // positions the canvas in the middle of the screen, minus the y-offset.
 
 	
 	// let offset = 75; // offset is adjustable value that moves the canvas up or down.

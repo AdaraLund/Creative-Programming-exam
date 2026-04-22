@@ -15,15 +15,4 @@ body {
 
 canvas {
   display: block;
-   /* TILFØJET IFBM SCROLL */
- position: relative; 
-  /* 'position relative' Tells the canvas to stay in its normal place in the page flow, 
-  but allows other elements to be positioned relative to it. 
-  Without this, the frame (which uses position: fixed) 
-  might not align correctly with the canvas in some browsers */
-
-}
-
-canvas {
-  display: block;
 }

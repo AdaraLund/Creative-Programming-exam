@@ -647,7 +647,7 @@ function mouseWheel(event) { // a build in p5 function
 
 
 function Beginning() {
-	scene = 0;
+	location.reload();
 	button2.hide();
 	button3.hide();
 	button1.show();

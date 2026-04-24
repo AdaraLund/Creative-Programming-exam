@@ -3,6 +3,8 @@ let returningGrocery = []; // deleted groceries goes from "cliked" to "returning
 let groceryList = [];
 let clickedGrocery = [];
 let tintValue;
+let LDX = 1200 / 2;
+let RDX = 1200 / 2;
 
 let backgroundSong;
 let basketSound;
@@ -18,19 +20,19 @@ const RECEIPT_ROW_SPACING = 30;
 const RECEIPT_START_Y = 130;
 
 function getFact(co2) {
-  if (co2 < 0.5) {
-    return "That's equivalent to sending a few emails!";
-  } else if (co2 < 2) {
-    return "That's equivalent to driving a few km by car.";
-  } else if (co2 < 5) {
-    return "That's equivalent to one night in a hotel.";
-  } else if (co2 < 10) {
-    return "That's equivalent to a pair of imported jeans.";
-  } else if (co2 < 20) {
-    return "That's equivalent to a year of video gaming.";
-  } else {
-    return "That's equivalent to a year of watching TV - that's a lot!";
-  }
+	if (co2 < 0.5) {
+		return "That's equivalent to sending a few emails!";
+	} else if (co2 < 2) {
+		return "That's equivalent to driving a few km by car.";
+	} else if (co2 < 5) {
+		return "That's equivalent to one night in a hotel.";
+	} else if (co2 < 10) {
+		return "That's equivalent to a pair of imported jeans.";
+	} else if (co2 < 20) {
+		return "That's equivalent to a year of video gaming.";
+	} else {
+		return "That's equivalent to a year of watching TV - that's a lot!";
+	}
 }
 
 function preload() { // For loading before program is run
@@ -45,6 +47,11 @@ function preload() { // For loading before program is run
 	xImg = loadImage('./assets/images/x.png');
 	wares = loadImage('./assets/images/wares.png');
 	frameImg = loadImage('./assets/images/frame.png');
+	startPage = loadImage('./assets/images/startScreen.png');
+	backStartPage = loadImage('./assets/images/backStartScreen.png');
+	rightDoor = loadImage('./assets/images/rightdoor.png');
+	leftDoor = loadImage('./assets/images/leftdoor.png');
+	extraBricks = loadImage('./assets/images/extrabricks.png');
 
 	//Plants
 	plant1_1 = loadImage('./assets/images/plants/plant1_1.png');
@@ -86,7 +93,6 @@ function preload() { // For loading before program is run
 	eggsImg = loadImage('./assets/images/eggs.png');
 	cheeseImg = loadImage('./assets/images/cheese.png');
 	chipsImg = loadImage('./assets/images/chips.png');
-
 	nutellaImg = loadImage('./assets/images/nutella.png');
 	flowersImg = loadImage('./assets/images/flowers.png');
 	oreoImg = loadImage('./assets/images/oreo.png');
@@ -119,37 +125,37 @@ function setup() {
 	let frameDiv = createElement('div'); // Creates an empty HTML box element called frameDiv
 
 	// Styling the HTML div "box"
-		frameDiv.style('position', 'absolute'); // Puts the boarder on top 
+	frameDiv.style('position', 'absolute'); // Puts the boarder on top 
 
-		/*
-		top: 50% and left: 50% place the corner of the box in the middle. 
-		But we want the middle of the box in the middle. 
-		So the 'transform' moves the box back half a step
-		so the middle of the box is in the middle of the screen.
-		*/ 
-		frameDiv.style('top', '50%');      
-		frameDiv.style('left', '50%');     
-		frameDiv.style('transform', 'translate(-50%, -50%)');
+	/*
+	top: 50% and left: 50% place the corner of the box in the middle. 
+	But we want the middle of the box in the middle. 
+	So the 'transform' moves the box back half a step
+	so the middle of the box is in the middle of the screen.
+	*/
+	frameDiv.style('top', '50%');
+	frameDiv.style('left', '50%');
+	frameDiv.style('transform', 'translate(-50%, -50%)');
 
-		// We make the box a little larger than the canvas (1200x600) so that the frame extends on all sides.
-		frameDiv.style('width', '1610px');
-		frameDiv.style('height', '810px');
+	// We make the box a little larger than the canvas (1200x600) so that the frame extends on all sides.
+	frameDiv.style('width', '1610px');
+	frameDiv.style('height', '810px');
 
-		frameDiv.style('background-image', 'url(./assets/images/frame.png)'); // Sets our frame image as the background of the HTML box
-		frameDiv.style('background-size', '100% 100%'); // Stretches the frame image to fill the box
-		frameDiv.style('pointer-events', 'none'); // This lets you click "through" the picture
+	frameDiv.style('background-image', 'url(./assets/images/frame.png)'); // Sets our frame image as the background of the HTML box
+	frameDiv.style('background-size', '100% 100%'); // Stretches the frame image to fill the box
+	frameDiv.style('pointer-events', 'none'); // This lets you click "through" the picture
 
 
 
 	let canvas = createCanvas(1200, 600);
-	
+
 	// These lines manually calculated where the canvas should be placed. Now CSS do the centering automatically 
 	// x and y are being used for positioning the canvas in the middle of the screen.
 	let x = (windowWidth - width) / 2;
 	let y = (windowHeight - height) / 2;
 	canvas.position(x, y); // positions the canvas in the middle of the screen, minus the y-offset.
 
-	
+
 	// let offset = 75; // offset is adjustable value that moves the canvas up or down.
 
 	frameRate(60); //framerate
@@ -234,14 +240,41 @@ function setup() {
 function draw() {
 
 	if (scene === 0) {
-		background(235, 183, 186);
+		image(backStartPage, 1200 / 2, (575 / 2) + 40, 1200, 550); // /2 since we place images by center
+		image(extraBricks, 1200 / 2, 90, 1200, 550); // /2 since we place images by center
+		image(extraBricks, 1200 / 2, 110, 1200, 550); // /2 since we place images by center
+		image(rightDoor, RDX, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
+		image(leftDoor, LDX, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
+		image(startPage, 1200 / 2, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
+
 		textAlign(CENTER, CENTER);
 		fill(0, 0, 0);
 		textSize(48);
 		textFont(receiptFont);
-		text("Welcome", width / 2, height / 2 - 80);
+		text("Welcome", 590, 70);
+
+		if (mouseX > 430 && mouseX < 785 && mouseY > 135 && mouseY < 500) {
+			cursor(HAND);
+		} else {
+			cursor(ARROW);
+		}
+
+		if (mouseIsPressed && mouseX > 430 && mouseX < 785 && mouseY > 135 && mouseY < 500) {
+			for (let i = 0; i < 10; i++) {
+				LDX = 0.95 * LDX + 0.05 * 1200
+				RDX = 0.95 * RDX + 0.05 * 50
+				image(rightDoor, RDX, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
+				image(leftDoor, LDX, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
+				image(startPage, 1200 / 2, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
+				Start();
+
+			}
+
+			
+		}
 		return;
 	}
+
 
 	if (scene === 2) {
 		background(235, 183, 186);
@@ -252,6 +285,7 @@ function draw() {
 		text("Your total CO2: " + finalCO2.toFixed(2) + " kg", width / 2, height / 2 - 120);
 		textSize(18);
 		text(getFact(finalCO2), width / 2, height / 2 - 70);
+
 		return;
 	}
 	background(250, 220, 230);
@@ -663,10 +697,10 @@ function Start() {
 
 
 function End() {
-	 finalCO2 = 0;
-  for (let i = 0; i < clickedGrocery.length; i++) {
-    finalCO2 += clickedGrocery[i].CO2;
-  }
+	finalCO2 = 0;
+	for (let i = 0; i < clickedGrocery.length; i++) {
+		finalCO2 += clickedGrocery[i].CO2;
+	}
 	scene = 2;
 	button2.hide();
 	button1.hide();

@@ -5,7 +5,7 @@ html, body {
 
 body {
   /* TILFØJET IFBM SCROLL */
-  background-color: rgb(235, 183, 186); /* same pink as current added where earlier was white */
+  background-color: rgb(239, 228, 216); /* same pink as current added where earlier was white */
   display: flex; /* Enable "flexbox" (a CSS system) that makes it easy to position elements, fx. what makes the center functions below work */
   /* justify-content: center; /* Centers the canvas horizontally */
  /* align-items: center; /* Centers the canvas vertically */ */

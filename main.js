@@ -25,13 +25,15 @@ function getFact(co2) {
 	} else if (co2 < 2) {
 		return "That's equivalent to driving a few km by car.";
 	} else if (co2 < 5) {
-		return "That's equivalent to one night in a hotel.";
+		return "That's equivalent to 1 kg of red meat.";
 	} else if (co2 < 10) {
 		return "That's equivalent to a pair of imported jeans.";
+	} else if (co2 < 15) {
+		return "That's equivalent to growing 1 kilo of greenhouse tomatoes.";
 	} else if (co2 < 20) {
 		return "That's equivalent to a year of video gaming.";
 	} else {
-		return "That's equivalent to a year of watching TV - that's a lot!";
+		return "That's equivalent to a year of watching TV";
 	}
 }
 
@@ -305,6 +307,7 @@ function draw() {
 
 	let anyhover = false; //  Variabel pre made for hover function
 
+
 	// Receipt box
 	let receiptX = 970; // start-position from left  
 	let receiptTopY = 10; // start-position from top  
@@ -531,6 +534,23 @@ function draw() {
 			anyhover = true;
 		}
 	}
+
+	// Sound and restart hover
+	if (mouseX > 20 && mouseX < 60 && mouseY > 545 && mouseY < 575) anyhover = true;
+	if (mouseX > 75 && mouseX < 115 && mouseY > 545 && mouseY < 575) anyhover = true;
+
+	// X-hover on receipt
+	// I used the same logic as in mousePressed)
+	let checkY = RECEIPT_START_Y;
+	for (let i = 0; i < clickedGrocery.length; i++) {
+		let itemY = checkY - scrollOffset;
+		if (mouseX > 988 && mouseX < 1013 &&
+			mouseY > itemY - 14 && mouseY < itemY + 5) {
+			anyhover = true;
+		}
+		checkY += RECEIPT_ROW_SPACING;
+	}
+
 	if (anyhover === true) {
 		cursor(HAND);
 	} else {

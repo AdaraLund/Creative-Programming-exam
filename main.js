@@ -117,6 +117,8 @@ function preload() { // For loading before program is run
 	basketSound = loadSound('assets/sounds/basket.mp3');
 	backgroundSong = loadSound('assets/sounds/backgroundMusic.mp3');
 	sadSong = loadSound('assets/sounds/sadMusic.mp3');
+	checkoutSound = loadSound('assets/sounds/Checkout.mp3');
+	startSound = loadSound('assets/sounds/Start.mp3');
 
 
 }
@@ -202,8 +204,8 @@ function setup() {
 
 	// start button
 	button1 = createButton('Start');
-	button1.mousePressed(Start);
-	button1.position(750, 540);
+	button1.mousePressed(Starting);
+	button1.position(670, 400);
 	button1.style("font-family", "Special Elite");
 	button1.style("font-size", "24px");
 	button1.style("padding", "5px 20px");
@@ -214,8 +216,8 @@ function setup() {
 
 	// Checkout button
 	button2 = createButton('Checkout');
-	button2.mousePressed(End);
-	button2.position(1220, 695);
+	button2.mousePressed(handleCheckout );
+	button2.position(1120, 595);
 	button2.hide();
 	button2.style("font-family", "Special Elite");
 	button2.style("font-size", "19px");
@@ -674,7 +676,9 @@ function mousePressed() {
 		}
 		receiptY += RECEIPT_ROW_SPACING;
 	}
+	
 }
+
 // a function for the background having cracks after 4 and 6 kg of CO2
 function cracking(totalCO2) {
 	if (totalCO2 >= 4) {
@@ -697,12 +701,21 @@ function mouseWheel(event) { // a build in p5 function
 	}
 }
 
+function handleCheckout() {
+    checkoutSound.play();
+	checkoutSound.setVolume(0.3);
+    End();
+}
+
+function Starting(){
+	startSound.play();
+	startSound.setVolume(0.3);
+	Start();
+}
 
 function Beginning() {
 	location.reload();
-	button2.hide();
-	button3.hide();
-	button1.show();
+	
 }
 
 function Start() {

@@ -3,8 +3,8 @@ let returningGrocery = []; // deleted groceries goes from "cliked" to "returning
 let groceryList = [];
 let clickedGrocery = [];
 let tintValue;
-let LDX = 1200 / 2;
-let RDX = 1200 / 2;
+let LDX = 1200 / 2; // Left door X value
+let RDX = 1200 / 2; // Right door X value
 
 let backgroundSong;
 let basketSound;
@@ -67,6 +67,7 @@ function preload() { // For loading before program is run
 	plant4_2 = loadImage('./assets/images/plants/plant4_2.png');
 	plant4_3 = loadImage('./assets/images/plants/plant4_3.png');
 	notforsale = loadImage('./assets/images/plants/notforsale.png');
+	saleSign= loadImage('./assets/images/plants/saleSign.png');
 
 	// This is our Cracks
 	cracks = loadImage('./assets/images/cracks.png');
@@ -472,11 +473,8 @@ function draw() {
 		image(plant3_1, 790, 35, 100, 150);
 		image(plant4_1, 870, 75, 110, 110);
 	}
-
-	image(notforsale, 843, 74, 30, 30);
-	image(notforsale, 790, 85, 30, 30);
-	image(notforsale, 437, 85, 30, 30);
-	image(notforsale, 517, 85, 30, 30);
+	image(saleSign, 480, 92, 75, 40);
+	image(saleSign, 823, 92, 75, 40);
 
 	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
 		let totalY = receiptTopY + 410; // Keep total fixed below the scroll area

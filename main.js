@@ -14,8 +14,6 @@ let currentSong = 0; // Keeps track of the song that is currently playing, 0 mea
 let scene = 0;
 let finalCO2 = 0;
 
-
-
 let scrollOffset = 0;
 let maxVisible = 9;
 const RECEIPT_ROW_SPACING = 30;
@@ -165,8 +163,6 @@ function setup() {
 	canvas.position(x, y); // positions the canvas in the middle of the screen, minus the y-offset.
 
 
-	// let offset = 75; // offset is adjustable value that moves the canvas up or down.
-
 	frameRate(60); //framerate
 	strokeWeight(0); // size of frame of object
 	imageMode(CENTER);// placing images by their center instead of corner
@@ -206,7 +202,7 @@ function setup() {
 	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
 
 
-	// start button
+	// Start button, with positioning and styling
 	button1 = createButton('Start');
 	button1.mousePressed(Starting);
 	button1.position(670, 400);
@@ -231,7 +227,7 @@ function setup() {
 	button2.style("border-radius", "5px");
 	button2.style("cursor", "pointer");
 
-	// restart button
+	// Restart button
 	button3 = createButton('Restart');
 	button3.mousePressed(Restarting);
 	button3.position(640, 400);
@@ -248,6 +244,7 @@ function setup() {
 
 function draw() {
 
+	// this is our scene 0, which is the start screen
 	if (scene === 0) {
 		image(backStartPage, 1200 / 2, (575 / 2) + 40, 1200, 550); // /2 since we place images by center
 		image(extraBricks, 1200 / 2, 90, 1200, 550); // /2 since we place images by center
@@ -284,7 +281,7 @@ function draw() {
 		return;
 	}
 
-
+	// our end scene
 	if (scene === 2) {
 		background(235, 183, 186);
 		textAlign(CENTER, CENTER);
@@ -448,19 +445,24 @@ function draw() {
 	and stop the previous song */
 	if (soundOn) {
 		if (totalCO2 >= 10) {
-			if (currentSong !== sadSong) {
-				if (currentSong) currentSong.stop();
-				sadSong.setVolume(0.5);
-				sadSong.loop();
-				currentSong = sadSong;
-			}
-		} else { // we do the same for the background song
 			if (currentSong !== backgroundSong) {
 				if (currentSong) currentSong.stop();
-				backgroundSong.setVolume(0.5);
 				backgroundSong.loop();
 				currentSong = backgroundSong;
 			}
+			backgroundSong.rate(0.4); // lower pitch
+       		 backgroundSong.setVolume(0.6);
+	
+		} else { // we do the same for the background song
+			if (currentSong !== backgroundSong) {
+				if (currentSong) currentSong.stop();
+				backgroundSong.loop();
+				currentSong = backgroundSong;
+			}
+	
+			// Normal playback
+			backgroundSong.rate(1); 
+			backgroundSong.setVolume(0.5);
 		}
 	}
 
@@ -652,7 +654,7 @@ function mousePressed() {
 			if (currentSong) currentSong.stop();
 			currentSong = 0; // 
 		}
-	}
+	} // clicking on the restart button, reloads the window
 	if (mouseX > 75 && mouseX < 115 && mouseY > 545 && mouseY < 575) {
 		Restarting();
 	}
@@ -706,6 +708,7 @@ function mouseWheel(event) { // a build in p5 function
 	}
 }
 
+// checkout function that leads to end function
 function handleCheckout() {
     checkoutSound.play();
 	checkoutSound.setVolume(0.3);

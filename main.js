@@ -72,8 +72,12 @@ function preload() { // For loading before program is run
 	saleSign= loadImage('./assets/images/plants/saleSign.png');
 
 	// This is our Cracks
-	cracks = loadImage('./assets/images/cracks.png');
-	cracksExtra = loadImage('./assets/images/cracksExtra.png');
+	cracks = loadImage('./assets/images/cracks.png', function(img) {
+		img.resize(1200, 550); });
+	  // Resize the cracks image after it loads
+	  cracksExtra = loadImage('./assets/images/cracksExtra.png', function(img) {
+		img.resize(1200, 550);});
+		 // We are resizing images to reduce lag and keep size consistent
 
 	// All the images to our groceries
 	appleImg = loadImage('./assets/images/apple.png');
@@ -444,27 +448,37 @@ function draw() {
 	/* If sound is on and CO2 is above or equal 4, switch to sad music (only if it's not already playing) 
 	and stop the previous song */
 	if (soundOn) {
-		if (totalCO2 >= 10) {
-			if (currentSong !== backgroundSong) {
-				if (currentSong) currentSong.stop();
-				backgroundSong.loop();
-				currentSong = backgroundSong;
-			}
-			backgroundSong.rate(0.4); // lower pitch
-       		 backgroundSong.setVolume(0.6);
-	
-		} else { // we do the same for the background song
-			if (currentSong !== backgroundSong) {
-				if (currentSong) currentSong.stop();
-				backgroundSong.loop();
-				currentSong = backgroundSong;
-			}
-	
-			// Normal playback
-			backgroundSong.rate(1); 
-			backgroundSong.setVolume(0.5);
+		if (totalCO2 >= 15) {
+		  // Play sad song for very high CO2
+		  if (currentSong !== sadSong) {
+			if (currentSong) currentSong.stop();
+			sadSong.loop();
+			currentSong = sadSong;
+		  }
+	  
+		} else if (totalCO2 >= 10) {
+		  // Play pitched down background song
+		  if (currentSong !== backgroundSong) {
+			if (currentSong) currentSong.stop();
+			backgroundSong.loop();
+			currentSong = backgroundSong;
+		  }
+	  
+		  backgroundSong.rate(0.75);
+		  backgroundSong.setVolume(0.6);
+	  
+		} else {
+		  // Normal background song
+		  if (currentSong !== backgroundSong) {
+			if (currentSong) currentSong.stop();
+			backgroundSong.loop();
+			currentSong = backgroundSong;
+		  }
+	  
+		  backgroundSong.rate(1);
+		  backgroundSong.setVolume(0.5);
 		}
-	}
+	  }
 
 	if (totalCO2 > 10 && totalCO2 < 20) { // Dying plant if CO2 is between 10 and 20
 		image(plant1_2, 440, 50, 100, 120);
@@ -686,13 +700,21 @@ function mousePressed() {
 	
 }
 
-// a function for the background having cracks after 4 and 6 kg of CO2
+// a function for the background having cracks 
 function cracking(totalCO2) {
-	if (totalCO2 >= 4) {
-		image(cracksExtra, 1200 / 2, (575 / 2) + 27.5, 1200, 550);
-		image(cracks, 1200 / 2, 550 / 2, 1200, 550);
-	}
-}
+	if (totalCO2 <= 0) return;   // If there is no CO2, don't show any cracks
+
+  // Convert CO2 level into transparency, and we keep the alpha value between 0-255
+	let alpha = (totalCO2 / 15) * 255;
+	alpha = constrain(alpha, 0, 255);
+  // we apply the tint to the images
+	tint(255, alpha);
+  
+	image(cracksExtra, 600, 315);
+	image(cracks, 600, 275);
+  
+	noTint();
+  }
 
 function mouseWheel(event) { // a build in p5 function 
 	if (mouseX > 960 && mouseX < 1200 &&

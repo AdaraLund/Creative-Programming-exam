@@ -728,16 +728,18 @@ function cracking(totalCO2) {
 	if (totalCO2 <= 0) return;   // If there is no CO2, don't show any cracks
 
   // Convert CO2 level into transparency, and we keep the alpha value between 0-255
-	let alpha = (totalCO2 / 15) * 255;
-	alpha = constrain(alpha, 0, 255);
+  let crack = constrain((totalCO2 / 15) * 255, 0, 255);
+	
   // we apply the tint to the images
-	tint(255, alpha);
-  
+	tint(255, crack);
+
 	image(cracksExtra, 600, 315);
 	image(cracks, 600, 275);
-  
+	
 	noTint();
   }
+
+  
 
 function mouseWheel(event) { // a build in p5 function 
 	if (mouseX > 960 && mouseX < 1200 &&

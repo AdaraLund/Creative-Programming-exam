@@ -246,6 +246,8 @@ function setup() {
 
 }
 
+
+
 function draw() {
 
 	// this is our scene 0, which is the start screen
@@ -261,7 +263,11 @@ function draw() {
 		fill(0, 0, 0);
 		textSize(48);
 		textFont(receiptFont);
-		text("Welcome", 590, 70);
+		text("(Supermarked name)", 600, 70);
+		textSize(15);
+		text("Welcome to supermarket simulator", 1040, 310);
+		text("click start when you are ready", 1040, 340);
+		text("and begin your shopping spree", 1040, 370);
 
 		if (mouseX > 430 && mouseX < 785 && mouseY > 135 && mouseY < 500) {
 			cursor(HAND);
@@ -445,7 +451,7 @@ function draw() {
 
 	cracking(totalCO2); // function for updating the CO2
 
-	/* If sound is on and CO2 is above or equal 4, switch to sad music (only if it's not already playing) 
+	/* If sound is on and CO2 is above or equal 15, switch to sad music (only if it's not already playing) 
 	and stop the previous song */
 	if (soundOn) {
 		if (totalCO2 >= 15) {
@@ -625,9 +631,8 @@ function draw() {
 			
 		/* different pitch of sounds on different items
 		if the Co2 is under or equal 1, the sound is normal
-		if the Co2 is over 3, the pitch will be lower
-		and in between that the pitch is 0.6 
-		*/
+		if the Co2 is under or equal 3, the pitch will be lower
+		and in between that the pitch is 0.5 */
 
 		if (item.CO2 <= 1) {
 			basketSound.setVolume(0.3);
@@ -735,10 +740,27 @@ function cracking(totalCO2) {
 
 	image(cracksExtra, 600, 315);
 	image(cracks, 600, 275);
-	
+
 	noTint();
   }
 
+  function darkenGroceries(totalCO2) {
+	let shade = 255;
+  
+	if (totalCO2 >= 20) {
+	  shade = 80;
+	} else if (totalCO2 >= 16) {
+	  shade = 110;
+	} else if (totalCO2 >= 12) {
+	  shade = 140;
+	} else if (totalCO2 >= 8) {
+	  shade = 180;
+	} else if (totalCO2 >= 5) {
+	  shade = 220;
+	}
+  
+	tint(shade);
+  }
   
 
 function mouseWheel(event) { // a build in p5 function 
@@ -776,7 +798,6 @@ function Restarting(){
 
 function Beginning() {
 	location.reload();
-	
 }
 
 function Start() {
@@ -784,7 +805,6 @@ function Start() {
 	button1.hide();
 	button2.show();
 	button3.hide();
-
 }
 
 
@@ -797,6 +817,5 @@ function End() {
 	button2.hide();
 	button1.hide();
 	button3.show();
-
 }
 

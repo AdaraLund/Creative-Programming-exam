@@ -615,17 +615,40 @@ function draw() {
 			item.targetX = random(550, 653);
 			item.targetY = random(460, 530);
 			item.isMoving = true;
-
-			basketSound.setVolume(0.3); // Sound volume, goes from 0-1
-			basketSound.play(); // play sound when item is clicked
-			// 
+			
+		
+			
+			
 
 			clickedGrocery.push(groceryList[i]); // Push clicked object to different array
 			groceryList.splice(i, 1); // This takes the i placement in our array and removes 1 element, which is the i spot
+			
+		/* different pitch of sounds on different items
+		if the Co2 is under or equal 1, the sound is normal
+		if the Co2 is over 3, the pitch will be lower
+		and in between that the pitch is 0.6 
+		*/
 
-		} else {
+		if (item.CO2 <= 1) {
+			basketSound.setVolume(0.3);
+			basketSound.rate(1);
+			basketSound.play();
+		  
+		  } else if (item.CO2 <= 3) {
+			basketSound.setVolume(0.3);
+			basketSound.rate(0.7);
+			basketSound.play();
+		  
+		  } else {
+			basketSound.setVolume(0.5);
+			basketSound.rate(0.5);
+			basketSound.play();
+		  }
+		  
+		  
 			//console.log("No work!"); //debugging
 		}
+		
 
 	}
 

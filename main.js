@@ -14,6 +14,8 @@ let currentSong = 0; // Keeps track of the song that is currently playing, 0 mea
 let scene = 0;
 let finalCO2 = 0;
 
+
+
 let scrollOffset = 0;
 let maxVisible = 9;
 const RECEIPT_ROW_SPACING = 30;
@@ -119,6 +121,8 @@ function preload() { // For loading before program is run
 	sadSong = loadSound('assets/sounds/sadMusic.mp3');
 	checkoutSound = loadSound('assets/sounds/Checkout.mp3');
 	startSound = loadSound('assets/sounds/Start.mp3');
+	restartSound = loadSound('assets/sounds/Restart.mp3');
+	putBackSound = loadSound('assets/sounds/putBack.mp3');
 
 
 }
@@ -217,7 +221,7 @@ function setup() {
 	// Checkout button
 	button2 = createButton('Checkout');
 	button2.mousePressed(handleCheckout );
-	button2.position(1120, 595);
+	button2.position(1160, 635);
 	button2.hide();
 	button2.style("font-family", "Special Elite");
 	button2.style("font-size", "19px");
@@ -229,15 +233,15 @@ function setup() {
 
 	// restart button
 	button3 = createButton('Restart');
-	button3.mousePressed(Beginning);
-	button3.position(750, 540);
+	button3.mousePressed(Restarting);
+	button3.position(640, 400);
 	button3.hide();
 	button3.style("font-family", "Special Elite");
-	button3.style("font-size", "24px");
-	button3.style("padding", "5px 20px");
+	button3.style("font-size", "35px");
+	button3.style("padding", "7px 24px");
 	button3.style("background-color", "white");
 	button3.style("color", "black");
-	button3.style("border-radius", "5px");
+	button3.style("border-radius", "6px");
 	button3.style("cursor", "pointer");
 
 }
@@ -650,7 +654,7 @@ function mousePressed() {
 		}
 	}
 	if (mouseX > 75 && mouseX < 115 && mouseY > 545 && mouseY < 575) {
-		location.reload();
+		Restarting();
 	}
 
 	let receiptY = RECEIPT_START_Y;
@@ -669,6 +673,7 @@ function mousePressed() {
 			item.targetX = item.originalX;
 			item.targetY = item.originalY;
 			item.isMoving = true;
+			putBackSound.play();
 
 			returningGrocery.push(item);
 			clickedGrocery.splice(i, 1); // See it as: array.splice(startIndex, amountToBeRemoved = 1)
@@ -712,6 +717,12 @@ function Starting(){
 	startSound.setVolume(0.3);
 	Start();
 }
+function Restarting(){
+	restartSound.play();
+	restartSound.setVolume(0.3);
+	Beginning();
+}
+
 
 function Beginning() {
 	location.reload();

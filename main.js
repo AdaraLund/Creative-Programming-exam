@@ -271,24 +271,9 @@ function draw() {
 		text("click start when you are ready", 1045, 340);
 		text("and begin your shopping spree", 1045, 370);
 
-		if (mouseX > 430 && mouseX < 785 && mouseY > 135 && mouseY < 500) {
-			cursor(HAND);
-		} else {
-			cursor(ARROW);
-		}
 
-		/*
-		if (mouseIsPressed && mouseX > 430 && mouseX < 785 && mouseY > 135 && mouseY < 500) {
-			for (let i = 0; i < 10; i++) {
-				LDX = 0.95 * LDX + 0.05 * 1200
-				RDX = 0.95 * RDX + 0.05 * 50
-				image(rightDoor, RDX, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
-				image(leftDoor, LDX, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
-				image(startPage, 1200 / 2, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
-				Start();
 
-			}
-*/
+		
 		if (doorsOpening) {
 				LDX = LDX + (-200 - LDX) * 0.05;
 				RDX = RDX + (1400 - RDX) * 0.05;
@@ -558,11 +543,7 @@ function draw() {
 	tintValue = map(totalCO2, 0, 15, 0, 255);
 	//console.log(tintValue); //debugging
 	// Debugging for now
-	push();
-	strokeWeight(0);
-	fill(84, 74, 63, tintValue);
-	circle(320, 20, 50);
-	pop();
+	
 
 
 
@@ -769,23 +750,6 @@ function cracking(totalCO2) {
 	noTint();
   }
 
-  function darkenGroceries(totalCO2) {
-	let shade = 255;
-  
-	if (totalCO2 >= 20) {
-	  shade = 80;
-	} else if (totalCO2 >= 16) {
-	  shade = 110;
-	} else if (totalCO2 >= 12) {
-	  shade = 140;
-	} else if (totalCO2 >= 8) {
-	  shade = 180;
-	} else if (totalCO2 >= 5) {
-	  shade = 220;
-	}
-  
-	tint(shade);
-  }
   
 
 function mouseWheel(event) { // a build in p5 function 

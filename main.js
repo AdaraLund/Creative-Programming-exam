@@ -19,6 +19,8 @@ let maxVisible = 9;
 const RECEIPT_ROW_SPACING = 30;
 const RECEIPT_START_Y = 130;
 
+let doorsOpening = false; 
+
 function getFact(co2) {
 	if (co2 < 0.5) {
 		return "That's equivalent to sending a few emails!";
@@ -209,7 +211,7 @@ function setup() {
 	// Start button, with positioning and styling
 	button1 = createButton('Start');
 	button1.mousePressed(Starting);
-	button1.position(1100, 480);
+	button1.position(x + 990, y + 400); 
 	button1.style("font-family", "Special Elite");
 	button1.style("font-size", "24px");
 	button1.style("padding", "5px 20px");
@@ -221,7 +223,7 @@ function setup() {
 	// Checkout button
 	button2 = createButton('Checkout');
 	button2.mousePressed(handleCheckout );
-	button2.position(1160, 635);
+	button2.position(x + 1020, y + 475);
 	button2.hide();
 	button2.style("font-family", "Special Elite");
 	button2.style("font-size", "19px");
@@ -234,7 +236,7 @@ function setup() {
 	// Restart button
 	button3 = createButton('Restart');
 	button3.mousePressed(Restarting);
-	button3.position(640, 400);
+	button3.position(x + 510, y + 300);
 	button3.hide();
 	button3.style("font-family", "Special Elite");
 	button3.style("font-size", "35px");
@@ -275,6 +277,7 @@ function draw() {
 			cursor(ARROW);
 		}
 
+		/*
 		if (mouseIsPressed && mouseX > 430 && mouseX < 785 && mouseY > 135 && mouseY < 500) {
 			for (let i = 0; i < 10; i++) {
 				LDX = 0.95 * LDX + 0.05 * 1200
@@ -285,11 +288,19 @@ function draw() {
 				Start();
 
 			}
+*/
+		if (doorsOpening) {
+				LDX = LDX + (-200 - LDX) * 0.05;
+				RDX = RDX + (1400 - RDX) * 0.05;
 
-			
+				if (LDX < -150 && RDX > 1350) {
+					doorsOpening = false;
+					Start();
+				}
+			}
+
+			return;
 		}
-		return;
-	}
 
 	// our end scene
 	if (scene === 2) {
@@ -801,7 +812,8 @@ function handleCheckout() {
 function Starting(){
 	startSound.play();
 	startSound.setVolume(0.3);
-	Start();
+	// Start(); 
+	doorsOpening = true;
 }
 function Restarting(){
 	restartSound.play();

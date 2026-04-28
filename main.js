@@ -211,7 +211,7 @@ function setup() {
 	// Start button, with positioning and styling
 	button1 = createButton('Start');
 	button1.mousePressed(Starting);
-	button1.position(x + 990, y + 400); 
+	button1.position(x + 552, y + 525); 
 	button1.style("font-family", "Special Elite");
 	button1.style("font-size", "24px");
 	button1.style("padding", "5px 20px");
@@ -267,9 +267,9 @@ function draw() {
 		textFont(receiptFont);
 		text("Carbon Cart", 600, 70);
 		textSize(15);
-		text("Welcome to supermarket simulator", 1045, 310);
-		text("click start when you are ready", 1045, 340);
-		text("and begin your shopping spree", 1045, 370);
+		text("Welcome to supermarket simulator", 1045, 340);
+		text("click start when you are ready", 1045, 365);
+		text("and begin your shopping spree", 1045, 390);
 
 		if (mouseX > 430 && mouseX < 785 && mouseY > 135 && mouseY < 500) {
 			cursor(HAND);

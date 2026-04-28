@@ -463,7 +463,7 @@ function draw() {
 		  }
 	  
 		} else if (totalCO2 >= 10) {
-		  // Play pitched down background song
+		  // Play 0.75 pitched down background song
 		  if (currentSong !== backgroundSong) {
 			if (currentSong) currentSong.stop();
 			backgroundSong.loop();
@@ -472,6 +472,20 @@ function draw() {
 	  
 		  backgroundSong.rate(0.75);
 		  backgroundSong.setVolume(0.6);
+
+		  
+		  // Play 0.5 pitched down
+			if (currentSong !== backgroundSong) {
+				if (currentSong) currentSong.stop();
+				backgroundSong.loop();
+				currentSong = backgroundSong;
+			  }
+		  
+			  backgroundSong.rate(0.5);
+			  backgroundSong.setVolume(0.6);
+		  
+		  } else if (totalCO2 >= 5) {
+	
 	  
 		} else {
 		  // Normal background song

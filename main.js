@@ -265,7 +265,7 @@ function draw() {
 		fill(0, 0, 0);
 		textSize(48);
 		textFont(receiptFont);
-		text("(Supermarked name)", 600, 70);
+		text("Carbon Cart", 600, 70);
 		textSize(15);
 		text("Welcome to supermarket simulator", 1045, 310);
 		text("click start when you are ready", 1045, 340);

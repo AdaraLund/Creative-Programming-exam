@@ -223,7 +223,7 @@ function setup() {
 	// Checkout button
 	button2 = createButton('Checkout');
 	button2.mousePressed(handleCheckout );
-	button2.position(x + 1020, y + 475);
+	button2.position(x + 1020, y + 535);
 	button2.hide();
 	button2.style("font-family", "Special Elite");
 	button2.style("font-size", "19px");

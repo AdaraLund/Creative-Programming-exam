@@ -782,7 +782,7 @@ function Starting(){
 function Restarting(){
 	restartSound.play();
 	restartSound.setVolume(0.3);
-	Beginning();
+	window.setTimeout(Beginning, 800);
 }
 
 

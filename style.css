@@ -4,7 +4,6 @@ html, body {
 }
 
 body {
-  /* TILFØJET IFBM SCROLL */
   background-color: rgb(239, 228, 216); 
   min-height: 100vh; /* Makes sure the body fills the entire browser window in height, so the centering works. vh = "viewport height" */
   overflow: hidden; /* Hides everything that goes beyond the page, so scrollbars don't appear when the frame is larger than the window */

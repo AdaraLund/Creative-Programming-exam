@@ -49,13 +49,15 @@ function preload() { // For loading before program is run
 	shelfbasketbackground = loadImage('./assets/images/shelfbasket.png');
 	frontbaguettebasket = loadImage('./assets/images/frontbreadbasket.png');
 	xImg = loadImage('./assets/images/x.png');
-	wares = loadImage('./assets/images/wares.png');
+	wares = loadImage('./assets/images/waresDark.png');
 	frameImg = loadImage('./assets/images/frame.png');
 	startPage = loadImage('./assets/images/startScreen.png');
 	backStartPage = loadImage('./assets/images/backStartScreen.png');
 	rightDoor = loadImage('./assets/images/rightdoor.png');
 	leftDoor = loadImage('./assets/images/leftdoor.png');
 	extraBricks = loadImage('./assets/images/extrabricks.png');
+	nameSign = loadImage('./assets/images/sign.png');
+	sideSign = loadImage('./assets/images/blankSign.png');
 
 	//Plants
 	plant1_1 = loadImage('./assets/images/plants/plant1_1.png');
@@ -260,12 +262,17 @@ function draw() {
 		image(rightDoor, RDX, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
 		image(leftDoor, LDX, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
 		image(startPage, 1200 / 2, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
+		
+		//signs on top of door and to the side of door
+		image(sideSign, 1045, 360, 278, 120);
+	
+		image(nameSign,610, 55, 350,100);
 
 		textAlign(CENTER, CENTER);
 		fill(0, 0, 0);
 		textSize(48);
 		textFont(receiptFont);
-		text("Carbon Cart", 600, 70);
+		//text("Carbon Cart", 600, 70);
 		textSize(15);
 		text("Welcome to supermarket simulator", 1045, 340);
 		text("click start when you are ready", 1045, 365);
@@ -306,14 +313,14 @@ function draw() {
 	image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 	image(wares, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
 
-
+	/*
 	//Making x and y appear on the canvas when hovering
 	textSize(16);
 	fill(0);
 	text('x =' + round(mouseX), 30, 33);
 	text('y =' + round(mouseY), 30, 53);
 	strokeWeight(0);
-
+	*/
 	let anyhover = false; //  Variabel pre made for hover function
 
 
@@ -687,6 +694,7 @@ function draw() {
 		image(noSound, 40, 560, 40, 40);
 	}
 	image(restartImg, 95, 562, 30, 30); // restart button
+
 
 }
 

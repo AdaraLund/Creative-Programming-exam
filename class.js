@@ -78,10 +78,7 @@ class Grocery {
 
 	}
 
-
 }
-
-
 
 //Setting up our groceries and their picture variables
 // The first two are their placements

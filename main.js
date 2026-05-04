@@ -273,10 +273,10 @@ function draw() {
 		textSize(48);
 		textFont(receiptFont);
 		//text("Carbon Cart", 600, 70);
-		textSize(15);
-		text("Welcome to supermarket simulator", 1045, 340);
-		text("click start when you are ready", 1045, 365);
-		text("and begin your shopping spree", 1045, 390);
+		textSize(13);
+		text("Welcome to supermarket simulator", 1045, 335);
+		text("click \"start\" when you are ready", 1045, 360);
+		text("and begin your shopping spree", 1045, 385);
 
 
 

@@ -689,11 +689,11 @@ function draw() {
 
 	// images for sound on/off image
 	if (soundOn) {
-		image(sound, 40, 560, 40, 40);
+		image(sound, 40, 560, 35, 35);
 	} else {
-		image(noSound, 40, 560, 40, 40);
+		image(noSound, 40, 560, 35, 35);
 	}
-	image(restartImg, 95, 562, 30, 30); // restart button
+	image(restartImg, 95, 562, 27, 27); // restart button
 
 
 }

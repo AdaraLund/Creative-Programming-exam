@@ -1,819 +1,315 @@
-//Set variables here
-let returningGrocery = []; // deleted groceries goes from "cliked" to "returning" (and lastly back to "groceryList")
-let groceryList = [];
-let clickedGrocery = [];
-let tintValue;
-let LDX = 1200 / 2; // Left door X value
-let RDX = 1200 / 2; // Right door X value
-
-let backgroundSong;
-let basketSound;
-let soundOn = false;
-let currentSong = 0; // Keeps track of the song that is currently playing, 0 means no song yet
-
-let scene = 0;
-let finalCO2 = 0;
-
+let returningGrocery = [], groceryList = [], clickedGrocery = [];
+let LDX = 600, RDX = 600, doorsOpening = false;
+let backgroundSong, basketSound, sadSong, checkoutSound, startSound, restartSound, putBackSound;
+let soundOn = false, currentSong = 0, scene = 0, finalCO2 = 0;
 let scrollOffset = 0;
-let maxVisible = 9;
-const RECEIPT_ROW_SPACING = 30;
-const RECEIPT_START_Y = 130;
+const MAX_VIS = 9, ROW_H = 30, RECEIPT_Y0 = 130;
 
-let doorsOpening = false; 
-
-function getFact(co2) {
-	if (co2 < 0.5) {
-		return "That's equivalent to sending a few emails!";
-	} else if (co2 < 2) {
-		return "That's equivalent to driving a few km by car.";
-	} else if (co2 < 5) {
-		return "That's equivalent to 1 kg of red meat.";
-	} else if (co2 < 10) {
-		return "That's equivalent to a pair of imported jeans.";
-	} else if (co2 < 15) {
-		return "That's equivalent to growing 1 kilo of greenhouse tomatoes.";
-	} else if (co2 < 20) {
-		return "That's equivalent to a year of video gaming.";
-	} else {
-		return "That's equivalent to a year of watching TV";
-	}
+function getFact(c) {
+  if (c < 0.5) return "That's equivalent to sending a few emails!";
+  if (c < 2)   return "That's equivalent to driving a few km by car.";
+  if (c < 5)   return "That's equivalent to 1 kg of red meat.";
+  if (c < 10)  return "That's equivalent to a pair of imported jeans.";
+  if (c < 15)  return "That's equivalent to growing 1 kilo of greenhouse tomatoes.";
+  if (c < 20)  return "That's equivalent to a year of video gaming.";
+  return "That's equivalent to a year of watching TV";
 }
 
-function preload() { // For loading before program is run
-	// cart and background
-	piCartBack = loadImage('./assets/images/pinkcartback.png');
-	piCartFront = loadImage('./assets/images/pinkcartfront.png');
-	backbackground = loadImage('./assets/images/backbackground.png');
-	extraStone = loadImage('./assets/images/extraStone.png');
-	frontbackground = loadImage('./assets/images/frontbackground.png');
-	shelfbasketbackground = loadImage('./assets/images/shelfbasket.png');
-	frontbaguettebasket = loadImage('./assets/images/frontbreadbasket.png');
-	xImg = loadImage('./assets/images/x.png');
-	wares = loadImage('./assets/images/waresDark.png');
-	frameImg = loadImage('./assets/images/frame.png');
-	startPage = loadImage('./assets/images/startScreen.png');
-	backStartPage = loadImage('./assets/images/backStartScreen.png');
-	rightDoor = loadImage('./assets/images/rightdoor.png');
-	leftDoor = loadImage('./assets/images/leftdoor.png');
-	extraBricks = loadImage('./assets/images/extrabricks.png');
-	nameSign = loadImage('./assets/images/sign.png');
-	sideSign = loadImage('./assets/images/blankSign.png');
+function preload() {
+  const li = (p) => loadImage('./assets/images/' + p);
+  piCartBack = li('pinkcartback.png'); piCartFront = li('pinkcartfront.png');
+  backbackground = li('backbackground.png'); extraStone = li('extraStone.png');
+  frontbackground = li('frontbackground.png'); shelfbasketbackground = li('shelfbasket.png');
+  frontbaguettebasket = li('frontbreadbasket.png'); xImg = li('x.png');
+  wares = li('waresDark.png'); startPage = li('startScreen.png');
+  backStartPage = li('backStartScreen.png'); rightDoor = li('rightdoor.png');
+  leftDoor = li('leftdoor.png'); extraBricks = li('extrabricks.png');
+  nameSign = li('sign.png'); sideSign = li('blankSign.png');
+  paperTexture = li('paperTexture.png'); sound = li('sound.png'); noSound = li('noSound.png');
+  restartImg = li('restart.png');
 
-	//Plants
-	plant1_1 = loadImage('./assets/images/plants/plant1_1.png');
-	plant1_2 = loadImage('./assets/images/plants/plant1_2.png');
-	plant1_3 = loadImage('./assets/images/plants/plant1_3.png');
-	plant2_1 = loadImage('./assets/images/plants/plant2_1.png');
-	plant2_2 = loadImage('./assets/images/plants/plant2_2.png');
-	plant2_3 = loadImage('./assets/images/plants/plant2_3.png');
-	plant3_1 = loadImage('./assets/images/plants/plant3_1.png');
-	plant3_2 = loadImage('./assets/images/plants/plant3_2.png');
-	plant3_3 = loadImage('./assets/images/plants/plant3_3.png');
-	plant4_1 = loadImage('./assets/images/plants/plant4_1.png');
-	plant4_2 = loadImage('./assets/images/plants/plant4_2.png');
-	plant4_3 = loadImage('./assets/images/plants/plant4_3.png');
-	notforsale = loadImage('./assets/images/plants/notforsale.png');
-	saleSign= loadImage('./assets/images/plants/saleSign.png');
+  const lp = (n) => loadImage('./assets/images/plants/' + n);
+  [plant1_1,plant1_2,plant1_3] = [lp('plant1_1.png'),lp('plant1_2.png'),lp('plant1_3.png')];
+  [plant2_1,plant2_2,plant2_3] = [lp('plant2_1.png'),lp('plant2_2.png'),lp('plant2_3.png')];
+  [plant3_1,plant3_2,plant3_3] = [lp('plant3_1.png'),lp('plant3_2.png'),lp('plant3_3.png')];
+  [plant4_1,plant4_2,plant4_3] = [lp('plant4_1.png'),lp('plant4_2.png'),lp('plant4_3.png')];
+  notforsale = lp('notforsale.png'); saleSign = lp('saleSign.png');
 
-	// This is our Cracks
-	cracks = loadImage('./assets/images/cracks.png', function(img) {
-		img.resize(1200, 550); });
-	  // Resize the cracks image after it loads
-	  cracksExtra = loadImage('./assets/images/cracksExtra.png', function(img) {
-		img.resize(1200, 550);});
-		 // We are resizing images to reduce lag and keep size consistent
+  const ig = (n, img) => { let i = li(n); if (img) i.resize(...img); return i; };
+  cracks = ig('cracks.png', [1200, 550]);
+  cracksExtra = ig('cracksExtra.png', [1200, 550]);
 
-	// All the images to our groceries
-	appleImg = loadImage('./assets/images/apple.png');
-	avocadoImg = loadImage('./assets/images/avocado.png');
-	bananaImg = loadImage('./assets/images/banana.png');
-	cucumberImg = loadImage('./assets/images/cucumber.png');
-	carrotImg = loadImage('./assets/images/carrot.png');
-	watermelonImg = loadImage('./assets/images/watermelon.png');
-	waterImg = loadImage('./assets/images/water.png');
-	wineImg = loadImage('./assets/images/wine.png');
-	ryebreadImg = loadImage('./assets/images/rugbr.png');
-	baguetteImg = loadImage('./assets/images/baguette.png');
-	toastImg = loadImage('./assets/images/toast.png');
-	beerImg = loadImage('./assets/images/beer.png');
-	cookiesImg = loadImage('./assets/images/cookie.png');
-	milkImg = loadImage('./assets/images/milk.png');
-	oatMilkImg = loadImage('./assets/images/oatmilk.png');
-	sodaImg = loadImage('./assets/images/soda.png');
-	chickenImg = loadImage('./assets/images/chicken.png');
-	eggsImg = loadImage('./assets/images/eggs.png');
-	cheeseImg = loadImage('./assets/images/cheese.png');
-	chipsImg = loadImage('./assets/images/chips.png');
-	nutellaImg = loadImage('./assets/images/nutella.png');
-	flowersImg = loadImage('./assets/images/flowers.png');
-	oreoImg = loadImage('./assets/images/oreo.png');
-	ramenImg = loadImage('./assets/images/ramen.png');
-	cornflakesImg = loadImage('./assets/images/cornflakes.png');
+  const imgs = ['apple','avocado','banana','cucumber','carrot','watermelon','water','wine',
+    'rugbr','baguette','toast','beer','cookie','milk','oatmilk','soda','chicken','eggs',
+    'cheese','chips','nutella','flowers','oreo','ramen','cornflakes'];
+  const vars = ['apple','avocado','banana','cucumber','carrot','watermelon','water','wine',
+    'ryebread','baguette','toast','beer','cookies','milk','oatMilk','soda','chicken','eggs',
+    'cheese','chips','nutella','flowers','oreo','ramen','cornflakes'];
+  imgs.forEach((n, i) => window[vars[i] + 'Img'] = li(n + '.png'));
 
-	// restart
-	restartImg = loadImage('./assets/images/restart.png');
-
-	// font and receipt texture
-	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
-	paperTexture = loadImage('./assets/images/paperTexture.png');
-
-	// sound pictures
-	sound = loadImage('./assets/images/sound.png')
-	noSound = loadImage('./assets/images/noSound.png')
-
-	// sounds and music
-	basketSound = loadSound('assets/sounds/basket.mp3');
-	backgroundSong = loadSound('assets/sounds/backgroundMusic.mp3');
-	sadSong = loadSound('assets/sounds/sadMusic.mp3');
-	checkoutSound = loadSound('assets/sounds/Checkout.mp3');
-	startSound = loadSound('assets/sounds/Start.mp3');
-	restartSound = loadSound('assets/sounds/Restart.mp3');
-	putBackSound = loadSound('assets/sounds/putBack.mp3');
-
-
+  receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
+  const ls = (p) => loadSound('assets/sounds/' + p);
+  basketSound = ls('basket.mp3'); backgroundSong = ls('backgroundMusic.mp3');
+  sadSong = ls('sadMusic.mp3'); checkoutSound = ls('Checkout.mp3');
+  startSound = ls('Start.mp3'); restartSound = ls('Restart.mp3');
+  putBackSound = ls('putBack.mp3');
 }
 
 function setup() {
+  let fd = createElement('div');
+  fd.style('position','absolute'); fd.style('top','50%'); fd.style('left','50%');
+  fd.style('transform','translate(-50%, -50%)'); fd.style('width','1610px');
+  fd.style('height','810px');
+  fd.style('background-image','url(./assets/images/frame.png)');
+  fd.style('background-size','100% 100%'); fd.style('pointer-events','none');
 
-	/* This is a HTML element on top of canvas to create a frame outside the canvas
-	without having to change all of our hardcoding */
-	let frameDiv = createElement('div'); // Creates an empty HTML box element called frameDiv
+  let canvas = createCanvas(1200, 600);
+  canvas.position((windowWidth - width) / 2, (windowHeight - height) / 2);
+  frameRate(60); strokeWeight(0); imageMode(CENTER);
 
-	// Styling the HTML div "box"
-	frameDiv.style('position', 'absolute'); // Puts the boarder on top 
+  const G = (x, y, sx, sy, img, co2, name) => new Grocery(x, y, sx, sy, img, co2, name);
+  apple      = G(750,300,60,60,appleImg,0.61,"Apple");
+  banana     = G(550,386,80,60,bananaImg,1.02,"Banana");
+  avocado    = G(610,310,70,50,avocadoImg,0.73,"Avocado");
+  cucumber   = G(440,310,120,50,cucumberImg,0.14,"Cucumber");
+  carrot     = G(340,380,120,90,carrotImg,0.27,"Carrot");
+  watermelon = G(722,400,90,90,watermelonImg,1.2,"Watermelon");
+  water      = G(77,99,30,70,waterImg,0.28,"Water");
+  wine       = G(330,60,32,100,wineImg,1.24,"Wine");
+  ryebread   = G(425,177,98,50,ryebreadImg,1.02,"Ryebread");
+  baguette   = G(225,350,60,160,baguetteImg,0.81,"Baguette");
+  toast      = G(540,173,60,70,toastImg,0.81,"Toast");
+  beer       = G(180,100,40,65,beerImg,0.22,"Beer");
+  cookies    = G(610,255,95,45,cookiesImg,0.73,"Cookies");
+  milk       = G(102,170,33,55,milkImg,0.50,"Milk");
+  oatMilk    = G(168,168,35,59,oatMilkImg,0.40,"Oatmilk");
+  soda       = G(130,97,40,70,sodaImg,0.88,"Soda");
+  chicken    = G(185,240,55,65,chickenImg,4.91,"Chicken");
+  eggs       = G(150,370,55,55,eggsImg,0.58,"Eggs");
+  cheese     = G(150,317,60,60,cheeseImg,1.08,"Cheese");
+  chips      = G(850,250,57,60,chipsImg,0.74,"Chips");
+  nutella    = G(732,250,50,60,nutellaImg,3.1,"Nutella");
+  flowers    = G(690,82,110,70,flowersImg,1.67,"Flowers");
+  oreo       = G(420,260,83,34,oreoImg,0.44,"Oreo");
+  ramen      = G(850,180,53,53,ramenImg,0.14,"Ramen");
+  cornflakes = G(680,173,63,73,cornflakesImg,1.22,"Cornflakes");
 
-	/*
-	top: 50% and left: 50% place the corner of the box in the middle. 
-	But we want the middle of the box in the middle. 
-	So the 'transform' moves the box back half a step
-	so the middle of the box is in the middle of the screen.
-	*/
-	frameDiv.style('top', '50%');
-	frameDiv.style('left', '50%');
-	frameDiv.style('transform', 'translate(-50%, -50%)');
+  groceryList.push(nutella,flowers,oreo,ramen,cornflakes,chips,cheese,eggs,chicken,
+    soda,oatMilk,milk,cookies,beer,banana,avocado,cucumber,carrot,watermelon,
+    apple,water,wine,ryebread,baguette,toast);
 
-	// We make the box a little larger than the canvas (1200x600) so that the frame extends on all sides.
-	frameDiv.style('width', '1610px');
-	frameDiv.style('height', '810px');
+  const x = (windowWidth - width) / 2, y = (windowHeight - height) / 2;
+  const btnStyle = (b, fs, p) => {
+    b.style("font-family","Special Elite"); b.style("font-size",fs);
+    b.style("padding",p); b.style("background-color","white");
+    b.style("color","black"); b.style("border-radius","5px"); b.style("cursor","pointer");
+  };
+  button1 = createButton('Start'); button1.mousePressed(Starting);
+  button1.position(x+552, y+525); btnStyle(button1,"24px","5px 20px");
 
-	frameDiv.style('background-image', 'url(./assets/images/frame.png)'); // Sets our frame image as the background of the HTML box
-	frameDiv.style('background-size', '100% 100%'); // Stretches the frame image to fill the box
-	frameDiv.style('pointer-events', 'none'); // This lets you click "through" the picture
+  button2 = createButton('Checkout'); button2.mousePressed(handleCheckout);
+  button2.position(x+1020, y+535); button2.hide(); btnStyle(button2,"19px","7px 17px");
 
-
-
-	let canvas = createCanvas(1200, 600);
-
-	// These lines manually calculated where the canvas should be placed. Now CSS do the centering automatically 
-	// x and y are being used for positioning the canvas in the middle of the screen.
-	let x = (windowWidth - width) / 2;
-	let y = (windowHeight - height) / 2;
-	canvas.position(x, y); // positions the canvas in the middle of the screen, minus the y-offset.
-
-
-	frameRate(60); //framerate
-	strokeWeight(0); // size of frame of object
-	imageMode(CENTER);// placing images by their center instead of corner
-
-
-	// All our objects are defined as groceries
-
-	apple = new Grocery(750, 300, 60, 60, appleImg, 0.61, "Apple");
-	banana = new Grocery(550, 386, 80, 60, bananaImg, 1.02, "Banana");
-	avocado = new Grocery(610, 310, 70, 50, avocadoImg, 0.73, "Avocado");
-	cucumber = new Grocery(440, 310, 120, 50, cucumberImg, 0.14, "Cucumber");
-	carrot = new Grocery(340, 380, 120, 90, carrotImg, 0.27, "Carrot");
-	watermelon = new Grocery(722, 400, 90, 90, watermelonImg, 1.2, "Watermelon");
-	water = new Grocery(77, 99, 30, 70, waterImg, 0.28, "Water");
-	wine = new Grocery(330, 60, 32, 100, wineImg, 1.24, "Wine");
-	ryebread = new Grocery(425, 177, 98, 50, ryebreadImg, 1.02, "Ryebread");
-	baguette = new Grocery(225, 350, 60, 160, baguetteImg, 0.81, "Baguette");
-	toast = new Grocery(540, 173, 60, 70, toastImg, 0.81, "Toast");
-	beer = new Grocery(180, 100, 40, 65, beerImg, 0.22, "Beer");
-	cookies = new Grocery(610, 255, 95, 45, cookiesImg, 0.73, "Cookies");
-	milk = new Grocery(102, 170, 33, 55, milkImg, 0.50, "Milk");
-	oatMilk = new Grocery(168, 168, 35, 59, oatMilkImg, 0.40, "Oatmilk");
-	soda = new Grocery(130, 97, 40, 70, sodaImg, 0.88, "Soda");
-	chicken = new Grocery(185, 240, 55, 65, chickenImg, 4.91, "Chicken");
-	eggs = new Grocery(150, 370, 55, 55, eggsImg, 0.58, "Eggs");
-	cheese = new Grocery(150, 317, 60, 60, cheeseImg, 1.08, "Cheese");
-	chips = new Grocery(850, 250, 57, 60, chipsImg, 0.74, "Chips");
-	nutella = new Grocery(732, 250, 50, 60, nutellaImg, 3.1, "Nutella");
-	flowers = new Grocery(690, 82, 110, 70, flowersImg, 1.67, "Flowers");
-	oreo = new Grocery(420, 260, 83, 34, oreoImg, 0.44, "Oreo");
-	ramen = new Grocery(850, 180, 53, 53, ramenImg, 0.14, "Ramen");
-	cornflakes = new Grocery(680, 173, 63, 73, cornflakesImg, 1.22, "Cornflakes");
-
-
-	// Our grocery objects are pushed into an array
-	groceryList.push(nutella, flowers, oreo, ramen, cornflakes, chips, cheese, eggs, chicken, soda, oatMilk, milk, cookies, beer, banana, avocado, cucumber, carrot, watermelon, apple, water, wine, ryebread, baguette, toast);
-	console.log("Grocery list; " + groceryList.length + " objects"); // Debugging
-
-
-	// Start button, with positioning and styling
-	button1 = createButton('Start');
-	button1.mousePressed(Starting);
-	button1.position(x + 552, y + 525); 
-	button1.style("font-family", "Special Elite");
-	button1.style("font-size", "24px");
-	button1.style("padding", "5px 20px");
-	button1.style("background-color", "white");
-	button1.style("color", "black");
-	button1.style("border-radius", "5px");
-	button1.style("cursor", "pointer");
-
-	// Checkout button
-	button2 = createButton('Checkout');
-	button2.mousePressed(handleCheckout );
-	button2.position(x + 1020, y + 535);
-	button2.hide();
-	button2.style("font-family", "Special Elite");
-	button2.style("font-size", "19px");
-	button2.style("padding", "7px 17px");
-	button2.style("background-color", "white");
-	button2.style("color", "black");
-	button2.style("border-radius", "5px");
-	button2.style("cursor", "pointer");
-
-	// Restart button
-	button3 = createButton('Restart');
-	button3.mousePressed(Restarting);
-	button3.position(x + 510, y + 300);
-	button3.hide();
-	button3.style("font-family", "Special Elite");
-	button3.style("font-size", "35px");
-	button3.style("padding", "7px 24px");
-	button3.style("background-color", "white");
-	button3.style("color", "black");
-	button3.style("border-radius", "6px");
-	button3.style("cursor", "pointer");
-
+  button3 = createButton('Restart'); button3.mousePressed(Restarting);
+  button3.position(x+510, y+300); button3.hide();
+  button3.style("font-family","Special Elite"); button3.style("font-size","35px");
+  button3.style("padding","7px 24px"); button3.style("background-color","white");
+  button3.style("color","black"); button3.style("border-radius","6px"); button3.style("cursor","pointer");
 }
-
-
 
 function draw() {
-
-	// this is our scene 0, which is the start screen
-	if (scene === 0) {
-		image(backStartPage, 1200 / 2, (575 / 2) + 40, 1200, 550); // /2 since we place images by center
-		image(extraBricks, 1200 / 2, 90, 1200, 550); // /2 since we place images by center
-		image(extraBricks, 1200 / 2, 110, 1200, 550); // /2 since we place images by center
-		image(rightDoor, RDX, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
-		image(leftDoor, LDX, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
-		image(startPage, 1200 / 2, (575 / 2) + 50, 1200, 550); // /2 since we place images by center
-		
-		//signs on top of door and to the side of door
-		image(sideSign, 1045, 360, 278, 120);
-	
-		image(nameSign,610, 55, 350,100);
-
-		textAlign(CENTER, CENTER);
-		fill(0, 0, 0);
-		textSize(48);
-		textFont(receiptFont);
-		//text("Carbon Cart", 600, 70);
-		textSize(13);
-		text("Welcome to supermarket simulator", 1045, 335);
-		text("click \"start\" when you are ready", 1045, 360);
-		text("and begin your shopping spree", 1045, 385);
-
-
-
-		
-		if (doorsOpening) {
-				LDX = LDX + (-200 - LDX) * 0.05;
-				RDX = RDX + (1400 - RDX) * 0.05;
-
-				if (LDX < -150 && RDX > 1350) {
-					doorsOpening = false;
-					Start();
-				}
-			}
-
-			return;
-		}
-
-	// our end scene
-	if (scene === 2) {
-		background(235, 183, 186);
-		textAlign(CENTER, CENTER);
-		fill(0, 0, 0);
-		textSize(28);
-		textFont(receiptFont);
-		text("Your total CO2: " + finalCO2.toFixed(2) + " kg", width / 2, height / 2 - 120);
-		textSize(18);
-		text(getFact(finalCO2), width / 2, height / 2 - 70);
-
-		return;
-	}
-	background(250, 220, 230);
-	image(extraStone, 1200 / 2, (575 / 2) + 27.5, 1200, 600);
-	image(backbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
-	image(shelfbasketbackground, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
-	image(wares, 1200 / 2, 550 / 2, 1200, 550); // /2 since we place images by center
-
-	/*
-	//Making x and y appear on the canvas when hovering
-	textSize(16);
-	fill(0);
-	text('x =' + round(mouseX), 30, 33);
-	text('y =' + round(mouseY), 30, 53);
-	strokeWeight(0);
-	*/
-	let anyhover = false; //  Variabel pre made for hover function
-
-
-	// Receipt box
-	let receiptX = 970; // start-position from left  
-	let receiptTopY = 10; // start-position from top  
-	let receiptW = 230;  // width 
-	let receiptH = 500;  // height 
-
-	fill(246, 236, 215, 0); // (Makes the rect behind the receipt transparent. 0 = alpha)
-	rect(receiptX, receiptTopY, receiptW, receiptH); // the invisible box that defines the receipt-area
-	image(paperTexture, receiptX + receiptW / 2, receiptTopY + receiptH / 2, receiptW + 210, receiptH + 20);
-	// paperTexture placed in the middle of the box (hence: + width/2 og + height/2)
-	// the last two nr are the size put to receiptW and receipt H so it fits perfectly
-
-
-
-	// Reeipt, title
-	fill(0);
-	textSize(20);
-	textAlign(CENTER); // Aligned by center
-	textFont(receiptFont);
-	text("CO2 SHOPPING", receiptX + receiptW / 2, 92);
-
-	/* 
-	On the receipt it shows the Co2 for each grocery in clickedGrocery array. Then the full 
-	amount i calculcated. Textalign changes are to make the layout of receipt
-	*/
-
-	let totalCO2 = 0; // starting Co2 value
-	let receiptLeft = 1006; // x-position for left text (grocery names)
-	let receiptRight = 1160; // x-position for right text (CO2)
-	let receiptY = RECEIPT_START_Y; // startposition for text on the receipt
-
-	textSize(14);
-
-	/* 
-	DrawingContext is a library for shortcuts, also used other places
-	
-	line 1 (under title)
-	the regular p5: line(receiptLeft, receiptY - 20, receiptRight, receiptY - 20);
-	  conflicts with drawingContext.clip(), so we use the 'Canvas 2D API' way to make lines.
-	Same for line 2
-	 */
-
-
-	strokeWeight(0.5);
-	drawingContext.setLineDash([3, 3]); //length of line and length of blank space
-	drawingContext.beginPath();
-	drawingContext.moveTo(receiptLeft, receiptY - 20);
-	drawingContext.lineTo(receiptRight, receiptY - 20);
-	drawingContext.stroke();
-	drawingContext.setLineDash([]);
-
-
-	/* 
-	We save the current drawing state so we can restore it later. 
-	Then start defining a new shape. (simply required before drawing a clipping area)
-	Define the rectangle that will act as the clipping mask.
-	Apply the clipping mask (anything drawn outside the rect above will be hidden)
-	*/
-
-
-	drawingContext.save();
-	drawingContext.beginPath();
-	drawingContext.rect(receiptX, receiptTopY + 100, receiptW, 290);
-	drawingContext.clip();
-
-	/* 
-	Below is a for-loop that goes through all products in the "clickedGrocery" array.
-	For each product, itemName is written on the left side (itemName is what I called the product name in the class),
-	and to keep the receipt style, the "price" is placed on the right side,
-	which in this case is the product's CO2 value (as it is called in the class), followed by "kg".
-
-	totalCO2 is continuously updated for every product added to the "clickedGrocery" array,
-	and receiptY is moved 25 pixels down so the next item is placed on a new line.
-	*/
-
-
-	for (let i = 0; i < clickedGrocery.length; i++) {
-		let item = clickedGrocery[i];
-		let itemY = receiptY - scrollOffset;   // This moves the item up/down based on position before including what is scrolled
-
-		/*
-		For each "clicked grocery" an X is drawn to delete item + write product name + co2 number
-		Use itemY instead of receiptY so the row moves when scrolling 
-		*/
-
-		fill(150);
-		textAlign(LEFT);
-		image(xImg, receiptLeft, itemY - 3, 15, 15);
-		fill(0);
-
-		textAlign(LEFT);
-		text(item.itemName, receiptLeft + 10, itemY);
-
-		textAlign(RIGHT);
-		text(item.CO2 + " kg", receiptRight, itemY);
-
-		totalCO2 += item.CO2; // add the grocerys CO2 to the total
-		receiptY += RECEIPT_ROW_SPACING; // Goes x amount of pixel down per added item 
-	}
-
-	drawingContext.restore();
-
-	let totalItems = clickedGrocery.length;
-	let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING); // Maximum distance the list can scroll. 
-
-	if (totalItems > maxVisible) { // says: only show scrollbar if theres more items in basket than space for on receipt
-
-		// Layout of scrollbar
-		let scrollbarX = receiptX + receiptW - 32;
-		let scrollbarTopY = receiptTopY + 105;
-		let scrollbarH = 286;
-		let scrollbarW = 5
-
-		fill(230);
-		noStroke();
-		rect(scrollbarX, scrollbarTopY, scrollbarW, scrollbarH, 2);
-
-		// Layout of the scrollThumb (the movable part of the scrollbar)
-		let scrollThumbH = map(maxVisible, 0, totalItems, 0, scrollbarH);
-		let scrollThumbY = map(scrollOffset, 0, maxScroll, scrollbarTopY, scrollbarTopY + scrollbarH - scrollThumbH);
-
-
-		fill(120);
-		rect(scrollbarX, scrollThumbY, scrollbarW, scrollThumbH, 4);
-	}
-
-
-
-	cracking(totalCO2); // function for updating the CO2
-
-	/* If sound is on and CO2 is above or equal 15, switch to sad music (only if it's not already playing) 
-	and stop the previous song */
-	if (soundOn) {
-		if (totalCO2 >= 15) {
-		  // Play sad song for very high CO2
-		  if (currentSong !== sadSong) {
-			if (currentSong) currentSong.stop();
-			sadSong.loop();
-			currentSong = sadSong;
-		  }
-	  
-		} else if (totalCO2 >= 10) {
-		  // Play 0.75 pitched down background song
-		  if (currentSong !== backgroundSong) {
-			if (currentSong) currentSong.stop();
-			backgroundSong.loop();
-			currentSong = backgroundSong;
-		  }
-	  
-		  backgroundSong.rate(0.75);
-		  backgroundSong.setVolume(0.6);
-
-		  
-		  // Play 0.5 pitched down
-			if (currentSong !== backgroundSong) {
-				if (currentSong) currentSong.stop();
-				backgroundSong.loop();
-				currentSong = backgroundSong;
-			  }
-		  
-			  backgroundSong.rate(0.5);
-			  backgroundSong.setVolume(0.6);
-		  
-		  } else if (totalCO2 >= 5) {
-	
-	  
-		} else {
-		  // Normal background song
-		  if (currentSong !== backgroundSong) {
-			if (currentSong) currentSong.stop();
-			backgroundSong.loop();
-			currentSong = backgroundSong;
-		  }
-	  
-		  backgroundSong.rate(1);
-		  backgroundSong.setVolume(0.5);
-		}
-	  }
-
-	if (totalCO2 > 10 && totalCO2 < 20) { // Dying plant if CO2 is between 10 and 20
-		image(plant1_2, 440, 50, 100, 120);
-		image(plant2_2, 515, 45, 110, 130);
-		image(plant3_2, 790, 35, 100, 150);
-		image(plant4_2, 870, 75, 110, 110);
-
-	} else if (totalCO2 > 20) { // Dead plant if CO2 is higher than 20
-		image(plant1_3, 440, 50, 100, 120);
-		image(plant2_3, 515, 45, 110, 130);
-		image(plant3_3, 790, 35, 100, 150);
-		image(plant4_3, 870, 75, 110, 110);
-
-	} else { // Our healthy plants if CO2 is less than 10
-		image(plant1_1, 440, 50, 100, 120);
-		image(plant2_1, 515, 45, 110, 130);
-		image(plant3_1, 790, 35, 100, 150);
-		image(plant4_1, 870, 75, 110, 110);
-	}
-	image(saleSign, 480, 92, 75, 40);
-	image(saleSign, 823, 92, 75, 40);
-
-	if (clickedGrocery.length > 0) { // Only show total if min. 1 item in the basket 
-		let totalY = receiptTopY + 410; // Keep total fixed below the scroll area
-
-		// line 2 (over total)
-		strokeWeight(0.5);
-		drawingContext.setLineDash([3, 3]);
-		drawingContext.beginPath();
-		drawingContext.moveTo(receiptLeft, totalY - 20);
-		drawingContext.lineTo(receiptRight, totalY - 20);
-		drawingContext.stroke();
-		drawingContext.setLineDash([]);
-		// line(receiptLeft, totalY - 15, receiptRight, totalY - 15) 
-
-		textSize(16); // make total bigger than items
-		fill(0); // Resets fill. If not here, 'total' text becomes grey
-
-		textAlign(LEFT);
-		text("TOTAL", receiptLeft, totalY);
-		textAlign(RIGHT);
-		text(totalCO2.toFixed(2) + " CO2 KG", receiptRight, totalY)
-		textAlign(LEFT);
-	}
-
-	tintValue = map(totalCO2, 0, 15, 0, 255);
-	//console.log(tintValue); //debugging
-	// Debugging for now
-	
-
-
-
-
-	/*
-	Goes through our grocery array
-	For each element of the array it places its attached image.
-	*/
-	for (let i = 0; i < groceryList.length; i++) {
-		groceryList[i].displayGrocery();
-
-	}
-
-	/*
-	isHovering is taking true/false from "anyhover",
-	where it checks if it hovers one of the objects.
-	True if hover, false if not. Then changes cursor if true
-	*/
-
-	for (let i = 0; i < groceryList.length; i++) {
-		if (groceryList[i].isHovering()) {
-			anyhover = true;
-		}
-	}
-
-	// Sound and restart hover
-	if (mouseX > 20 && mouseX < 60 && mouseY > 545 && mouseY < 575) anyhover = true;
-	if (mouseX > 75 && mouseX < 115 && mouseY > 545 && mouseY < 575) anyhover = true;
-
-	// X-hover on receipt
-	// I used the same logic as in mousePressed)
-	let checkY = RECEIPT_START_Y;
-	for (let i = 0; i < clickedGrocery.length; i++) {
-		let itemY = checkY - scrollOffset;
-		if (mouseX > 988 && mouseX < 1013 &&
-			mouseY > itemY - 14 && mouseY < itemY + 5) {
-			anyhover = true;
-		}
-		checkY += RECEIPT_ROW_SPACING;
-	}
-
-	if (anyhover === true) {
-		cursor(HAND);
-	} else {
-		cursor(ARROW);
-	}
-
-
-
-
-	//front of cart - has to be in front of grocery display
-
-	image(frontbackground, 1200 / 2, 550 / 2, 1200, 550);
-	/* 
-	Backwards loop. We loop backwards because removing an item shifts the remaining elements.
-	If we looped forwards, the next element could move into the current index and be skipped by the loop.
-	Take item i in returningGrocery and run displayClickedGrocery (as defined in Class.js). It's the easing.
-	Draw the item and move it closer to its orignal position. 
-	Dist = if the item is less than 5 pixels from original position count is as "arrived home" then...
-	...the animation stop and the product will be added back to "GroceryList" and removed from "returningGrocery"
-	Items on their way back gets drawn on top of everything becuase this bit is late in draw()
-	*/
-
-	for (let i = returningGrocery.length - 1; i >= 0; i--) {
-		returningGrocery[i].displayClickedGrocery();
-		if (dist(returningGrocery[i].x, returningGrocery[i].y, returningGrocery[i].originalX, returningGrocery[i].originalY) < 5) {
-			returningGrocery[i].isMoving = false;
-			groceryList.push(returningGrocery[i]);
-			returningGrocery.splice(i, 1);
-		}
-	}
-
-	//If an object is clicked, its pushed to a different array
-	for (let i = 0; i < groceryList.length; i++) {
-
-		if (groceryList[i].isClicked()) {
-			console.log("Clicked!"); //debugging
-			let item = groceryList[i]; // Save the clicked object
-
-			// X and Y for within the basket
-			item.targetX = random(550, 653);
-			item.targetY = random(460, 530);
-			item.isMoving = true;
-			
-		
-			
-			
-
-			clickedGrocery.push(groceryList[i]); // Push clicked object to different array
-			groceryList.splice(i, 1); // This takes the i placement in our array and removes 1 element, which is the i spot
-			
-		/* different pitch of sounds on different items
-		if the Co2 is under or equal 1, the sound is normal
-		if the Co2 is under or equal 3, the pitch will be lower
-		and in between that the pitch is 0.5 */
-
-		if (item.CO2 <= 1) {
-			basketSound.setVolume(0.3);
-			basketSound.rate(1);
-			basketSound.play();
-		  
-		  } else if (item.CO2 <= 3) {
-			basketSound.setVolume(0.3);
-			basketSound.rate(0.7);
-			basketSound.play();
-		  
-		  } else {
-			basketSound.setVolume(0.5);
-			basketSound.rate(0.5);
-			basketSound.play();
-		  }
-		  
-		  
-			//console.log("No work!"); //debugging
-		}
-		
-
-	}
-
-	//cart back 
-	image(piCartBack, 600, 500, 270, 170);
-	image(frontbaguettebasket, 1200 / 2, 550 / 2, 1200, 550); // 2 since we place images by center
-
-	// this displays our clickedGrocery array 
-	for (let i = 0; i < clickedGrocery.length; i++) {
-		clickedGrocery[i].displayClickedGrocery();
-	}
-
-	//front of cart, always at the end
-	image(piCartFront, 595, 540, 220, 120);
-
-	strokeWeight(0);
-	fill(255, 255, 255);
-	circle(95, 562, 40);
-	circle(40, 560, 40);
-
-	// images for sound on/off image
-	if (soundOn) {
-		image(sound, 40, 560, 35, 35);
-	} else {
-		image(noSound, 40, 560, 35, 35);
-	}
-	image(restartImg, 95, 562, 27, 27); // restart button
-
-
-}
-
-
-
-function mousePressed() {
-
-	// here we check if the mouse is clicking on the x and y positions, where the image is
-	if (mouseX > 20 && mouseX < 60 && mouseY > 545 && mouseY < 575) {
-		soundOn = !soundOn;
-		// Turns sound on/off when clicking the icon, if sound is turned off, stop the current music and reset it
-		if (!soundOn) {
-			if (currentSong) currentSong.stop();
-			currentSong = 0; // 
-		}
-	} // clicking on the restart button, reloads the window
-	if (mouseX > 75 && mouseX < 115 && mouseY > 545 && mouseY < 575) {
-		Restarting();
-	}
-
-	let receiptY = RECEIPT_START_Y;
-
-	for (let i = 0; i < clickedGrocery.length; i++) {
-		let itemY = receiptY - scrollOffset;   // Same logic as in draw()
-
-		//  Hard coding - if clicked here (the x) remove item from receipt
-		if (
-			mouseX > 988 && mouseX < 1013 &&
-			mouseY > itemY - 14 &&
-			mouseY < itemY + 5) {
-
-
-			let item = clickedGrocery[i];
-			item.targetX = item.originalX;
-			item.targetY = item.originalY;
-			item.isMoving = true;
-			putBackSound.play();
-
-			returningGrocery.push(item);
-			clickedGrocery.splice(i, 1); // See it as: array.splice(startIndex, amountToBeRemoved = 1)
-			break;
-		}
-		receiptY += RECEIPT_ROW_SPACING;
-	}
-	
-}
-
-// a function for the background having cracks 
-function cracking(totalCO2) {
-	if (totalCO2 <= 0) return;   // If there is no CO2, don't show any cracks
-
-  // Convert CO2 level into transparency, and we keep the alpha value between 0-255
-  let crack = constrain((totalCO2 / 15) * 255, 0, 255);
-	
-  // we apply the tint to the images
-	tint(255, crack);
-
-	image(cracksExtra, 600, 315);
-	image(cracks, 600, 275);
-
-	noTint();
+  if (scene === 0) {
+    image(backStartPage, 600, 327, 1200, 550);
+    image(extraBricks, 600, 90, 1200, 550);
+    image(extraBricks, 600, 110, 1200, 550);
+    image(rightDoor, RDX, 337, 1200, 550);
+    image(leftDoor, LDX, 337, 1200, 550);
+    image(startPage, 600, 337, 1200, 550);
+    image(sideSign, 1045, 360, 278, 120);
+    image(nameSign, 610, 55, 350, 100);
+    textAlign(CENTER, CENTER); fill(0); textFont(receiptFont); textSize(13);
+    text("Welcome to supermarket simulator", 1045, 335);
+    text("click \"start\" when you are ready", 1045, 360);
+    text("and begin your shopping spree", 1045, 385);
+    if (doorsOpening) {
+      LDX += (-200 - LDX) * 0.05;
+      RDX += (1400 - RDX) * 0.05;
+      if (LDX < -150 && RDX > 1350) { doorsOpening = false; Start(); }
+    }
+    return;
   }
 
-  
+  if (scene === 2) {
+    background(235, 183, 186);
+    textAlign(CENTER, CENTER); fill(0); textFont(receiptFont);
+    textSize(28); text("Your total CO2: " + finalCO2.toFixed(2) + " kg", width/2, height/2 - 120);
+    textSize(18); text(getFact(finalCO2), width/2, height/2 - 70);
+    return;
+  }
 
-function mouseWheel(event) { // a build in p5 function 
-	if (mouseX > 960 && mouseX < 1200 &&
-		mouseY > 10 && mouseY < 510) {
+  background(250, 220, 230);
+  image(extraStone, 600, 302, 1200, 600);
+  image(backbackground, 600, 275, 1200, 550);
+  image(shelfbasketbackground, 600, 275, 1200, 550);
+  image(wares, 600, 275, 1200, 550);
 
-		let totalItems = clickedGrocery.length;
-		let maxScroll = max(0, (totalItems - maxVisible) * RECEIPT_ROW_SPACING); // Calculates how much you can scroll down. 
+  // Receipt
+  const rX = 970, rTopY = 10, rW = 230, rH = 500;
+  const rL = 1006, rR = 1160;
+  fill(246, 236, 215, 0); rect(rX, rTopY, rW, rH);
+  image(paperTexture, rX + rW/2, rTopY + rH/2, rW + 210, rH + 20);
+  fill(0); textSize(20); textAlign(CENTER); textFont(receiptFont);
+  text("CO2 SHOPPING", rX + rW/2, 92);
 
-		scrollOffset += event.delta * 0.5; // event.delta: how much the mouse scroll. * 0.5 to slow it down.
-		scrollOffset = constrain(scrollOffset, 0, maxScroll); // Doesn't let the user scroll past the first or last item.
+  let totalCO2 = 0, rY = RECEIPT_Y0;
+  textSize(14);
+  strokeWeight(0.5);
+  drawingContext.setLineDash([3,3]);
+  drawingContext.beginPath(); drawingContext.moveTo(rL, rY-20); drawingContext.lineTo(rR, rY-20); drawingContext.stroke();
+  drawingContext.setLineDash([]);
 
-		return false; // Prevent the browser from also scrolling the page.
-	}
+  drawingContext.save();
+  drawingContext.beginPath(); drawingContext.rect(rX, rTopY+100, rW, 290); drawingContext.clip();
+  for (let i = 0; i < clickedGrocery.length; i++) {
+    let item = clickedGrocery[i], iY = rY - scrollOffset;
+    fill(150); textAlign(LEFT); image(xImg, rL, iY-3, 15, 15);
+    fill(0); textAlign(LEFT); text(item.itemName, rL+10, iY);
+    textAlign(RIGHT); text(item.CO2 + " kg", rR, iY);
+    totalCO2 += item.CO2; rY += ROW_H;
+  }
+  drawingContext.restore();
+
+  let total = clickedGrocery.length;
+  let maxScroll = max(0, (total - MAX_VIS) * ROW_H);
+  if (total > MAX_VIS) {
+    let sX = rX + rW - 32, sTop = rTopY + 105, sH = 286, sW = 5;
+    fill(230); noStroke(); rect(sX, sTop, sW, sH, 2);
+    let tH = map(MAX_VIS, 0, total, 0, sH);
+    let tY = map(scrollOffset, 0, maxScroll, sTop, sTop + sH - tH);
+    fill(120); rect(sX, tY, sW, tH, 4);
+  }
+
+  cracking(totalCO2);
+
+  // Music logic
+  if (soundOn) {
+    if (totalCO2 >= 15) {
+      if (currentSong !== sadSong) { if (currentSong) currentSong.stop(); sadSong.loop(); currentSong = sadSong; }
+    } else if (totalCO2 >= 5) {
+      if (currentSong !== backgroundSong) { if (currentSong) currentSong.stop(); backgroundSong.loop(); currentSong = backgroundSong; }
+      backgroundSong.rate(totalCO2 >= 10 ? 0.5 : 1); backgroundSong.setVolume(0.6);
+    } else {
+      if (currentSong !== backgroundSong) { if (currentSong) currentSong.stop(); backgroundSong.loop(); currentSong = backgroundSong; }
+      backgroundSong.rate(1); backgroundSong.setVolume(0.5);
+    }
+  }
+
+  // Plants
+  let ps = totalCO2 > 20 ? 3 : totalCO2 > 10 ? 2 : 1;
+  image(window['plant1_' + ps], 440, 50, 100, 120);
+  image(window['plant2_' + ps], 515, 45, 110, 130);
+  image(window['plant3_' + ps], 790, 35, 100, 150);
+  image(window['plant4_' + ps], 870, 75, 110, 110);
+  image(saleSign, 480, 92, 75, 40);
+  image(saleSign, 823, 92, 75, 40);
+
+  if (clickedGrocery.length > 0) {
+    let tY = rTopY + 410;
+    strokeWeight(0.5); drawingContext.setLineDash([3,3]);
+    drawingContext.beginPath(); drawingContext.moveTo(rL, tY-20); drawingContext.lineTo(rR, tY-20); drawingContext.stroke();
+    drawingContext.setLineDash([]);
+    textSize(16); fill(0);
+    textAlign(LEFT); text("TOTAL", rL, tY);
+    textAlign(RIGHT); text(totalCO2.toFixed(2) + " CO2 KG", rR, tY);
+    textAlign(LEFT);
+  }
+
+  for (let i = 0; i < groceryList.length; i++) groceryList[i].displayGrocery();
+
+  // Hover detection
+  let anyhover = groceryList.some(g => g.isHovering())
+    || (mouseX > 20 && mouseX < 60 && mouseY > 545 && mouseY < 575)
+    || (mouseX > 75 && mouseX < 115 && mouseY > 545 && mouseY < 575);
+  let cY2 = RECEIPT_Y0;
+  for (let i = 0; i < clickedGrocery.length && !anyhover; i++) {
+    let iY = cY2 - scrollOffset;
+    if (mouseX > 988 && mouseX < 1013 && mouseY > iY-14 && mouseY < iY+5) anyhover = true;
+    cY2 += ROW_H;
+  }
+  cursor(anyhover ? HAND : ARROW);
+
+  image(frontbackground, 600, 275, 1200, 550);
+
+  for (let i = returningGrocery.length - 1; i >= 0; i--) {
+    returningGrocery[i].displayClickedGrocery();
+    if (dist(returningGrocery[i].x, returningGrocery[i].y, returningGrocery[i].originalX, returningGrocery[i].originalY) < 5) {
+      returningGrocery[i].isMoving = false;
+      groceryList.push(returningGrocery[i]);
+      returningGrocery.splice(i, 1);
+    }
+  }
+
+  for (let i = 0; i < groceryList.length; i++) {
+    if (groceryList[i].isClicked()) {
+      let item = groceryList[i];
+      item.targetX = random(550, 653); item.targetY = random(460, 530); item.isMoving = true;
+      clickedGrocery.push(item); groceryList.splice(i, 1);
+      let r = item.CO2 <= 1 ? 1 : item.CO2 <= 3 ? 0.7 : 0.5;
+      basketSound.setVolume(item.CO2 > 3 ? 0.5 : 0.3); basketSound.rate(r); basketSound.play();
+    }
+  }
+
+  image(piCartBack, 600, 500, 270, 170);
+  image(frontbaguettebasket, 600, 275, 1200, 550);
+  for (let i = 0; i < clickedGrocery.length; i++) clickedGrocery[i].displayClickedGrocery();
+  image(piCartFront, 595, 540, 220, 120);
+
+  strokeWeight(0); fill(255);
+  circle(95, 562, 40); circle(40, 560, 40);
+  image(soundOn ? sound : noSound, 40, 560, 35, 35);
+  image(restartImg, 95, 562, 27, 27);
 }
 
-// checkout function that leads to end function
-function handleCheckout() {
-    checkoutSound.play();
-	checkoutSound.setVolume(0.3);
-    End();
+function mousePressed() {
+  if (mouseX > 20 && mouseX < 60 && mouseY > 545 && mouseY < 575) {
+    soundOn = !soundOn;
+    if (!soundOn && currentSong) { currentSong.stop(); currentSong = 0; }
+  }
+  if (mouseX > 75 && mouseX < 115 && mouseY > 545 && mouseY < 575) Restarting();
+
+  let rY = RECEIPT_Y0;
+  for (let i = 0; i < clickedGrocery.length; i++) {
+    let iY = rY - scrollOffset;
+    if (mouseX > 988 && mouseX < 1013 && mouseY > iY-14 && mouseY < iY+5) {
+      let item = clickedGrocery[i];
+      item.targetX = item.originalX; item.targetY = item.originalY; item.isMoving = true;
+      putBackSound.play(); returningGrocery.push(item); clickedGrocery.splice(i, 1);
+      break;
+    }
+    rY += ROW_H;
+  }
 }
 
-function Starting(){
-	startSound.play();
-	startSound.setVolume(0.3);
-	// Start(); 
-	doorsOpening = true;
-}
-function Restarting(){
-	restartSound.play();
-	restartSound.setVolume(0.3);
-	window.setTimeout(Beginning, 800);
+function cracking(co2) {
+  if (co2 <= 0) return;
+  tint(255, constrain((co2 / 15) * 255, 0, 255));
+  image(cracksExtra, 600, 315); image(cracks, 600, 275);
+  noTint();
 }
 
-
-function Beginning() {
-	location.reload();
+function mouseWheel(event) {
+  if (mouseX > 960 && mouseX < 1200 && mouseY > 10 && mouseY < 510) {
+    let maxScroll = max(0, (clickedGrocery.length - MAX_VIS) * ROW_H);
+    scrollOffset = constrain(scrollOffset + event.delta * 0.5, 0, maxScroll);
+    return false;
+  }
 }
 
-function Start() {
-	scene = 1;
-	button1.hide();
-	button2.show();
-	button3.hide();
-}
-
-
+function handleCheckout() { checkoutSound.setVolume(0.3); checkoutSound.play(); End(); }
+function Starting() { startSound.setVolume(0.3); startSound.play(); doorsOpening = true; }
+function Restarting() { restartSound.setVolume(0.3); restartSound.play(); window.setTimeout(() => location.reload(), 800); }
+function Start() { scene = 1; button1.hide(); button2.show(); button3.hide(); }
 function End() {
-	finalCO2 = 0;
-	for (let i = 0; i < clickedGrocery.length; i++) {
-		finalCO2 += clickedGrocery[i].CO2;
-	}
-	scene = 2;
-	button2.hide();
-	button1.hide();
-	button3.show();
+  finalCO2 = clickedGrocery.reduce((s, i) => s + i.CO2, 0);
+  scene = 2; button2.hide(); button1.hide(); button3.show();
 }
-

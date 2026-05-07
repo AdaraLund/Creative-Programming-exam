@@ -8,7 +8,7 @@ let RDX = 1200 / 2; // Right door X value
 
 let backgroundSong;
 let basketSound;
-let soundOn = false;
+let soundOn = true;
 let currentSong = 0; // Keeps track of the song that is currently playing, 0 means no song yet
 
 let scene = 0;

@@ -20,9 +20,11 @@ const RECEIPT_ROW_SPACING = 30;
 const RECEIPT_START_Y = 130;
 
 let doorsOpening = false; 
-
+ 
 function getFact(co2) {
-	if (co2 < 0.5) {
+	if (co2 === 0) {
+		return "You used nothing";
+	} else if (co2 < 0.5) {
 		return "That's equivalent to sending a few emails!";
 	} else if (co2 < 2) {
 		return "That's equivalent to driving a few km by car.";
@@ -457,7 +459,7 @@ function draw() {
 	/* If sound is on and CO2 is above or equal 15, switch to sad music (only if it's not already playing) 
 	and stop the previous song */
 	if (soundOn) {
-		if (totalCO2 >= 10) {
+		if (totalCO2 >= 13) {
 		  // Play sad song for very high CO2
 		  if (currentSong !== sadSong) {
 			if (currentSong) currentSong.stop();
@@ -465,7 +467,7 @@ function draw() {
 			currentSong = sadSong;
 		  }
 	  
-		} else if (totalCO2 >= 5) {
+		} else if (totalCO2 >= 8) {
 		  // Play 0.75 pitched down background song
 		  if (currentSong !== backgroundSong) {
 			if (currentSong) currentSong.stop();
@@ -476,7 +478,7 @@ function draw() {
 		  backgroundSong.rate(0.5);
 		  backgroundSong.setVolume(0.6);
 
-		} else if (totalCO2 >= 3) {
+		} else if (totalCO2 >= 5) {
 
 		  
 		  // Play 0.5 pitched down
@@ -651,17 +653,17 @@ function draw() {
 		if (item.CO2 <= 1) {
 			basketSound.setVolume(0.3);
 			basketSound.rate(1);
-			basketSound.play();
+			if (soundOn) basketSound.play();
 		  
 		  } else if (item.CO2 <= 3) {
 			basketSound.setVolume(0.3);
 			basketSound.rate(0.7);
-			basketSound.play();
+			if (soundOn) basketSound.play();
 		  
 		  } else {
 			basketSound.setVolume(0.5);
 			basketSound.rate(0.5);
-			basketSound.play();
+			if (soundOn) basketSound.play();
 		  }
 		  
 		  
@@ -709,7 +711,14 @@ function mousePressed() {
 		// Turns sound on/off when clicking the icon, if sound is turned off, stop the current music and reset it
 		if (!soundOn) {
 			if (currentSong) currentSong.stop();
+
+			basketSound.stop();
+			checkoutSound.stop();
+			startSound.stop();
+			restartSound.stop();
+			putBackSound.stop();
 			currentSong = 0; // 
+
 		}
 	} // clicking on the restart button, reloads the window
 	if (mouseX > 75 && mouseX < 115 && mouseY > 545 && mouseY < 575) {
@@ -732,7 +741,7 @@ function mousePressed() {
 			item.targetX = item.originalX;
 			item.targetY = item.originalY;
 			item.isMoving = true;
-			putBackSound.play();
+			if (soundOn) putBackSound.play();
 
 			returningGrocery.push(item);
 			clickedGrocery.splice(i, 1); // See it as: array.splice(startIndex, amountToBeRemoved = 1)
@@ -777,19 +786,19 @@ function mouseWheel(event) { // a build in p5 function
 
 // checkout function that leads to end function
 function handleCheckout() {
-    checkoutSound.play();
+    if (soundOn) checkoutSound.play();
 	checkoutSound.setVolume(0.3);
     End();
 }
 
 function Starting(){
-	startSound.play();
+	if (soundOn) startSound.play();
 	startSound.setVolume(0.3);
 	// Start(); 
 	doorsOpening = true;
 }
 function Restarting(){
-	restartSound.play();
+	if (soundOn) startSound.play();
 	restartSound.setVolume(0.3);
 	window.setTimeout(Beginning, 800);
 }

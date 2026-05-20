@@ -457,7 +457,7 @@ function draw() {
 	/* If sound is on and CO2 is above or equal 15, switch to sad music (only if it's not already playing) 
 	and stop the previous song */
 	if (soundOn) {
-		if (totalCO2 >= 15) {
+		if (totalCO2 >= 10) {
 		  // Play sad song for very high CO2
 		  if (currentSong !== sadSong) {
 			if (currentSong) currentSong.stop();
@@ -465,7 +465,7 @@ function draw() {
 			currentSong = sadSong;
 		  }
 	  
-		} else if (totalCO2 >= 10) {
+		} else if (totalCO2 >= 5) {
 		  // Play 0.75 pitched down background song
 		  if (currentSong !== backgroundSong) {
 			if (currentSong) currentSong.stop();
@@ -473,8 +473,10 @@ function draw() {
 			currentSong = backgroundSong;
 		  }
 	  
-		  backgroundSong.rate(0.75);
+		  backgroundSong.rate(0.5);
 		  backgroundSong.setVolume(0.6);
+
+		} else if (totalCO2 >= 3) {
 
 		  
 		  // Play 0.5 pitched down
@@ -484,11 +486,10 @@ function draw() {
 				currentSong = backgroundSong;
 			  }
 		  
-			  backgroundSong.rate(0.5);
+			  backgroundSong.rate(0.75);
 			  backgroundSong.setVolume(0.6);
 		  
-		  } else if (totalCO2 >= 5) {
-	
+		 
 	  
 		} else {
 		  // Normal background song

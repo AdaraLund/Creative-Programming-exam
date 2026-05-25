@@ -1,5 +1,5 @@
 //Set variables here
-let returningGrocery = []; // deleted groceries goes from "cliked" to "returning" (and lastly back to "groceryList")
+let returningGrocery = []; // Deleted groceries goes from "cliked" to "returning" (and lastly back to "groceryList")
 let groceryList = [];
 let clickedGrocery = [];
 let tintValue;
@@ -11,7 +11,7 @@ let basketSound;
 let soundOn = true;
 let currentSong = 0; // Keeps track of the song that is currently playing, 0 means no song yet
 
-let scene = 0;
+let scene = 0; // Sets the scene to 0, which is the start screen
 let finalCO2 = 0;
 
 let scrollOffset = 0;
@@ -42,7 +42,7 @@ function getFact(co2) {
 }
 
 function preload() { // For loading before program is run
-	// cart and background
+	// Cart and background
 	piCartBack = loadImage('./assets/images/pinkcartback.png');
 	piCartFront = loadImage('./assets/images/pinkcartfront.png');
 	backbackground = loadImage('./assets/images/backbackground.png');
@@ -77,13 +77,13 @@ function preload() { // For loading before program is run
 	notforsale = loadImage('./assets/images/plants/notforsale.png');
 	saleSign= loadImage('./assets/images/plants/saleSign.png');
 
-	// This is our Cracks
+	// Cracks images
 	cracks = loadImage('./assets/images/cracks.png', function(img) {
+	// Resize the cracks image after it loads to redcue lag and keep size consistent
 		img.resize(1200, 550); });
-	  // Resize the cracks image after it loads
 	  cracksExtra = loadImage('./assets/images/cracksExtra.png', function(img) {
 		img.resize(1200, 550);});
-		 // We are resizing images to reduce lag and keep size consistent
+
 
 	// All the images to our groceries
 	appleImg = loadImage('./assets/images/apple.png');
@@ -112,18 +112,18 @@ function preload() { // For loading before program is run
 	ramenImg = loadImage('./assets/images/ramen.png');
 	cornflakesImg = loadImage('./assets/images/cornflakes.png');
 
-	// restart
+	// Restart button image
 	restartImg = loadImage('./assets/images/restart.png');
 
-	// font and receipt texture
+	// Font and receipt texture
 	receiptFont = loadFont('./assets/SpecialElite-Regular.ttf');
 	paperTexture = loadImage('./assets/images/paperTexture.png');
 
-	// sound pictures
+	// Sound pictures
 	sound = loadImage('./assets/images/sound.png')
 	noSound = loadImage('./assets/images/noSound.png')
 
-	// sounds and music
+	// Sounds and music
 	basketSound = loadSound('assets/sounds/basket.mp3');
 	backgroundSong = loadSound('assets/sounds/backgroundMusic.mp3');
 	sadSong = loadSound('assets/sounds/sadMusic.mp3');
@@ -256,7 +256,7 @@ function setup() {
 
 function draw() {
 
-	// this is our scene 0, which is the start screen
+	// This is our scene 0, which is the start screen
 	if (scene === 0) {
 		image(backStartPage, 1200 / 2, (575 / 2) + 40, 1200, 550); // /2 since we place images by center
 		image(extraBricks, 1200 / 2, 90, 1200, 550); // /2 since we place images by center
@@ -282,8 +282,6 @@ function draw() {
 		text("Begin your shopping spree!", 1045, 385);
 
 
-
-		
 		if (doorsOpening) {
 				LDX = LDX + (-200 - LDX) * 0.05;
 				RDX = RDX + (1400 - RDX) * 0.05;
@@ -297,7 +295,7 @@ function draw() {
 			return;
 		}
 
-	// our end scene
+	// The end scene
 	if (scene === 2) {
 		background(235, 183, 186);
 		textAlign(CENTER, CENTER);
@@ -457,7 +455,7 @@ function draw() {
 
 	cracking(totalCO2); // function for updating the CO2
 
-	/* If sound is on and CO2 is above or equal 15, switch to sad music (only if it's not already playing) 
+	/* If sound is on and CO2 is above or equal 13, switch to sad music (only if it's not already playing) 
 	and stop the previous song */
 	if (soundOn) {
 		if (totalCO2 >= 13) {
@@ -469,7 +467,7 @@ function draw() {
 		  }
 	  
 		} else if (totalCO2 >= 8) {
-		  // Play 0.75 pitched down background song
+		  // Play 0.5 pitched down background song
 		  if (currentSong !== backgroundSong) {
 			if (currentSong) currentSong.stop();
 			backgroundSong.loop();
@@ -482,7 +480,7 @@ function draw() {
 		} else if (totalCO2 >= 5) {
 
 		  
-		  // Play 0.5 pitched down
+		  // Play 0.75 pitched down
 			if (currentSong !== backgroundSong) {
 				if (currentSong) currentSong.stop();
 				backgroundSong.loop();
@@ -753,19 +751,20 @@ function mousePressed() {
 	
 }
 
-// a function for the background having cracks 
+// Function that adds crack overlays to the background
 function cracking(totalCO2) {
-	if (totalCO2 <= 0) return;   // If there is no CO2, don't show any cracks
+	 // If there is no CO2, don't show any cracks
+	if (totalCO2 <= 0) return;  
 
   // Convert CO2 level into transparency, and we keep the alpha value between 0-255
-  let crack = constrain((totalCO2 / 15) * 255, 0, 255);
+  let alpha = constrain((totalCO2 / 15) * 255, 0, 255);
 	
-  // we apply the tint to the images
-	tint(255, crack);
+  // we apply the transparency to the images
+	tint(255, alpha);
 
 	image(cracksExtra, 600, 315);
 	image(cracks, 600, 275);
-
+	// reset tint so it doesn't affect other images
 	noTint();
   }
 
@@ -792,23 +791,27 @@ function handleCheckout() {
     End();
 }
 
+
+// Function for starting the simumlator and plays sound
 function Starting(){
 	if (soundOn) startSound.play();
 	startSound.setVolume(0.3);
-	// Start(); 
 	doorsOpening = true;
 }
+
+// Function for restarting the simulator, plays sound and reloads page
 function Restarting(){
 	if (soundOn) startSound.play();
 	restartSound.setVolume(0.3);
 	window.setTimeout(Beginning, 800);
 }
 
-
+// This function reloads the page, which is used when clicking on restart button
 function Beginning() {
 	location.reload();
 }
 
+// function for starting the main part
 function Start() {
 	scene = 1;
 	button1.hide();
@@ -816,7 +819,7 @@ function Start() {
 	button3.hide();
 }
 
-
+// function for ending the simulator, calculating final CO2 and showing the end screen
 function End() {
 	finalCO2 = 0;
 	for (let i = 0; i < clickedGrocery.length; i++) {
